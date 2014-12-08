@@ -1,0 +1,11 @@
+{
+  "composers": ["Shelton Brooks"],
+  "genre": "fast",
+  "key": "F",
+  "parts": {
+    "A": ["A7", "A7", "Dm", "Dm", "A7", "A7", "Dm", "Dm", "D7", "D7", "G7", "G7", "G7", "G7", "C7", "C7"],
+    "A'": ["F7", "F7", "Bb", "Bb", "D7", "D7", "Gm", "Gm", "Bb", "Bdim", "F", "D7", "G7", "C7", "F", "F"]
+  },
+  "structure": ["A", "A'"],
+  "title": "Some of these days"
+}

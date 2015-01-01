@@ -1,12 +1,48 @@
 {
-  "composers": [ "Gerald Marks", "Seymour Simons" ],
-  "genre": "medium",
+  "title": "All of me",
+  "composers": ["Gerald Marks", "Seymour Simons"],
+  "compositionYear": 1931,
+  "interpretations": [
+    {
+      "interpreterName": "Louis Armstrong",
+      "externalLinks": ["http://www.youtube.com/XXX"],
+      "year": 1932
+    }
+  ],
   "key": "C",
   "parts": {
-    "A": [ "C", "C", "E7", "E7", "A7", "A7", "Dm", "Dm" ],
-    "B": [ "E7", "E7", "Am", "Am", "D7", "D7", "Dm", "G7" ],
-    "C": [ "F", "Fm", "C", "A7", "Dm7b5", "G7", "C", "C" ]
+    "A": [
+      {
+        "degree": 0,
+        "duration": 0.5
+      },
+      {
+        "degree": 4,
+        "duration": 0.5
+      }
+    ],
+    "B": [
+      {
+        "degree": 4,
+        "duration": 0.5
+      },
+      {
+        "degree": 9,
+        "duration": 0.5,
+        "alterations": ["m"]
+      }
+    ],
+    "C": [
+      {
+        "degree": 5,
+        "duration": 1
+      },
+      {
+        "degree": 5,
+        "duration": 1,
+        "alterations": ["m"]
+      }
+    ]
   },
-  "structure": [ "A", "B", "A", "C" ],
-  "title": "All of me"
+  "structure": ["A", "B", "A", "C"]
 }

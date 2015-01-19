@@ -1,5 +1,4 @@
 {
-  "title": "All of me",
   "composers": ["Gerald Marks", "Seymour Simons"],
   "compositionYear": 1931,
   "interpretations": [
@@ -14,11 +13,15 @@
     "A": [
       {
         "degree": 0,
-        "duration": 0.5
+        "duration": 2
       },
       {
         "degree": 4,
-        "duration": 0.5
+        "duration": 2
+      },
+      {
+        "degree": 9,
+        "duration": 2
       }
     ],
     "B": [
@@ -44,5 +47,6 @@
       }
     ]
   },
-  "structure": ["A", "B", "A", "C"]
+  "structure": ["A", "B", "A", "C"],
+  "title": "All of me"
 }

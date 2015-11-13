@@ -2,6 +2,22 @@
 
 Sample JSON files for OpenChordCharts -- a contributive database of songs chords
 
+## Run charts bench
+
+The first time:
+
+```
+npm install
+```
+
+Then:
+
+```
+npm run dev
+```
+
+and open your browser to http://localhost:3010/bench
+
 ## Import a chart
 
 To import a chart, call the API with the [httpie](http://httpie.org) client, like this:

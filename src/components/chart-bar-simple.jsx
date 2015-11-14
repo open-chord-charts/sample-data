@@ -1,4 +1,4 @@
-export const ChartBarSimple = ({chords, width = 100}) => (
+export const ChartBarSimple = ({chords, width}) => (
   <div style={{textAlign: "center", width}}>
     {chords[0].rendered}
   </div>

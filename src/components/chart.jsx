@@ -4,7 +4,7 @@ import {ChartRow} from "./chart-row"
 import * as model from "../model"
 
 
-export const Chart = ({chart, nbBarsByRow = 8}) => {
+export const Chart = ({chart, nbBarsByRow = 8, width = 800}) => {
   const toBarsByPartName = t.map(([partName, bars]) => [partName, model.chordsToBars(bars, chart.key)])
   const toRowsByPartName = t.map(([partName, bars]) => [partName, t.into([], t.partitionAll(nbBarsByRow), bars)])
   const rowsByPartName = t.into({}, t.compose(toBarsByPartName, toRowsByPartName), chart.parts)
@@ -15,7 +15,7 @@ export const Chart = ({chart, nbBarsByRow = 8}) => {
         {
           chart.structure.map(
             (partName) => rowsByPartName[partName].map(
-              (bars) => <ChartRow bars={bars} partName={partName} />
+              (bars) => <ChartRow bars={bars} nbBarsByRow={nbBarsByRow} partName={partName} width={width} />
             )
           )
         }

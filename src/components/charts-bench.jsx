@@ -1,30 +1,9 @@
 import {Component, PropTypes} from "react"
-import {render} from "react-dom"
 
-import {Chart} from "./components/chart"
-import charts from "./charts-data"
+import {ChartBench} from "./chart-bench"
 
 
-const ChartBench = ({chart, width}) => (
-  <section>
-    <h1 id={chart.title}>
-      {chart.title}
-      {" "}
-      <small>
-        <a href={"#" + chart.title}>#</a>
-      </small>
-    </h1>
-    {
-      // <pre style={{fontSize: "xx-small", height: "20em", overflow: "scroll"}}>
-      //   {JSON.stringify(chart, null, 2)}
-      // </pre>
-    }
-    <Chart chart={chart} width={width} />
-  </section>
-)
-
-
-class ChartsBench extends Component {
+export class ChartsBench extends Component {
   static propTypes = {
     charts: PropTypes.arrayOf(PropTypes.object).isRequired,
     width: PropTypes.number.isRequired,
@@ -54,10 +33,4 @@ class ChartsBench extends Component {
       </div>
     )
   }
-}
-
-
-export const init = (node) => {
-  const width = node.offsetWidth
-  render(<ChartsBench charts={charts} width={width} />, node)
 }

@@ -9,7 +9,7 @@ module.exports = {
     bench: "./src/index.js",
   },
   output: {
-    filename: "[name].js",
+    filename: "[name]-bundle-[hash].js",
     path: __dirname + "/dist",
   },
   module: {

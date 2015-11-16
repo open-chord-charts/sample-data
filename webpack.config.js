@@ -6,7 +6,7 @@ module.exports = {
   // devtool: "eval", // Transformed code
   devtool: "source-map", // Original code
   entry: {
-    bench: "./src/index.js",
+    bench: "./src/index.jsx",
   },
   output: {
     filename: "[name]-bundle-[hash].js",

@@ -2,6 +2,8 @@
 
 Sample JSON files for OpenChordCharts -- a contributive database of songs chords
 
+View online: http://openchordcharts.github.io/sample-data/
+
 ## Run charts bench
 
 The first time:

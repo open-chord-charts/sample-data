@@ -1,4 +1,4 @@
-import * as t from "transduce"
+import * as tr from "transduce"
 
 
 // Functional helpers
@@ -8,37 +8,21 @@ const sum = (a, b) => a + b
 
 export const chromaticKeys = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 
-export const chordsToRows = (chords, key, nbBarsByRow) => t.into(
-  [],
-  t.partitionAll(nbBarsByRow),
-  chordsToBars(chords, key),
-)
-
-export const partsToRows = (chart, nbBarsByRow) => t.into(
-  {},
-  t.map(([partName, chords]) => [partName, chordsToRows(chords, chart.key, nbBarsByRow)]),
-  chart.parts,
-)
-
-
-export function chordsToBars(chords, key) {
-  // Return a new list of chords having a max duration of 1, and grouping chords having a duration < 1 bar
-  // into the same bar.
-  // Duplicate a chord if its duration is greater than a bar, as many times as needed.
-  // The returned list is a list of lists.
-  let bars = []
+// Return a new list of chords having a max duration of 1, and grouping chords having a duration < 1 bar
+// into the same bar.
+// Duplicate a chord if its duration is greater than a bar, as many times as needed.
+// The returned list is a list of lists.
+export const chordsToBars = (key) => {
   let barChords = []
-  chords.forEach((chord, idx) => {
+  return tr.transducer((xfStep, value, chord) => {
     const chord1 = {
       ...chord,
-      referenceIndex: idx,
       rendered: renderChord(chord, key),
     }
     if (chord.duration > 1) {
       let remainingDuration = chord.duration
       while (remainingDuration > 0) {
-        chord1.duration = 1
-        bars.push([chord1])
+        xfStep(value, [chord1])
         remainingDuration -= 1
       }
       if (remainingDuration > 0) {
@@ -49,16 +33,30 @@ export function chordsToBars(chords, key) {
       barChords.push(chord1)
     }
     if (barChords.length) {
-      const barChordsDurationSum = t.transduce(t.map(barChord => barChord.duration), t.completing(sum), 0, barChords)
+      const barChordsDurationSum = tr.transduce(tr.map(barChord => barChord.duration), tr.completing(sum), 0, barChords)
       if (barChordsDurationSum >= 1) {
-        bars.push(barChords)
+        xfStep(value, barChords)
         barChords = []
       }
     }
+    return value
   })
-  return bars
 }
 
+export const chordsToRows = (chords, key, nbBarsByRow) => tr.into(
+  [],
+  tr.compose(
+    chordsToBars(key),
+    tr.partitionAll(nbBarsByRow),
+  ),
+  chords,
+)
+
+export const partsToRows = (chart, nbBarsByRow) => tr.into(
+  {},
+  tr.map(([partName, chords]) => [partName, chordsToRows(chords, chart.key, nbBarsByRow)]),
+  chart.parts,
+)
 
 export function renderChord(chord, key) {
   const chartKeyIndex = chromaticKeys.indexOf(key)

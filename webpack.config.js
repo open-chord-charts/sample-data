@@ -1,3 +1,5 @@
+var path = require("path")
+
 var webpack = require("webpack")
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -10,7 +12,7 @@ module.exports = {
   },
   output: {
     filename: "[name]-bundle-[hash].js",
-    path: __dirname + "/dist",
+    path: path.join(__dirname, "/dist"),
   },
   module: {
     loaders: [

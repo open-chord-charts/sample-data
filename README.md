@@ -18,7 +18,7 @@ Then:
 npm run dev
 ```
 
-and open your browser to http://localhost:3010/bench
+and open your browser to http://localhost:3010/
 
 ## Import a chart
 

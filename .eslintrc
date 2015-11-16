@@ -19,7 +19,6 @@
     "react/jsx-sort-props": 1,
     "react/jsx-uses-react": 1,
     "react/no-unknown-property": 1,
-    "react/prop-types": 1,
     "react/self-closing-comp": 1,
     "react/wrap-multilines": 1,
     "semi": [1, "never"],

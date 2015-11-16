@@ -2,7 +2,7 @@ import {Chart} from "./chart"
 
 
 export const ChartBench = ({chart, width}) => (
-  <section>
+  <article>
     <h1 id={chart.title}>
       {chart.title}
       {" "}
@@ -16,5 +16,5 @@ export const ChartBench = ({chart, width}) => (
       // </pre>
     }
     <Chart chart={chart} width={width} />
-  </section>
+  </article>
 )

@@ -1,4 +1,5 @@
 var webpack = require("webpack")
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 
 module.exports = {
@@ -29,6 +30,7 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: "react", // For babel JSX transformation which generates React.createElement.
     }),
+    new HtmlWebpackPlugin({title: "OpenChordCharts sample data bench"}),
   ],
   resolve: {
     extensions: ["", ".js", ".jsx"],

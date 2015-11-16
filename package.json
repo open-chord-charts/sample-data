@@ -7,6 +7,7 @@
     "lint": "eslint src test",
     "prepublish": "npm run build",
     "publish": "git branch -D gh-pages; git worktree add -b tmp gh-pages; cd gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp ../dist/* .; git add --all; git commit -m 'Static page'; git push -f origin gh-pages; cd ..; rm -rf gh-pages; git worktree prune; git branch -d tmp",
+    "test": "mocha --compilers js:babel-core/register --recursive"
   },
   "devDependencies": {
     "babel": "^6.1.18",
@@ -19,8 +20,10 @@
     "babel-preset-stage-0": "^6.1.18",
     "eslint": "^1.9.0",
     "eslint-plugin-react": "^3.8.0",
+    "expect": "^1.13.0",
     "html-webpack-plugin": "^1.6.2",
     "json-loader": "^0.5.3",
+    "mocha": "^2.3.4",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "webpack-dev-server": "^1.12.1"

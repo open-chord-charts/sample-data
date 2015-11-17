@@ -52,9 +52,9 @@ export const chordsToRows = (chords, key, nbBarsByRow) => tr.into(
   chords,
 )
 
-export const partsToRows = (chart, nbBarsByRow) => tr.into(
+export const partsToRows = (chart, key, nbBarsByRow) => tr.into(
   {},
-  tr.map(([partName, chords]) => [partName, chordsToRows(chords, chart.key, nbBarsByRow)]),
+  tr.map(([partName, chords]) => [partName, chordsToRows(chords, key, nbBarsByRow)]),
   chart.parts,
 )
 

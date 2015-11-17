@@ -2,8 +2,8 @@ import {ChartRow} from "./chart-row"
 import * as model from "../model"
 
 
-export const Chart = ({chart, nbBarsByRow = 8, width = 800}) => {
-  const rows = model.partsToRows(chart, nbBarsByRow)
+export const Chart = ({chart, chartKey, nbBarsByRow = 8, width = 800}) => {
+  const rows = model.partsToRows(chart, chartKey, nbBarsByRow)
   const style = {borderCollapse: "collapse", width: "initial"}
   return (
     <table style={style}>

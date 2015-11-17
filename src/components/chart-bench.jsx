@@ -15,6 +15,6 @@ export const ChartBench = ({chart, width}) => (
       //   {JSON.stringify(chart, null, 2)}
       // </pre>
     }
-    <Chart chart={chart} width={width} />
+    <Chart chart={chart} chartKey={chart.key} width={width} />
   </article>
 )

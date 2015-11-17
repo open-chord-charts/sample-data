@@ -14,7 +14,7 @@ export const chromaticKeys = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "
 // The returned list is a list of lists.
 export const chordsToBars = (key) => {
   let barChords = []
-  return tr.transducer((xfStep, value, chord) => {
+  return tr.transducer((xfStep, bars, chord) => {
     const chord1 = {
       ...chord,
       rendered: renderChord(chord, key),
@@ -22,7 +22,7 @@ export const chordsToBars = (key) => {
     if (chord.duration > 1) {
       let remainingDuration = chord.duration
       while (remainingDuration > 0) {
-        xfStep(value, [chord1])
+        xfStep(bars, [chord1])
         remainingDuration -= 1
       }
       if (remainingDuration > 0) {
@@ -35,11 +35,11 @@ export const chordsToBars = (key) => {
     if (barChords.length) {
       const barChordsDurationSum = tr.transduce(tr.map(barChord => barChord.duration), tr.completing(sum), 0, barChords)
       if (barChordsDurationSum >= 1) {
-        xfStep(value, barChords)
+        xfStep(bars, barChords)
         barChords = []
       }
     }
-    return value
+    return bars
   })
 }
 

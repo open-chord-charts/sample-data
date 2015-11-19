@@ -5,8 +5,8 @@ var webpack = require("webpack")
 
 
 module.exports = {
-  devtool: "eval", // Transformed code
-  // devtool: "source-map", // Original code
+  // devtool: "eval", // Transformed code
+  devtool: "source-map", // Original code
   entry: {
     bench: "./src/index.jsx",
   },

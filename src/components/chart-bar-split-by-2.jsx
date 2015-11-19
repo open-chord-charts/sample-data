@@ -1,4 +1,9 @@
-export const ChartBarSplitBy2 = ({chords, height = 60, padding = 10, width = 100}) => (
+import React from "react"
+
+import {SVGChord} from "./chord"
+
+
+export const ChartBarSplitBy2 = ({chartKey, chords, height = 60, padding = 10, width = 100}) => (
   <svg height="100%" width={width}>
     <line
       style={{
@@ -11,10 +16,10 @@ export const ChartBarSplitBy2 = ({chords, height = 60, padding = 10, width = 100
       y2={0}
     />
     <text style={{textAnchor: "start"}} x={padding} y={25}>
-      {chords[0].rendered}
+      <SVGChord chartKey={chartKey} chord={chords[0]} />
     </text>
     <text style={{textAnchor: "end"}} x={width - padding} y={50}>
-      {chords[1].rendered}
+      <SVGChord chartKey={chartKey} chord={chords[1]} />
     </text>
   </svg>
 )

@@ -29,6 +29,7 @@
     "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
+    "deep-equal": "^1.0.1",
     "transduce": "^0.9.0"
   }
 }

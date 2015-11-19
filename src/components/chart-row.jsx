@@ -2,7 +2,8 @@ import {ChartBarSimple} from "./chart-bar-simple"
 import {ChartBarSplitBy2} from "./chart-bar-split-by-2"
 
 
-export const ChartRow = ({partName, bars, height = 60, nbBarsByRow = 8, partNameColumnWidth = 30, width = 800}) => {
+export const ChartRow = ({bars, chartKey, height = 60, nbBarsByRow = 8, partName, partNameColumnWidth = 30,
+  width = 800}) => {
   const chordColumnWidth = Math.min(
     (width - partNameColumnWidth) / nbBarsByRow,
     height * 1.5,
@@ -23,7 +24,7 @@ export const ChartRow = ({partName, bars, height = 60, nbBarsByRow = 8, partName
         {partName}
       </td>
       {
-        bars.map((barChords, idx) => (
+        bars.map((chords, idx) => (
           <td
             key={idx}
             style={{
@@ -37,9 +38,9 @@ export const ChartRow = ({partName, bars, height = 60, nbBarsByRow = 8, partName
             }}
           >
             {
-              barChords.length === 1 ?
-                <ChartBarSimple chords={barChords} /> :
-                <ChartBarSplitBy2 chords={barChords} width={chordColumnWidth} />
+              chords.length === 1 ?
+                <ChartBarSimple chartKey={chartKey} chords={chords} /> :
+                <ChartBarSplitBy2 chartKey={chartKey} chords={chords} width={chordColumnWidth} />
             }
           </td>
         ))

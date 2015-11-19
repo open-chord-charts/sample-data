@@ -3,7 +3,7 @@ import * as model from "../model"
 
 
 export const Chart = ({chart, chartKey, nbBarsByRow = 8, width = 800}) => {
-  const rows = model.partsToRows(chart, chartKey, nbBarsByRow)
+  const rows = model.partsToRows(chart, nbBarsByRow)
   const style = {borderCollapse: "collapse", width: "initial"}
   return (
     <table style={style}>
@@ -11,7 +11,7 @@ export const Chart = ({chart, chartKey, nbBarsByRow = 8, width = 800}) => {
         {
           chart.structure.map(
             (partName) => rows[partName].map(
-              (bars) => <ChartRow bars={bars} nbBarsByRow={nbBarsByRow} partName={partName} width={width} />
+              (bars) => <ChartRow {...{bars, chartKey, nbBarsByRow, partName, width}} />
             )
           )
         }

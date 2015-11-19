@@ -1,5 +1,8 @@
-export const ChartBarSimple = ({chords, width}) => (
+import {TextChord} from "./chord"
+
+
+export const ChartBarSimple = ({chartKey, chords, width}) => (
   <div style={{textAlign: "center", width}}>
-    {chords[0].rendered}
+    <TextChord chartKey={chartKey} chord={chords[0]} />
   </div>
 )

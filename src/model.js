@@ -4,12 +4,31 @@ import deepEqual from "deep-equal"
 
 // Functional helpers
 
-const sum = (a, b) => a + b
-const toArray = tr.into([])
-const toObject = tr.into({})
+export const sum = (a, b) => a + b
+export const toArray = tr.into([])
+export const toObject = tr.into({})
+
+export const repeat = (number, create) => toArray(
+  tr.transducer(function step(xfStep, values) {
+    for (let idx = 0; idx < number; idx++) {
+      const value = create(idx)
+      xfStep(values, value)
+    }
+    return values
+  }),
+  [null],
+)
 
 
 export const chromaticKeys = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
+
+
+export const annotateStructureWithRepetitions = (structure) => toArray(
+  tr.transducer(function step(xfStep, structure1, partName) {
+    return xfStep(structure1, {partName, isFirst: !structure1.map((item) => item.partName).includes(partName)})
+  }),
+  structure,
+)
 
 
 // Return a new list of chords having a max duration of 1, and grouping chords having a duration < 1 bar

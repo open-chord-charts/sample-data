@@ -35,7 +35,9 @@
   },
 
   "globals": {
-    "CHARTS_FILE_NAMES": true
+    "CHARTS_FILE_NAMES": true,
+    "CURRENT_COMMIT_SHA": true,
+    "LAST_UPDATED_ON": true
   },
 
   "plugins": [

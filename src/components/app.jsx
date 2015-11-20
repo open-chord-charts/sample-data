@@ -24,6 +24,8 @@ export class App extends Component {
       <Bench
         {...{currentKey, initialWidth}}
         charts={chartsData}
+        currentCommit={CURRENT_COMMIT_SHA}
+        lastUpdatedOn={LAST_UPDATED_ON}
         onCurrentKeyChange={this.handleCurrentKeyChange}
       />
     )

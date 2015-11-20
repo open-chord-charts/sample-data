@@ -6,9 +6,17 @@ import * as model from "../model"
 import {findAllUniqueChordAlterations} from "../model"
 
 
-export const Bench = ({charts, chords = null, currentKey, initialWidth, onCurrentKeyChange}) => (
+const getGitHubCommitUrl = (commit) => `https://github.com/openchordcharts/sample-data/commit/${commit}`
+
+export const Bench = ({charts, chords = null, currentCommit, currentKey, initialWidth, lastUpdatedOn,
+  onCurrentKeyChange}) => (
   <div>
     <h1>OpenChordCharts bench</h1>
+    <p>
+      Last updated on
+      {" "}
+      <a href={getGitHubCommitUrl(currentCommit)}>{lastUpdatedOn}</a>.
+    </p>
     <p>
       This page shows renderings of OpenChordCharts
       {" "}

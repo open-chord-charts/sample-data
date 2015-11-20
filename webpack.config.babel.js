@@ -1,17 +1,23 @@
-var fs = require("fs")
+import child_process from "child_process"
+import fs from "fs"
 
-var HtmlWebpackPlugin = require("html-webpack-plugin")
-var webpack = require("webpack")
+import HtmlWebpackPlugin from "html-webpack-plugin"
+import webpack from "webpack"
 
 
-var chartsDirPath = "./data/charts/"
-var chartsFileNames = fs.readdirSync(chartsDirPath)
-var isProduction = process.env.NODE_ENV === "production"
-var devtool = isProduction ? null : "source-map"
+const chartsDirPath = "./data/charts/"
+const chartsFileNames = fs.readdirSync(chartsDirPath)
+const isProduction = process.env.NODE_ENV === "production"
+const devtool = isProduction ? null : "source-map"
 
-var plugins = [
+const currentCommitSHA = child_process.spawnSync("git", ["show", "-s", "--format=%H"]).stdout.toString()
+const lastUpdatedOn = child_process.spawnSync("git", ["show", "-s", "--format=%ci"]).stdout.toString()
+
+const plugins = [
   new webpack.DefinePlugin({
     CHARTS_FILE_NAMES: JSON.stringify(chartsFileNames),
+    CURRENT_COMMIT_SHA: JSON.stringify(currentCommitSHA),
+    LAST_UPDATED_ON: JSON.stringify(lastUpdatedOn),
   }),
   new webpack.ProvidePlugin({
     React: "react", // For babel JSX transformation which generates React.createElement.
@@ -27,7 +33,7 @@ if (isProduction) {
 
 
 module.exports = {
-  devtool: devtool,
+  devtool,
   entry: "./src/index.jsx",
   output: {
     filename: "bundle-[hash].js",
@@ -47,7 +53,7 @@ module.exports = {
       },
     ],
   },
-  plugins: plugins,
+  plugins,
   resolve: {
     extensions: ["", ".js", ".jsx"],
   },

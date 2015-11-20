@@ -1,11 +1,12 @@
 import {AutoWidth} from "./auto-width"
 import {ChartBench} from "./chart-bench"
 import {TextChord} from "./chord"
+import * as model from "../model"
 
 import {findAllUniqueChordAlterations} from "../model"
 
 
-export const Bench = ({charts, chords = null, width}) => (
+export const Bench = ({charts, chords = null, currentKey, initialWidth, onCurrentKeyChange}) => (
   <div>
     <h1>OpenChordCharts bench</h1>
     <p>
@@ -13,31 +14,42 @@ export const Bench = ({charts, chords = null, width}) => (
       {" "}
       <a href="https://github.com/openchordcharts/sample-data">sample JSON files</a>.
     </p>
+    <p>
+      Current key:
+      {" "}
+      <select onChange={(event) => onCurrentKeyChange(event.target.value)} value={currentKey}>
+        {
+          model.chromaticKeys.map((key, idx) => (
+            <option key={idx} value={key}>{key}</option>
+          ))
+        }
+      </select>
+    </p>
     <section>
       <h1>Chords</h1>
-      <p>Found in charts, forced in C key:</p>
-      <ChordsList chartKey="C" chords={findAllUniqueChordAlterations(charts)} />
+      <p>Found in charts, forced in {currentKey} key:</p>
+      <ChordsList chords={findAllUniqueChordAlterations(charts)} currentKey={currentKey} />
       {
         chords && (
           <div>
             <p>From chords.json:</p>
-            <ChordsList chartKey="C" chords={chords} />
+            <ChordsList chords={chords} currentKey={currentKey} />
           </div>
         )
       }
     </section>
     <section>
       <h1>Charts</h1>
-      <AutoWidth initialWidth={width}>
-        {charts.map((chart, idx) => <ChartBench chart={chart} key={idx} />)}
+      <AutoWidth initialWidth={initialWidth}>
+        {charts.map((chart, idx) => <ChartBench chart={chart} currentKey={currentKey} key={idx} />)}
       </AutoWidth>
     </section>
   </div>
 )
 
 
-const ChordsList = ({chartKey, chords}) => (
+const ChordsList = ({currentKey, chords}) => (
   <ul>
-    {chords.map((chord, idx) => <li key={idx}><TextChord {...{chartKey, chord}} /></li>)}
+    {chords.map((chord, idx) => <li key={idx}><TextChord chartKey={currentKey} chord={chord} /></li>)}
   </ul>
 )

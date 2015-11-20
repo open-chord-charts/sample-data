@@ -1,7 +1,7 @@
 import {Chart} from "./chart"
 
 
-export const ChartBench = ({chart, width}) => (
+export const ChartBench = ({chart, currentKey, width}) => (
   <article>
     <h1 id={chart.title}>
       {chart.title}
@@ -15,6 +15,6 @@ export const ChartBench = ({chart, width}) => (
       //   {JSON.stringify(chart, null, 2)}
       // </pre>
     }
-    <Chart chart={chart} chartKey={chart.key} width={width} />
+    <Chart chart={chart} chartKey={currentKey} width={width} />
   </article>
 )

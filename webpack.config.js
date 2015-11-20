@@ -1,5 +1,4 @@
 var fs = require("fs")
-var path = require("path")
 
 var HtmlWebpackPlugin = require("html-webpack-plugin")
 var webpack = require("webpack")
@@ -7,17 +6,16 @@ var webpack = require("webpack")
 
 var chartsDirPath = "./data/charts/"
 var chartsFileNames = fs.readdirSync(chartsDirPath)
+var isProduction = process.env.NODE_ENV === "production"
+var devtool = isProduction ? null : "source-map"
 
 
 module.exports = {
-  // devtool: "eval", // Transformed code
-  devtool: "source-map", // Original code
-  entry: {
-    bench: "./src/index.jsx",
-  },
+  devtool: devtool,
+  entry: "./src/index.jsx",
   output: {
-    filename: "[name]-bundle-[hash].js",
-    path: path.join(__dirname, "/dist"),
+    filename: "bundle-[hash].js",
+    path: "./dist",
   },
   module: {
     loaders: [

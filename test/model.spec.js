@@ -2,7 +2,7 @@ import * as tr from "transduce"
 import expect from "expect"
 
 import * as model from "../src/model"
-import all_of_me from "../data/all_of_me.json"
+import all_of_me from "../data/charts/all_of_me.json"
 
 
 describe("chordsToBars", () => {

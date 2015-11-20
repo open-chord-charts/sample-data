@@ -1,7 +1,7 @@
 import {Component, PropTypes} from "react"
 
 import {Bench} from "./bench"
-import charts from "../charts-data"
+import {chartsData} from "../charts-data"
 
 
 export class App extends Component {
@@ -22,7 +22,8 @@ export class App extends Component {
     const {currentKey} = this.state
     return (
       <Bench
-        {...{charts, currentKey, initialWidth}}
+        {...{currentKey, initialWidth}}
+        charts={chartsData}
         onCurrentKeyChange={this.handleCurrentKeyChange}
       />
     )

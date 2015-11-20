@@ -4,9 +4,7 @@
     "camelcase": 0,
     "comma-dangle": [1, "always-multiline"],
     "max-len": [1, 120, 2],
-    "new-cap": [1, {
-      "capIsNewExceptions": ["List", "Map"]
-    }],
+    "new-cap": [1],
     "no-underscore-dangle": 0,
     "no-undef": 1,
     "no-unused-expressions": 1,
@@ -34,6 +32,10 @@
     "browser": true,
     "es6": true,
     "node": true
+  },
+
+  "globals": {
+    "CHARTS_FILE_NAMES": true
   },
 
   "plugins": [

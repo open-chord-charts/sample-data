@@ -1,8 +1,6 @@
-import all_of_me from "../data/charts/all_of_me.json"
-import lullaby_of_birdland from "../data/charts/lullaby_of_birdland.json"
+const requireChart = require.context("../data/charts")
 
-
-export default [
-  all_of_me,
-  lullaby_of_birdland,
-]
+export const chartsData = CHARTS_FILE_NAMES.map((fileName) => ({
+  ...requireChart("./" + fileName),
+  slug: fileName.slice(0, -".json".length),
+}))

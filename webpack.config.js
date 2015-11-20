@@ -1,7 +1,12 @@
+var fs = require("fs")
 var path = require("path")
 
 var HtmlWebpackPlugin = require("html-webpack-plugin")
 var webpack = require("webpack")
+
+
+var chartsDirPath = "./data/charts/"
+var chartsFileNames = fs.readdirSync(chartsDirPath)
 
 
 module.exports = {
@@ -29,6 +34,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      CHARTS_FILE_NAMES: JSON.stringify(chartsFileNames),
+    }),
     new webpack.ProvidePlugin({
       React: "react", // For babel JSX transformation which generates React.createElement.
     }),

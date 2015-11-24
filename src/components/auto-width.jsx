@@ -12,12 +12,12 @@ export class AutoWidth extends Component {
     this.state = {width: initialWidth}
   }
   componentDidMount() {
-    window.onresize = this.handleResize
+    window.onresize = ::this.handleResize
   }
   componentWillUnmount() {
     window.onresize = null
   }
-  handleResize = () => {
+  handleResize() {
     const width = this.refs.div.offsetWidth
     this.setState({width})
   }

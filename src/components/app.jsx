@@ -14,7 +14,7 @@ export class App extends Component {
     const {initialKey} = props
     this.state = {currentKey: initialKey}
   }
-  handleCurrentKeyChange = (currentKey) => {
+  handleCurrentKeyChange(currentKey) {
     this.setState({currentKey})
   }
   render() {
@@ -26,7 +26,7 @@ export class App extends Component {
         charts={chartsData}
         currentCommit={CURRENT_COMMIT_SHA}
         lastUpdatedOn={LAST_UPDATED_ON}
-        onCurrentKeyChange={this.handleCurrentKeyChange}
+        onCurrentKeyChange={::this.handleCurrentKeyChange}
       />
     )
   }

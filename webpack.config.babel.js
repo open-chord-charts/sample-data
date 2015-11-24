@@ -44,12 +44,12 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loaders: ["babel-loader"],
+        loader: "babel",
       },
       {
         test: /\.json$/,
         exclude: /node_modules/,
-        loaders: ["json-loader"],
+        loader: "json",
       },
     ],
   },

@@ -8,25 +8,18 @@ export const sum = (a, b) => a + b
 export const toArray = tr.into([])
 export const toObject = tr.into({})
 
-export const repeat = (number, create) => toArray(
-  tr.transducer(function step(xfStep, values) {
-    for (let idx = 0; idx < number; idx++) {
-      const value = create(idx)
-      xfStep(values, value)
-    }
-    return values
-  }),
-  [null],
-)
-
 
 export const chromaticKeys = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 
 
 export const annotateStructureWithRepetitions = (structure) => toArray(
-  tr.transducer(function step(xfStep, structure1, partName) {
-    return xfStep(structure1, {partName, isFirst: !structure1.map((item) => item.partName).includes(partName)})
-  }),
+  tr.transducer((xfStep, structure1, partName) => xfStep(
+    structure1,
+    {
+      partName,
+      isRepetitedPart: structure1.map((item) => item.partName).includes(partName),
+    },
+  )),
   structure,
 )
 

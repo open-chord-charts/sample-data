@@ -12,14 +12,11 @@ export const ChartBench = ({chart, currentKey, width}) => (
       <small>
         <a href={"#" + chart.slug} style={{textDecoration: "none"}} title="Anchor"></a>
         {" "}
-        <a href={getGitHubBlobUrl(chart.slug)} style={{textDecoration: "none"}} target="_blank" title="View JSON"></a>
+        <a href={getGitHubBlobUrl(chart.slug)} style={{textDecoration: "none"}} target="_blank" title="View JSON file">
+          
+        </a>
       </small>
     </h1>
-    {
-      // <pre style={{fontSize: "xx-small", height: "20em", overflow: "scroll"}}>
-      //   {JSON.stringify(chart, null, 2)}
-      // </pre>
-    }
     <Chart chart={chart} chartKey={currentKey} width={width} />
   </article>
 )

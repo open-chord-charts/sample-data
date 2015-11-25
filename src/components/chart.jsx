@@ -1,10 +1,8 @@
 import deepEqual from "deep-equal"
 
-import {ChartBarSimple} from "./chart-bar-simple"
-import {ChartBarSplitBy2} from "./chart-bar-split-by-2"
 import {ChartCell} from "./chart-cell"
 import {ChartRow} from "./chart-row"
-import {TextChord} from "./chord"
+import {Chord} from "./chord"
 import * as model from "../model"
 
 
@@ -20,7 +18,7 @@ export const Chart = ({chart, chartKey, rowHeight = 60, nbBarsByRow = 8, partNam
     <table style={style}>
       <tbody>
         {
-          structureWithRepetitionAnnotations.map(({partName, isFirst}, idx) => (
+          structureWithRepetitionAnnotations.map(({partName, isRepetitedPart}, idx) => (
             rows[partName].map((bars, idx1) => (
               <ChartRow
                 height={rowHeight}
@@ -29,31 +27,20 @@ export const Chart = ({chart, chartKey, rowHeight = 60, nbBarsByRow = 8, partNam
                 partNameColumnWidth={partNameColumnWidth}
               >
                 {
-                  isFirst ?
-                    bars.map((chords, idx2) => (
-                      <ChartCell height={rowHeight} key={idx2} width={chordColumnWidth}>
-                        {
-                          chords.length === 1 ?
-                            (
-                              idx2 > 0 && bars[idx2 - 1].length === 1 && deepEqual(chords[0], bars[idx2 - 1][0]) ?
-                                <ChartBarSimple children="–" /> :
-                                (
-                                  <ChartBarSimple>
-                                    <TextChord chartKey={chartKey} chord={chords[0]} />
-                                  </ChartBarSimple>
-                                )
-                            ) :
-                            chords.length === 2 ?
-                              <ChartBarSplitBy2 chartKey={chartKey} chords={chords} width={chordColumnWidth} /> :
-                              <p>TODO</p>
-                        }
-                      </ChartCell>
-                    )) :
-                    model.repeat(bars.length, (idx3) => (
-                      <ChartCell height={rowHeight} key={idx3} width={chordColumnWidth}>
-                        <ChartBarSimple children="–" />
-                      </ChartCell>
-                    ))
+                  bars.map((chords, idx2) => (
+                    <ChartCell height={rowHeight} key={idx2} width={chordColumnWidth}>
+                      {
+                        (
+                          isRepetitedPart ||
+                          idx2 > 0 && bars[idx2 - 1].length === 1 && deepEqual(chords[0], bars[idx2 - 1][0])
+                        ) ?
+                          "–" :
+                          chords.map((chord, idx3) => (
+                            <Chord chartKey={chartKey} chord={chord} key={idx3} />
+                          ))
+                      }
+                    </ChartCell>
+                  ))
                 }
               </ChartRow>
             ))

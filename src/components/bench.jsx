@@ -1,6 +1,7 @@
 import {AutoWidth} from "./auto-width"
+import {ChartBar} from "./chart-bar"
 import {ChartBench} from "./chart-bench"
-import {TextChord} from "./chord"
+import {Chord} from "./chord"
 import * as model from "../model"
 
 import {findAllUniqueChordAlterations} from "../model"
@@ -8,7 +9,7 @@ import {findAllUniqueChordAlterations} from "../model"
 
 const getGitHubCommitUrl = (commit) => `https://github.com/openchordcharts/sample-data/commit/${commit}`
 
-export const Bench = ({charts, chords = null, currentCommit, currentKey, initialWidth, lastUpdatedOn,
+export const Bench = ({charts, currentCommit, currentKey, initialWidth, lastUpdatedOn,
   onCurrentKeyChange}) => (
   <div>
     <h1>OpenChordCharts bench</h1>
@@ -35,16 +36,8 @@ export const Bench = ({charts, chords = null, currentCommit, currentKey, initial
     </p>
     <section>
       <h1>Chords</h1>
-      <p>Found in charts, forced in {currentKey} key:</p>
+      <p>These chords were found in charts, deduped and expressed in {currentKey} key:</p>
       <ChordsList chords={findAllUniqueChordAlterations(charts)} currentKey={currentKey} />
-      {
-        chords && (
-          <div>
-            <p>From chords.json:</p>
-            <ChordsList chords={chords} currentKey={currentKey} />
-          </div>
-        )
-      }
     </section>
     <section>
       <h1>Charts</h1>
@@ -58,6 +51,14 @@ export const Bench = ({charts, chords = null, currentCommit, currentKey, initial
 
 const ChordsList = ({currentKey, chords}) => (
   <ul>
-    {chords.map((chord, idx) => <li key={idx}><TextChord chartKey={currentKey} chord={chord} /></li>)}
+    {
+      chords.map((chord, idx) => (
+        <li key={idx}>
+          <ChartBar height={40} style={{border: "1px solid #ddd", verticalAlign: "middle"}} width={60}>
+            <Chord chartKey={currentKey} chord={chord} />
+          </ChartBar>
+        </li>
+      ))
+    }
   </ul>
 )

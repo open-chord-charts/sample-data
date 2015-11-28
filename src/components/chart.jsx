@@ -27,7 +27,7 @@ export const Chart = ({chart, chartKey, rowHeight = 60, nbBarsByRow = 8, partNam
               >
                 {
                   bars.map((chords, idx2) => (
-                    <ChartCell height={rowHeight} key={idx2} width={chordColumnWidth}>
+                    <ChartCell height={isRepetitedPart ? rowHeight / 2 : rowHeight} key={idx2} width={chordColumnWidth}>
                       {
                         (
                           isRepetitedPart ||

@@ -21,7 +21,6 @@ export const Chart = ({chart, chartKey, rowHeight = 60, nbBarsByRow = 8, partNam
           structureWithRepetitionAnnotations.map(({partName, isRepetitedPart}, idx) => (
             rows[partName].map((bars, idx1) => (
               <ChartRow
-                height={rowHeight}
                 key={`${idx}${idx1}`}
                 partName={partName}
                 partNameColumnWidth={partNameColumnWidth}

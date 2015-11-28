@@ -1,11 +1,10 @@
-export const ChartRow = ({children, height, partName, partNameColumnWidth}) => {
+export const ChartRow = ({children, partName, partNameColumnWidth}) => {
   return (
-    <tr style={{height}}>
+    <tr>
       <td style={{
         fontSize: "small",
         fontStyle: "italic",
         fontWeight: "bold",
-        height,
         lineHeight: 0,
         verticalAlign: "middle",
         width: partNameColumnWidth,

@@ -1,16 +1,16 @@
-import {AutoWidth} from "./auto-width"
-import {ChartBar} from "./chart-bar"
-import {ChartBench} from "./chart-bench"
-import {Chord} from "./chord"
-import * as model from "../model"
+import {connect} from "react-redux"
 
-import {findAllUniqueChordAlterations} from "../model"
+import {AutoWidth} from "../components/auto-width"
+import {ChartBar} from "../components/chart-bar"
+import {ChartBench} from "../components/chart-bench"
+import {Chord} from "../components/chord"
+import {setChartKey} from "../actions"
+import * as model from "../model"
 
 
 const getGitHubCommitUrl = (commit) => `https://github.com/openchordcharts/sample-data/commit/${commit}`
 
-export const Bench = ({charts, currentCommit, currentKey, initialWidth, lastUpdatedOn,
-  onCurrentKeyChange}) => (
+const Bench = ({charts, currentCommit, currentKey, dispatch, initialWidth, lastUpdatedOn}) => (
   <div>
     <h1>OpenChordCharts bench</h1>
     <p>
@@ -26,7 +26,12 @@ export const Bench = ({charts, currentCommit, currentKey, initialWidth, lastUpda
     <p>
       Current key:
       {" "}
-      <select onChange={(event) => onCurrentKeyChange(event.target.value)} value={currentKey}>
+      <select
+        onChange={(event) => {
+          dispatch(setChartKey(event.target.value))
+        }}
+        value={currentKey}
+      >
         {
           model.chromaticKeys.map((key, idx) => (
             <option key={idx} value={key}>{key}</option>
@@ -37,8 +42,8 @@ export const Bench = ({charts, currentCommit, currentKey, initialWidth, lastUpda
     <section>
       <h1>Chords</h1>
       <p>These chords were found in charts, deduped and expressed in {currentKey} key:</p>
-      <ChordsList chords={findAllUniqueChordAlterations(charts)} currentKey={currentKey} />
     </section>
+    <ChordsList chords={model.findAllUniqueChordAlterations(charts)} currentKey={currentKey} />
     <section>
       <h1>Charts</h1>
       <AutoWidth initialWidth={initialWidth}>
@@ -62,3 +67,7 @@ const ChordsList = ({currentKey, chords}) => (
     }
   </ul>
 )
+
+
+const mapStateToProps = (state) => ({currentKey: state})
+export default connect(mapStateToProps)(Bench)

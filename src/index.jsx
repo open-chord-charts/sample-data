@@ -1,14 +1,14 @@
 import "babel-polyfill"
 
-import {createStore} from "redux"
 import {Provider} from "react-redux"
 import {render} from "react-dom"
 
 import App from "./containers/App"
-import todoApp from "./reducers"
+import configureStore from "./store"
+import DevTools from "./containers/DevTools"
 
 
-const store = createStore(todoApp)
+const store = configureStore()
 
 const containerElement = document.createElement("div")
 containerElement.className = "container"
@@ -16,8 +16,13 @@ document.body.appendChild(containerElement)
 
 const width = containerElement.offsetWidth
 render(
-  <Provider store={store}>
-    <App initialWidth={width} />
-  </Provider>,
+  (
+    <Provider store={store}>
+      <div>
+        <DevTools />
+        <App initialWidth={width} />
+      </div>
+    </Provider>
+  ),
   containerElement,
 )

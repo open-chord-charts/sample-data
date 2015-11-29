@@ -5,9 +5,9 @@ const renderChordName = (chord, key) =>
   chromaticKeys[(chromaticKeys.indexOf(key) + chord.degree) % chromaticKeys.length]
 
 
-export const Chord = ({chartKey, chord}) => (
+const Chord = ({chord, chromaticKey}) => (
   <tspan>
-    <tspan>{renderChordName(chord, chartKey)}</tspan>
+    <tspan>{renderChordName(chord, chromaticKey)}</tspan>
     {
       chord.alterations && chord.alterations.map((alteration, idx) => (
         <tspan key={idx}>
@@ -21,3 +21,6 @@ export const Chord = ({chartKey, chord}) => (
     }
   </tspan>
 )
+
+
+export default Chord

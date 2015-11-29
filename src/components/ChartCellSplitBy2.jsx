@@ -1,4 +1,4 @@
-export const ChartCellSplitBy2 = ({chord1, chord2, height, padding = 10, width}) => (
+const ChartCellSplitBy2 = ({chord1, chord2, height, padding = 10, width}) => (
   <g>
     <line
       style={{
@@ -18,3 +18,6 @@ export const ChartCellSplitBy2 = ({chord1, chord2, height, padding = 10, width})
     </text>
   </g>
 )
+
+
+export default ChartCellSplitBy2

@@ -1,10 +1,10 @@
-import {Chart} from "./chart"
+import Chart from "./Chart"
 
 
 const getGitHubBlobUrl = (slug) => `https://github.com/openchordcharts/sample-data/blob/master/data/charts/${slug}.json`
 
 
-export const ChartBench = ({chart, currentKey, width}) => (
+const ChartBench = ({chart, chromaticKey, width}) => (
   <article>
     <h1 id={chart.slug}>
       {chart.title}
@@ -17,6 +17,9 @@ export const ChartBench = ({chart, currentKey, width}) => (
         </a>
       </small>
     </h1>
-    <Chart chart={chart} chartKey={currentKey} width={width} />
+    <Chart {...{chart, chromaticKey, width}} />
   </article>
 )
+
+
+export default ChartBench

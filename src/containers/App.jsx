@@ -1,17 +1,11 @@
-import {chartsData} from "../charts-data"
-import Bench from "./bench"
+import {bindActionCreators} from "redux"
+import {connect} from "react-redux"
+
+import Bench from "../components/Bench"
+import {setSelectedKey} from "../actions"
 
 
-// TODO Move CURRENT_COMMIT_SHA and LAST_UPDATED_ON in store
+const mapStateToProps = ({selectedKey}) => ({selectedKey})
+const mapDispatchToProps = (dispatch) => bindActionCreators({setSelectedKey}, dispatch)
 
-const App = ({initialWidth}) => (
-  <Bench
-    charts={chartsData}
-    currentCommit={CURRENT_COMMIT_SHA}
-    initialWidth={initialWidth}
-    lastUpdatedOn={LAST_UPDATED_ON}
-  />
-)
-
-
-export default App
+export default connect(mapStateToProps, mapDispatchToProps)(Bench)

@@ -1,7 +1,7 @@
-import {ChartBar} from "./chart-bar"
+import ChartBar from "./ChartBar"
 
 
-export const ChartCell = ({children, height, width}) => {
+const ChartCell = ({children, height, width}) => {
   return (
     <td style={{
       border: "1px solid #ddd",
@@ -18,3 +18,6 @@ export const ChartCell = ({children, height, width}) => {
     </td>
   )
 }
+
+
+export default ChartCell

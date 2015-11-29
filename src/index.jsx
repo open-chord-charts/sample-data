@@ -17,7 +17,7 @@ document.body.appendChild(containerElement)
 const width = containerElement.offsetWidth
 render(
   <Provider store={store}>
-    <App initialKey="C" initialWidth={width} />
+    <App initialWidth={width} />
   </Provider>,
   containerElement,
 )

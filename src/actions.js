@@ -1,3 +1,7 @@
-export const SET_CHART_KEY = "SET_CHART_KEY"
+import {SET_SELECTED_KEY} from "./constants"
 
-export const setChartKey = (chartKey) => ({chartKey, type: SET_CHART_KEY})
+
+export const setSelectedKey = (selectedKey) => ({
+  selectedKey,
+  type: SET_SELECTED_KEY,
+})

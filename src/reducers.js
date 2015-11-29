@@ -1,16 +1,21 @@
-// import {combineReducers} from "redux"
+import {combineReducers} from "redux"
 
-import {SET_CHART_KEY} from "./actions"
+import {SET_SELECTED_KEY} from "./constants"
 
 
-const chartKey = (state = "C", action) => {
+const selectedKey = (state = "C", action) => {
   switch(action.type) {
-    case SET_CHART_KEY:
-      return action.chartKey
+    case SET_SELECTED_KEY:
+      return action.selectedKey
     default:
       return state
   }
 }
 
 
-export default chartKey
+const rootReducer = combineReducers({
+  selectedKey,
+})
+
+
+export default rootReducer

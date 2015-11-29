@@ -1,12 +1,12 @@
 import deepEqual from "deep-equal"
 
-import {ChartCell} from "./chart-cell"
-import {ChartRow} from "./chart-row"
-import {Chord} from "./chord"
 import * as model from "../model"
+import ChartCell from "./ChartCell"
+import ChartRow from "./ChartRow"
+import Chord from "./Chord"
 
 
-export const Chart = ({chart, chartKey, rowHeight = 60, nbBarsByRow = 8, partNameColumnWidth = 30, width = 800}) => {
+const Chart = ({chart, chromaticKey, rowHeight = 60, nbBarsByRow = 8, partNameColumnWidth = 30, width = 800}) => {
   const rows = model.partsToRows(chart, nbBarsByRow)
   const structureWithRepetitionAnnotations = model.annotateStructureWithRepetitions(chart.structure)
   const style = {borderCollapse: "collapse", width: "initial"}
@@ -35,7 +35,7 @@ export const Chart = ({chart, chartKey, rowHeight = 60, nbBarsByRow = 8, partNam
                         ) ?
                           "–" :
                           chords.map((chord, idx3) => (
-                            <Chord chartKey={chartKey} chord={chord} key={idx3} />
+                            <Chord chord={chord} chromaticKey={chromaticKey} key={idx3} />
                           ))
                       }
                     </ChartCell>
@@ -49,3 +49,6 @@ export const Chart = ({chart, chartKey, rowHeight = 60, nbBarsByRow = 8, partNam
     </table>
   )
 }
+
+
+export default Chart

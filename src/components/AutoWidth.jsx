@@ -1,7 +1,7 @@
 import {Children, cloneElement, Component, PropTypes} from "react"
 
 
-export class AutoWidth extends Component {
+export default class AutoWidth extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     initialWidth: PropTypes.number.isRequired,
@@ -18,7 +18,7 @@ export class AutoWidth extends Component {
     window.onresize = null
   }
   handleResize() {
-    const width = this.refs.div.offsetWidth
+    const width = this.refs.wrapperDiv.offsetWidth
     this.setState({width})
   }
   render() {
@@ -26,7 +26,7 @@ export class AutoWidth extends Component {
     const {children} = this.props
     const clones = Children.map(children, (child) => cloneElement(child, {width}))
     return (
-      <div ref="div">
+      <div ref="wrapperDiv">
         {clones}
       </div>
     )

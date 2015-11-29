@@ -1,4 +1,4 @@
-export const ChartRow = ({children, partName, partNameColumnWidth}) => {
+const ChartRow = ({children, partName, partNameColumnWidth}) => {
   return (
     <tr>
       <td style={{
@@ -15,3 +15,6 @@ export const ChartRow = ({children, partName, partNameColumnWidth}) => {
     </tr>
   )
 }
+
+
+export default ChartRow

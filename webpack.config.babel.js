@@ -9,7 +9,7 @@ const chartsDirPath = "./data/charts/"
 const chartsFileNames = fs.readdirSync(chartsDirPath)
 
 const isProduction = process.env.NODE_ENV === "production"
-const devtool = isProduction ? null : "source-map"
+const devtool = isProduction ? null : "eval"
 
 const gitCommitSha = child_process.spawnSync("git", ["show", "-s", "--format=%H"]).stdout.toString()
 const lastUpdatedOn = child_process.spawnSync("git", ["show", "-s", "--format=%ci"]).stdout.toString()

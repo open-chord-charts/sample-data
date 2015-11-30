@@ -19,8 +19,8 @@ render(
   (
     <Provider store={store}>
       <div>
-        <DevTools />
         <App initialWidth={width} />
+        <DevTools />
       </div>
     </Provider>
   ),

@@ -1,4 +1,4 @@
-const ChartRow = ({children, partName, partNameColumnWidth}) => {
+const ChartRow = ({children, edited, onRemove, partName, partNameColumnWidth}) => {
   return (
     <tr>
       <td style={{
@@ -10,6 +10,14 @@ const ChartRow = ({children, partName, partNameColumnWidth}) => {
         width: partNameColumnWidth,
       }}>
         {partName}
+        {
+          edited && (
+            <div>
+              <button>Add before</button>
+              <button onClick={onRemove}>Remove</button>
+            </div>
+          )
+        }
       </td>
       {children}
     </tr>

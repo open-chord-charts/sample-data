@@ -1,1 +1,3 @@
+export const EDIT_CHART = "EDIT_CHART"
+export const REMOVE_CHART_PART = "REMOVE_CHART_PART"
 export const SET_SELECTED_KEY = "SET_SELECTED_KEY"

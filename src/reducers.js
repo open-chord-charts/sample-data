@@ -1,25 +1,12 @@
 import {combineReducers} from "redux"
 
-import chartsData from "./charts-data"
-import {SET_SELECTED_KEY} from "./constants"
+import {EDIT_CHART, REMOVE_CHART_PART, SET_SELECTED_KEY} from "./constants"
 
 
-// Constants set by webpack DefinePlugin.
-
-const appInfoInitialState = {
-  gitCommitSha: GIT_COMMIT_SHA,
-  lastUpdatedOn: LAST_UPDATED_ON,
-  packageVersion: PACKAGE_VERSION,
-}
-
-const appInfo = (state = appInfoInitialState) => {
-  return state
-}
+// Bench reducers
 
 
-const charts = (state = chartsData, action) => {
-  return state
-}
+const appInfo = (state = {}) => state
 
 
 const selectedKey = (state = "C", action) => {
@@ -30,6 +17,57 @@ const selectedKey = (state = "C", action) => {
       return state
   }
 }
+
+
+// Chart reducers
+
+
+export const chart = (state = {}, action) => {
+  switch(action.type) {
+    case EDIT_CHART:
+      return action.chartSlug === state.slug ?
+        {
+          ...state,
+          edited: true,
+        } :
+        state
+    case REMOVE_CHART_PART:
+      return action.chartSlug === state.slug ?
+        {
+          ...state,
+          structure: structure(state.structure, action),
+        } :
+        state
+    default:
+      return state
+  }
+}
+
+
+const charts = (state = [], action) => {
+  switch(action.type) {
+    case EDIT_CHART:
+    case REMOVE_CHART_PART:
+      return state.map((item) => chart(item, action))
+    default:
+      return state
+  }
+}
+
+
+const structure = (state = [], action) => {
+  switch(action.type) {
+    case REMOVE_CHART_PART:
+      return state.filter((item) => item !== action.partName)
+    default:
+      return state
+  }
+}
+
+
+
+
+// Root reducer
 
 
 const rootReducer = combineReducers({

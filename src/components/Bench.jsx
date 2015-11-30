@@ -1,6 +1,6 @@
 import * as model from "../model"
 import AutoWidth from "./AutoWidth"
-import ChartBench from "./ChartBench"
+import ChartBench from "../containers/ChartBench"
 import ChordsList from "./ChordsList"
 
 
@@ -29,9 +29,11 @@ const Bench = ({charts, gitCommitSha, initialWidth, lastUpdatedOn, packageVersio
         }}
         value={selectedKey}
       >
-        {model.chromaticKeys.map((key, idx) => (
-          <option key={idx} value={key}>{key}</option>
-        ))}
+        {
+          model.chromaticKeys.map((key, idx) => (
+            <option key={idx} value={key}>{key}</option>
+          ))
+        }
       </select>
     </p>
     <section>
@@ -42,9 +44,11 @@ const Bench = ({charts, gitCommitSha, initialWidth, lastUpdatedOn, packageVersio
     <section>
       <h1>Charts</h1>
       <AutoWidth initialWidth={initialWidth}>
-        {charts.map((chart, idx) => (
-          <ChartBench chart={chart} chromaticKey={selectedKey} key={idx} />
-        ))}
+        {
+          charts.map((chart, idx) => (
+            <ChartBench chart={chart} chromaticKey={selectedKey} key={idx} />
+          ))
+        }
       </AutoWidth>
     </section>
   </div>

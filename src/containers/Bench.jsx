@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
   packageVersion: state.appInfo.packageVersion,
   selectedKey: state.selectedKey,
 })
+
 const mapDispatchToProps = (dispatch) => bindActionCreators({setSelectedKey}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bench)

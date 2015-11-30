@@ -2,12 +2,12 @@
   "name": "OpenChordCharts-sample-data",
   "version": "0.0.0",
   "scripts": {
-    "build": "NODE_ENV=production webpack",
+    "build:prod": "NODE_ENV=production webpack",
     "clean": "rm -rf dist",
+    "deploy": "git branch -D gh-pages; git worktree add -b tmp gh-pages; cd gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp ../dist/* .; git add --all; git commit -m 'Static page'; git push -f origin gh-pages; cd ..; rm -rf gh-pages; git worktree prune; git branch -d tmp",
     "dev": "webpack-dev-server --colors --port 3010",
     "lint": "eslint src test",
-    "prepublish": "npm run clean; npm run build",
-    "publish": "git branch -D gh-pages; git worktree add -b tmp gh-pages; cd gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp ../dist/* .; git add --all; git commit -m 'Static page'; git push -f origin gh-pages; cd ..; rm -rf gh-pages; git worktree prune; git branch -d tmp",
+    "predeploy": "npm run clean; npm run build:prod",
     "test": "mocha --compilers js:babel-core/register --recursive"
   },
   "devDependencies": {

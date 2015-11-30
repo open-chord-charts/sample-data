@@ -5,3 +5,6 @@ export const loadChartsData = (chartsFileNames) => chartsFileNames.map((fileName
   ...requireChart("./" + fileName),
   slug: fileName.slice(0, -".json".length),
 }))
+
+
+export default loadChartsData(CHARTS_FILE_NAMES)

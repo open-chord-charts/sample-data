@@ -5,7 +5,13 @@ import Bench from "../components/Bench"
 import {setSelectedKey} from "../actions"
 
 
-const mapStateToProps = ({selectedKey}) => ({selectedKey})
+const mapStateToProps = (state) => ({
+  charts: state.charts,
+  gitCommitSha: state.appInfo.gitCommitSha,
+  lastUpdatedOn: state.appInfo.lastUpdatedOn,
+  packageVersion: state.appInfo.packageVersion,
+  selectedKey: state.selectedKey,
+})
 const mapDispatchToProps = (dispatch) => bindActionCreators({setSelectedKey}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bench)

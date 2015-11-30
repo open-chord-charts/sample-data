@@ -1,28 +1,19 @@
-import {loadChartsData} from "../charts-data"
 import * as model from "../model"
 import AutoWidth from "./AutoWidth"
 import ChartBench from "./ChartBench"
 import ChordsList from "./ChordsList"
 
 
-// Constants defined by Webpack plugin
-
-const chartsFileNames = CHARTS_FILE_NAMES
-const currentCommitSha = CURRENT_COMMIT_SHA
-const lastUpdatedOn = LAST_UPDATED_ON
-
-const charts = loadChartsData(chartsFileNames)
-
 const getGitHubCommitUrl = (commit) => `https://github.com/openchordcharts/sample-data/commit/${commit}`
 
 
-const Bench = ({initialWidth, selectedKey, setSelectedKey}) => (
+const Bench = ({charts, gitCommitSha, initialWidth, lastUpdatedOn, packageVersion, selectedKey, setSelectedKey}) => (
   <div>
     <h1>OpenChordCharts bench</h1>
     <p>
-      Last updated on
+      Version {packageVersion}, last updated on
       {" "}
-      <a href={getGitHubCommitUrl(currentCommitSha)}>{lastUpdatedOn}</a>.
+      <a href={getGitHubCommitUrl(gitCommitSha)}>{lastUpdatedOn}</a>.
     </p>
     <p>
       This page shows renderings of OpenChordCharts

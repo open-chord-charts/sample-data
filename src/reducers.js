@@ -1,6 +1,25 @@
 import {combineReducers} from "redux"
 
+import chartsData from "./charts-data"
 import {SET_SELECTED_KEY} from "./constants"
+
+
+// Constants set by webpack DefinePlugin.
+
+const appInfoInitialState = {
+  gitCommitSha: GIT_COMMIT_SHA,
+  lastUpdatedOn: LAST_UPDATED_ON,
+  packageVersion: PACKAGE_VERSION,
+}
+
+const appInfo = (state = appInfoInitialState) => {
+  return state
+}
+
+
+const charts = (state = chartsData, action) => {
+  return state
+}
 
 
 const selectedKey = (state = "C", action) => {
@@ -14,6 +33,8 @@ const selectedKey = (state = "C", action) => {
 
 
 const rootReducer = combineReducers({
+  appInfo,
+  charts,
   selectedKey,
 })
 

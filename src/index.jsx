@@ -17,7 +17,7 @@ const appInfo = {
 
 const initialState = {
   appInfo,
-  charts,
+  charts: charts.map((chart) => ({present: chart})), // The "present" key is for redux-undo.
 }
 
 const store = configureStore(initialState)
@@ -27,6 +27,7 @@ containerElement.className = "container"
 document.body.appendChild(containerElement)
 
 const width = containerElement.offsetWidth
+
 render(
   (
     <Provider store={store}>

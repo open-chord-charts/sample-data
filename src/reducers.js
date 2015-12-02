@@ -1,4 +1,5 @@
 import {combineReducers} from "redux"
+import undoable, {distinctState} from "redux-undo"
 
 import {COMMIT_CHART, EDIT_CHART, REMOVE_CHART_PART, SET_SELECTED_KEY} from "./constants"
 
@@ -39,8 +40,15 @@ export const chart = (state = {}, action) => {
   }
 }
 
+const undoableChart = (slug) => undoable(chart, {
+  // debug: true,
+  filter: distinctState(),
+  redoType: `REDO/${slug}`,
+  undoType: `UNDO/${slug}`,
+})
 
-export const charts = (state = [], action) => state.map((item) => chart(item, action))
+
+export const charts = (state = [], action) => state.map((chart1) => undoableChart(chart1.present.slug)(chart1, action))
 
 
 // Edited charts reducers

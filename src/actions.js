@@ -24,3 +24,9 @@ export const setSelectedKey = (selectedKey) => ({
   selectedKey,
   type: SET_SELECTED_KEY,
 })
+
+
+// Undo
+
+export const redo = (slug) => () => ({type: `REDO/${slug}`})
+export const undo = (slug) => () => ({type: `UNDO/${slug}`})

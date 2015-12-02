@@ -6,7 +6,7 @@ import {setSelectedKey} from "../actions"
 
 
 const mapStateToProps = (state) => ({
-  charts: state.charts,
+  charts: state.charts.map((chart) => chart.present),
   gitCommitSha: state.appInfo.gitCommitSha,
   lastUpdatedOn: state.appInfo.lastUpdatedOn,
   packageVersion: state.appInfo.packageVersion,

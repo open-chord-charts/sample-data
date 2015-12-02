@@ -1,54 +1,17 @@
+import "babel-polyfill"
+
 import deepFreeze from "deep-freeze"
 import expect from "expect"
 
-import {chart} from "../src/reducers"
+import {chart, editedChartSlugs} from "../src/reducers"
 import {commitChart, editChart, removeChartPart} from "../src/actions"
 
 
 describe("reducers", () => {
   describe("chart", () => {
-    it("should handle commitChart action when slug matches", () => {
-      const slug = "all_of_me"
-      const sampleChart = {
-        slug,
-        edited: true,
-      }
-      deepFreeze(sampleChart)
-      const expectedChart = {
-        ...sampleChart,
-        edited: false,
-      }
-      expect(chart(sampleChart, commitChart(slug))).toEqual(expectedChart)
-    })
-    it("should handle commitChart action when slug doesn't matches", () => {
-      const slug = "all_of_me"
-      const sampleChart = {
-        slug,
-        edited: true,
-      }
-      deepFreeze(sampleChart)
-      expect(chart(sampleChart, commitChart("wrong_slug"))).toEqual(sampleChart)
-    })
-    it("should handle editChart action when slug matches", () => {
-      const slug = "all_of_me"
-      const sampleChart = {slug}
-      deepFreeze(sampleChart)
-      const expectedChart = {
-        ...sampleChart,
-        edited: true,
-      }
-      expect(chart(sampleChart, editChart(slug))).toEqual(expectedChart)
-    })
-    it("should handle editChart action when slug doesn't matches", () => {
-      const slug = "all_of_me"
-      const sampleChart = {slug}
-      deepFreeze(sampleChart)
-      expect(chart(sampleChart, editChart("wrong_slug"))).toEqual(sampleChart)
-    })
     it("should handle removeChartPart action", () => {
-      const slug = "all_of_me"
-      const sampleChart = {
-        slug,
+      const state = {
+        slug: "all_of_me",
         parts: {
           A: [],
           B: [],
@@ -56,18 +19,50 @@ describe("reducers", () => {
         structure: ["A", "A", "B", "A"],
         title: "All of me",
       }
-      deepFreeze(sampleChart)
-      const expectedChart = {
-        ...sampleChart,
+      deepFreeze(state)
+      const expectedState = {
+        ...state,
         structure: ["A", "B", "A"],
       }
-      expect(chart(sampleChart, removeChartPart("all_of_me", 1))).toEqual(expectedChart)
+      expect(chart(state, removeChartPart("all_of_me", 1))).toEqual(expectedState)
     })
     it("should handle unknown action type", () => {
-      const slug = "all_of_me"
-      const sampleChart = {slug}
-      deepFreeze(sampleChart)
-      expect(chart(sampleChart, {type: "unknown"})).toEqual(sampleChart)
+      const state = {slug: "all_of_me"}
+      deepFreeze(state)
+      expect(chart(state, {type: "unknown"})).toEqual(state)
+    })
+  })
+  describe("editedChartSlugs", () => {
+    describe("commitChart action", () => {
+      it("should handle commitChart action when slug matches", () => {
+        const state = ["all_of_me"]
+        deepFreeze(state)
+        const expectedState = []
+        expect(editedChartSlugs(state, commitChart("all_of_me"))).toEqual(expectedState)
+      })
+      it("should handle commitChart action when slug doesn't match", () => {
+        const state = ["all_of_me"]
+        deepFreeze(state)
+        expect(editedChartSlugs(state, commitChart("wrong_slug"))).toEqual(state)
+      })
+    })
+    describe("editChart action", () => {
+      it("should work when not edited", () => {
+        const state = []
+        deepFreeze(state)
+        const expectedState = ["all_of_me"]
+        expect(editedChartSlugs(state, editChart("all_of_me"))).toEqual(expectedState)
+      })
+      it("should work when already edited", () => {
+        const state = ["all_of_me"]
+        deepFreeze(state)
+        expect(editedChartSlugs(state, editChart("all_of_me"))).toEqual(state)
+      })
+    })
+    it("should handle unknown action type", () => {
+      const state = ["all_of_me"]
+      deepFreeze(state)
+      expect(editedChartSlugs(state, {type: "unknown"})).toEqual(state)
     })
   })
 })

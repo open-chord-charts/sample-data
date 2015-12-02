@@ -4,7 +4,7 @@ import Chart from "./Chart"
 const getGitHubBlobUrl = (slug) => `https://github.com/openchordcharts/sample-data/blob/master/data/charts/${slug}.json`
 
 
-const ChartBench = ({chart, chromaticKey, commitChart, editChart, removeChartPart, width}) => (
+const ChartBench = ({chart, chromaticKey, commitChart, editChart, edited, removeChartPart, width}) => (
   <article>
     <h1 id={chart.slug}>
       {chart.title}
@@ -18,7 +18,7 @@ const ChartBench = ({chart, chromaticKey, commitChart, editChart, removeChartPar
       </small>
       {" "}
       {
-        chart.edited ? (
+        edited ? (
           <button onClick={() => { commitChart(chart.slug) }}>Commit</button>
         ) : (
           <button onClick={() => { editChart(chart.slug) }}>Edit</button>
@@ -26,7 +26,7 @@ const ChartBench = ({chart, chromaticKey, commitChart, editChart, removeChartPar
       }
     </h1>
     <Chart
-      {...{chart, chromaticKey, width}}
+      {...{chart, chromaticKey, edited, width}}
       onPartRemove={(partIndexInStructure) => {
         removeChartPart(chart.slug, partIndexInStructure)
       }}

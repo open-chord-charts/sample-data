@@ -1,8 +1,8 @@
 import {compose, createStore} from "redux"
 import {persistState} from "redux-devtools"
 
+import {rootReducer} from "./reducers"
 import DevTools from "./containers/DevTools"
-import rootReducer from "./reducers"
 
 
 const finalCreateStore = compose(

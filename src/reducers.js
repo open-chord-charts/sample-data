@@ -6,10 +6,10 @@ import {COMMIT_CHART, EDIT_CHART, REMOVE_CHART_PART, SET_SELECTED_KEY} from "./c
 // Bench reducers
 
 
-const appInfo = (state = {}) => state
+export const appInfo = (state = {}) => state
 
 
-const selectedKey = (state = "C", action) => {
+export const selectedKey = (state = "C", action) => {
   switch(action.type) {
     case SET_SELECTED_KEY:
       return action.selectedKey
@@ -24,20 +24,6 @@ const selectedKey = (state = "C", action) => {
 
 export const chart = (state = {}, action) => {
   switch(action.type) {
-    case COMMIT_CHART:
-      return action.chartSlug === state.slug ?
-        {
-          ...state,
-          edited: false,
-        } :
-        state
-    case EDIT_CHART:
-      return action.chartSlug === state.slug ?
-        {
-          ...state,
-          edited: true,
-        } :
-        state
     case REMOVE_CHART_PART:
       return action.chartSlug === state.slug ?
         {
@@ -54,17 +40,32 @@ export const chart = (state = {}, action) => {
 }
 
 
-const charts = (state = [], action) => state.map((item) => chart(item, action))
+export const charts = (state = [], action) => state.map((item) => chart(item, action))
+
+
+// Edited charts reducers
+
+
+export const editedChartSlugs = (state = [], action) => {
+  switch(action.type) {
+    case COMMIT_CHART:
+      return state.filter((chartSlug) => chartSlug !== action.chartSlug)
+    case EDIT_CHART:
+      return state.includes(action.chartSlug) ?
+        state :
+        [...state, action.chartSlug]
+    default:
+      return state
+  }
+}
 
 
 // Root reducer
 
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   appInfo,
   charts,
+  editedChartSlugs,
   selectedKey,
 })
-
-
-export default rootReducer

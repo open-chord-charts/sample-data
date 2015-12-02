@@ -6,7 +6,7 @@ import ChartRow from "./ChartRow"
 import Chord from "./Chord"
 
 
-const Chart = ({chart, chromaticKey, rowHeight = 60, nbBarsByRow = 8, onPartRemove, partNameColumnWidth = 30,
+const Chart = ({chart, chromaticKey, edited, rowHeight = 60, nbBarsByRow = 8, onPartRemove, partNameColumnWidth = 30,
     width = 800}) => {
   const rows = model.partsToRows(chart, nbBarsByRow)
   const structureWithRepetitionAnnotations = model.annotateStructureWithRepetitions(chart.structure)
@@ -22,7 +22,7 @@ const Chart = ({chart, chromaticKey, rowHeight = 60, nbBarsByRow = 8, onPartRemo
           structureWithRepetitionAnnotations.map(({partName, isRepetitedPart}, idx) => (
             rows[partName].map((bars, idx1) => (
               <ChartRow
-                edited={chart.edited}
+                edited={edited}
                 key={`${idx}${idx1}`}
                 onRemove={() => onPartRemove(idx)}
                 partName={partName}

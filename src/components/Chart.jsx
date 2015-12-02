@@ -24,7 +24,7 @@ const Chart = ({chart, chromaticKey, rowHeight = 60, nbBarsByRow = 8, onPartRemo
               <ChartRow
                 edited={chart.edited}
                 key={`${idx}${idx1}`}
-                onRemove={() => onPartRemove(partName)}
+                onRemove={() => onPartRemove(idx)}
                 partName={partName}
                 partNameColumnWidth={partNameColumnWidth}
               >

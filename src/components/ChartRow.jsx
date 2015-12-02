@@ -1,6 +1,13 @@
 const ChartRow = ({children, edited, onRemove, partName, partNameColumnWidth}) => {
   return (
     <tr>
+      {
+        edited && (
+          <td style={{paddingRight: "1em"}}>
+            <button onClick={onRemove}>Remove</button>
+          </td>
+        )
+      }
       <td style={{
         fontSize: "small",
         fontStyle: "italic",
@@ -10,14 +17,6 @@ const ChartRow = ({children, edited, onRemove, partName, partNameColumnWidth}) =
         width: partNameColumnWidth,
       }}>
         {partName}
-        {
-          edited && (
-            <div>
-              <button>Add before</button>
-              <button onClick={onRemove}>Remove</button>
-            </div>
-          )
-        }
       </td>
       {children}
     </tr>

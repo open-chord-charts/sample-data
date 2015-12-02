@@ -1,6 +1,6 @@
 import {combineReducers} from "redux"
 
-import {EDIT_CHART, REMOVE_CHART_PART, SET_SELECTED_KEY} from "./constants"
+import {COMMIT_CHART, EDIT_CHART, REMOVE_CHART_PART, SET_SELECTED_KEY} from "./constants"
 
 
 // Bench reducers
@@ -24,6 +24,13 @@ const selectedKey = (state = "C", action) => {
 
 export const chart = (state = {}, action) => {
   switch(action.type) {
+    case COMMIT_CHART:
+      return action.chartSlug === state.slug ?
+        {
+          ...state,
+          edited: false,
+        } :
+        state
     case EDIT_CHART:
       return action.chartSlug === state.slug ?
         {
@@ -35,7 +42,10 @@ export const chart = (state = {}, action) => {
       return action.chartSlug === state.slug ?
         {
           ...state,
-          structure: structure(state.structure, action),
+          structure: [
+            ...state.structure.slice(0, action.partIndexInStructure),
+            ...state.structure.slice(action.partIndexInStructure + 1),
+          ],
         } :
         state
     default:
@@ -44,27 +54,7 @@ export const chart = (state = {}, action) => {
 }
 
 
-const charts = (state = [], action) => {
-  switch(action.type) {
-    case EDIT_CHART:
-    case REMOVE_CHART_PART:
-      return state.map((item) => chart(item, action))
-    default:
-      return state
-  }
-}
-
-
-const structure = (state = [], action) => {
-  switch(action.type) {
-    case REMOVE_CHART_PART:
-      return state.filter((item) => item !== action.partName)
-    default:
-      return state
-  }
-}
-
-
+const charts = (state = [], action) => state.map((item) => chart(item, action))
 
 
 // Root reducer

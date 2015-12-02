@@ -2,10 +2,11 @@ import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
 import ChartBench from "../components/ChartBench"
-import {editChart, removeChartPart} from "../actions"
+import {commitChart, editChart, removeChartPart} from "../actions"
 
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+  commitChart,
   editChart,
   removeChartPart,
 }, dispatch)

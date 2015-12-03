@@ -22,10 +22,7 @@ const initialState = {
 
 const store = configureStore(initialState)
 
-const containerElement = document.createElement("div")
-containerElement.className = "container"
-document.body.appendChild(containerElement)
-
+const containerElement = document.getElementById("container")
 const width = containerElement.offsetWidth
 
 render(

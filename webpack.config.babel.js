@@ -25,7 +25,10 @@ const plugins = [
   new webpack.ProvidePlugin({
     React: "react", // For babel JSX transformation which generates React.createElement.
   }),
-  new HtmlWebpackPlugin({title: "OpenChordCharts sample data bench"}),
+  new HtmlWebpackPlugin({
+    inject: true,
+    template: "./index.template.html",
+  }),
 ]
 
 if (isProduction) {

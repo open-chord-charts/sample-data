@@ -12,7 +12,7 @@ export const toObject = tr.into({})
 export const chromaticKeys = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 
 
-export const annotateStructureWithRepetitions = (structure) => toArray(
+export const withRepetitions = (structure) => toArray(
   tr.transducer((xfStep, structure1, partName) => xfStep(
     structure1,
     {

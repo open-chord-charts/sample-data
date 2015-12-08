@@ -1,19 +1,27 @@
 import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
-import Chart from "../components/Chart"
 import {commitChart, editChart, redo, removePart, selectChord, undo} from "../actions"
+import {NB_BARS_BY_ROW} from "../constants"
+import * as model from "../model"
+import Chart from "../components/Chart"
 
 
 const mapStateToProps = (state, ownProps) => {
   const {slug} = ownProps.chart
   const chart = state.charts.find((chart1) => chart1.data.present.slug === slug)
+  const presentChart = chart.data.present
+  const rows = model.partsToRows(presentChart, NB_BARS_BY_ROW)
+  const structureWithRepetitions = model.withRepetitions(presentChart.structure)
   return {
-    chart: chart.data.present,
     edited: chart.isEdited,
-    selectedChord: chart.selectedChord,
-    undoDisabled: chart.data.past.length === 0,
+    nbBarsByRow: NB_BARS_BY_ROW,
     redoDisabled: chart.data.future.length === 0,
+    rows,
+    selectedChord: chart.selectedChord,
+    slug: presentChart.slug,
+    structureWithRepetitions,
+    undoDisabled: chart.data.past.length === 0,
   }
 }
 

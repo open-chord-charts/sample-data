@@ -7,7 +7,7 @@ import ChordsList from "./ChordsList"
 const getGitHubCommitUrl = (commit) => `https://github.com/openchordcharts/sample-data/commit/${commit}`
 
 
-const Bench = ({charts, gitCommitSha, initialWidth, lastUpdatedOn, packageVersion, selectedKey, setSelectedKey}) => (
+const Bench = ({charts, gitCommitSha, initialWidth, lastUpdatedOn, packageVersion, selectedKey, selectKey}) => (
   <div>
     <h1>OpenChordCharts bench</h1>
     <p>
@@ -25,7 +25,7 @@ const Bench = ({charts, gitCommitSha, initialWidth, lastUpdatedOn, packageVersio
       {" "}
       <select
         onChange={(event) => {
-          setSelectedKey(event.target.value)
+          selectKey(event.target.value)
         }}
         value={selectedKey}
       >

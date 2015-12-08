@@ -6,8 +6,18 @@ import ChartRow from "./ChartRow"
 import Chord from "./Chord"
 
 
-const Chart = ({chart, chromaticKey, edited, rowHeight = 60, nbBarsByRow = 8, onPartRemove, partNameColumnWidth = 30,
-    width = 800}) => {
+const Chart = ({
+  chart,
+  chromaticKey,
+  edited,
+  nbBarsByRow = 8,
+  partNameColumnWidth = 30,
+  removePart,
+  rowHeight = 60,
+  selectChord,
+  selectedChord,
+  width = 800,
+}) => {
   const rows = model.partsToRows(chart, nbBarsByRow)
   const structureWithRepetitionAnnotations = model.annotateStructureWithRepetitions(chart.structure)
   const style = {borderCollapse: "collapse", width: "initial"}
@@ -24,13 +34,28 @@ const Chart = ({chart, chromaticKey, edited, rowHeight = 60, nbBarsByRow = 8, on
               <ChartRow
                 edited={edited}
                 key={`${idx}${idx1}`}
-                onRemove={() => onPartRemove(idx)}
+                onRemove={() => removePart(chart.slug, idx)}
                 partName={partName}
                 partNameColumnWidth={partNameColumnWidth}
               >
                 {
                   bars.map((chords, idx2) => (
-                    <ChartCell height={isRepetitedPart ? rowHeight / 2 : rowHeight} key={idx2} width={chordColumnWidth}>
+                    <ChartCell
+                      height={isRepetitedPart ? rowHeight / 2 : rowHeight}
+                      key={idx2}
+                      onClick={
+                        edited ?
+                          (
+                            () => selectChord(chart.slug, partName, idx2)
+                          ) :
+                          null
+                      }
+                      selected={
+                        selectedChord.chordIndex === idx2 &&
+                        selectedChord.partName === partName
+                      }
+                      width={chordColumnWidth}
+                    >
                       {
                         (
                           isRepetitedPart ||

@@ -1,7 +1,7 @@
 import {combineReducers} from "redux"
 import undoable, {distinctState} from "redux-undo"
 
-import {COMMIT_CHART, EDIT_CHART, REMOVE_CHART_PART, SET_SELECTED_KEY} from "./constants"
+import {COMMIT_CHART, EDIT_CHART, REMOVE_PART, SELECT_CHORD, SELECT_KEY} from "./constants"
 
 
 // Bench reducers
@@ -12,7 +12,7 @@ export const appInfo = (state = {}) => state
 
 export const selectedKey = (state = "C", action) => {
   switch(action.type) {
-    case SET_SELECTED_KEY:
+    case SELECT_KEY:
       return action.selectedKey
     default:
       return state
@@ -28,7 +28,7 @@ export const data = (state = {}, action) => {
     return state
   }
   switch(action.type) {
-    case REMOVE_CHART_PART:
+    case REMOVE_PART:
       return {
         ...state,
         structure: [
@@ -65,9 +65,26 @@ export const isEdited = (slug) => (state = false, action) => {
 }
 
 
+export const selectedChord = (slug) => (state = {}, action) => {
+  if (slug !== action.slug) {
+    return state
+  }
+  switch(action.type) {
+    case SELECT_CHORD:
+      return {
+        chordIndex: action.chordIndex,
+        partName: action.partName,
+      }
+    default:
+      return state
+  }
+}
+
+
 export const chart = (state = {}, action) => ({
   data: undoableData(state.data.present.slug)(state.data, action),
   isEdited: isEdited(state.data.present.slug)(state.isEdited, action),
+  selectedChord: selectedChord(state.data.present.slug)(state.selectedChord, action),
 })
 
 

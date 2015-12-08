@@ -1,17 +1,22 @@
 import ChartBar from "./ChartBar"
 
 
-const ChartCell = ({children, height, width}) => {
+const ChartCell = ({children, height, onClick, selected, width}) => {
   return (
-    <td style={{
-      border: "1px solid #ddd",
-      height,
-      lineHeight: 0,
-      padding: 0,
-      textAlign: "center",
-      verticalAlign: "middle",
-      width,
-    }}>
+    <td
+      onClick={onClick}
+      style={{
+        border: selected ?
+          "3px solid #ddd" :
+          "1px solid #ddd",
+        height,
+        lineHeight: 0,
+        padding: 0,
+        textAlign: "center",
+        verticalAlign: "middle",
+        width,
+      }}
+    >
       <ChartBar {...{height, width}}>
         {children}
       </ChartBar>

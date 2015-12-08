@@ -1,11 +1,21 @@
-import Chart from "./Chart"
+import Chart from "../containers/Chart"
 
 
 const getGitHubBlobUrl = (slug) => `https://github.com/openchordcharts/sample-data/blob/master/data/charts/${slug}.json`
 
 
-const ChartBench = ({chart, chromaticKey, commitChart, editChart, edited, redo, redoDisabled,
-    removeChartPart, undo, undoDisabled, width}) => (
+const ChartBench = ({
+  chart,
+  chromaticKey,
+  commitChart,
+  editChart,
+  edited,
+  redo,
+  redoDisabled,
+  undo,
+  undoDisabled,
+  width,
+}) => (
   <article>
     <h1 id={chart.slug}>
       {chart.title}
@@ -30,12 +40,7 @@ const ChartBench = ({chart, chromaticKey, commitChart, editChart, edited, redo, 
         )
       }
     </h1>
-    <Chart
-      {...{chart, chromaticKey, edited, width}}
-      onPartRemove={(partIndexInStructure) => {
-        removeChartPart(chart.slug, partIndexInStructure)
-      }}
-    />
+    <Chart {...{chart, chromaticKey, edited, width}} />
   </article>
 )
 

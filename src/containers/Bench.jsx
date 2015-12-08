@@ -2,7 +2,7 @@ import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
 import Bench from "../components/Bench"
-import {setSelectedKey} from "../actions"
+import {selectKey} from "../actions"
 
 
 const mapStateToProps = (state) => ({
@@ -13,6 +13,6 @@ const mapStateToProps = (state) => ({
   selectedKey: state.selectedKey,
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({setSelectedKey}, dispatch)
+const mapDispatchToProps = (dispatch) => bindActionCreators({selectKey}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bench)

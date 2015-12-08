@@ -70,6 +70,8 @@ export const selectedChord = (slug) => (state = {}, action) => {
     return state
   }
   switch(action.type) {
+    case COMMIT_CHART:
+      return {}
     case SELECT_CHORD:
       return {
         chordIndex: action.chordIndex,

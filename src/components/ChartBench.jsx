@@ -40,7 +40,7 @@ const ChartBench = ({
         )
       }
     </h1>
-    <Chart {...{chart, chromaticKey, edited, width}} />
+    <Chart {...{chromaticKey, edited, width}} slug={chart.slug} />
   </article>
 )
 

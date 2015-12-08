@@ -7,11 +7,12 @@ import {commitChart, editChart, redo, removeChartPart, undo} from "../actions"
 
 const mapStateToProps = (state, ownProps) => {
   const {slug} = ownProps.chart
-  const chart = state.charts.find((chart1) => chart1.present.slug === slug)
+  // TODO Use normalizr.
+  const chart = state.charts.find((chart1) => chart1.data.present.slug === slug)
   return {
-    edited: state.editedChartSlugs.includes(slug),
-    undoDisabled: chart.past.length === 0,
-    redoDisabled: chart.future.length === 0,
+    edited: chart.isEdited,
+    undoDisabled: chart.data.past.length === 0,
+    redoDisabled: chart.data.future.length === 0,
   }
 }
 

@@ -23,24 +23,26 @@ export const selectedKey = (state = "C", action) => {
 // Chart reducers
 
 
-export const chart = (state = {}, action) => {
+export const data = (state = {}, action) => {
+  if (state.slug !== action.slug) {
+    return state
+  }
   switch(action.type) {
     case REMOVE_CHART_PART:
-      return action.chartSlug === state.slug ?
-        {
-          ...state,
-          structure: [
-            ...state.structure.slice(0, action.partIndexInStructure),
-            ...state.structure.slice(action.partIndexInStructure + 1),
-          ],
-        } :
-        state
+      return {
+        ...state,
+        structure: [
+          ...state.structure.slice(0, action.partIndexInStructure),
+          ...state.structure.slice(action.partIndexInStructure + 1),
+        ],
+      }
     default:
       return state
   }
 }
 
-const undoableChart = (slug) => undoable(chart, {
+
+const undoableData = (slug) => undoable(data, {
   // debug: true,
   filter: distinctState(),
   redoType: `REDO/${slug}`,
@@ -48,24 +50,28 @@ const undoableChart = (slug) => undoable(chart, {
 })
 
 
-export const charts = (state = [], action) => state.map((chart1) => undoableChart(chart1.present.slug)(chart1, action))
-
-
-// Edited charts reducers
-
-
-export const editedChartSlugs = (state = [], action) => {
+export const isEdited = (slug) => (state = false, action) => {
+  if (slug !== action.slug) {
+    return state
+  }
   switch(action.type) {
     case COMMIT_CHART:
-      return state.filter((chartSlug) => chartSlug !== action.chartSlug)
+      return false
     case EDIT_CHART:
-      return state.includes(action.chartSlug) ?
-        state :
-        [...state, action.chartSlug]
+      return true
     default:
       return state
   }
 }
+
+
+export const chart = (state = {}, action) => ({
+  data: undoableData(state.data.present.slug)(state.data, action),
+  isEdited: isEdited(state.data.present.slug)(state.isEdited, action),
+})
+
+
+export const charts = (state = [], action) => state.map((chart1) => chart(chart1, action))
 
 
 // Root reducer
@@ -74,6 +80,5 @@ export const editedChartSlugs = (state = [], action) => {
 export const rootReducer = combineReducers({
   appInfo,
   charts,
-  editedChartSlugs,
   selectedKey,
 })

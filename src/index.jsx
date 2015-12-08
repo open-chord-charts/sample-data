@@ -17,7 +17,7 @@ const appInfo = {
 
 const initialState = {
   appInfo,
-  charts: charts.map((chart) => ({present: chart})), // The "present" key is for redux-undo.
+  charts: charts.map((chart) => ({data: {present: chart}})), // The "present" key is for redux-undo.
 }
 
 const store = configureStore(initialState)

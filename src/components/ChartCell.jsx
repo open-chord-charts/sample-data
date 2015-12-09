@@ -6,9 +6,9 @@ const ChartCell = ({children, height, onClick, selected, width}) => {
     <td
       onClick={onClick}
       style={{
-        border: selected ?
-          "3px solid #ddd" :
-          "1px solid #ddd",
+        borderColor: "#ddd",
+        borderStyle: "solid",
+        borderWidth: selected ? 3 : 1,
         height,
         lineHeight: 0,
         padding: 0,

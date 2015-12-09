@@ -24,18 +24,17 @@ export const selectedKey = (state = "C", action) => {
 
 
 export const data = (state = {}, action) => {
-  if (state.slug !== action.slug) {
-    return state
-  }
   switch(action.type) {
     case REMOVE_PART:
-      return {
-        ...state,
-        structure: [
-          ...state.structure.slice(0, action.partIndexInStructure),
-          ...state.structure.slice(action.partIndexInStructure + 1),
-        ],
-      }
+      return state.slug === action.chartSlug ?
+        {
+          ...state,
+          structure: [
+            ...state.structure.slice(0, action.index),
+            ...state.structure.slice(action.index + 1),
+          ],
+        } :
+        state
     default:
       return state
   }
@@ -51,14 +50,11 @@ const undoableData = (slug) => undoable(data, {
 
 
 export const isEdited = (slug) => (state = false, action) => {
-  if (slug !== action.slug) {
-    return state
-  }
   switch(action.type) {
     case COMMIT_CHART:
-      return false
+      return slug === action.slug ? false : state
     case EDIT_CHART:
-      return true
+      return slug === action.slug ? true : state
     default:
       return state
   }
@@ -66,17 +62,18 @@ export const isEdited = (slug) => (state = false, action) => {
 
 
 export const selectedChord = (slug) => (state = {}, action) => {
-  if (slug !== action.slug) {
-    return state
-  }
   switch(action.type) {
     case COMMIT_CHART:
-      return {}
+      return slug === action.slug ? {} : state
+    case REMOVE_PART:
+      return slug === action.chartSlug ? {} : state
     case SELECT_CHORD:
-      return {
-        chordIndex: action.chordIndex,
-        partName: action.partName,
-      }
+      return slug === action.chartSlug ?
+        {
+          index: action.index,
+          partName: action.partName,
+        } :
+        state
     default:
       return state
   }

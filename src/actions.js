@@ -13,17 +13,17 @@ export const editChart = (slug) => ({
 })
 
 
-export const removePart = (slug, partIndexInStructure) => ({
-  slug,
-  partIndexInStructure,
+export const removePart = (chartSlug, index) => ({
+  chartSlug,
+  index,
   type: REMOVE_PART,
 })
 
 
-export const selectChord = (slug, partName, chordIndex) => ({
-  slug,
+export const selectChord = (chartSlug, partName, index) => ({
+  chartSlug,
   partName,
-  chordIndex,
+  index,
   type: SELECT_CHORD,
 })
 

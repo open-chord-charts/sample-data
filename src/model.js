@@ -30,13 +30,17 @@ export const withIndexProperty = (propertyName) => {
 
 
 export const withRepetitions = (structure) => toArray(
-  tr.transducer((xfStep, structure1, partName) => xfStep(
-    structure1,
-    {
-      partName,
-      isRepetitedPart: structure1.map((item) => item.partName).includes(partName),
+  tr.transducer(
+    function step(xfStep, structure1, partName) {
+      return xfStep(
+        structure1,
+        {
+          partName,
+          isRepetitedPart: structure1.map((item) => item.partName).includes(partName),
+        },
+      )
     },
-  )),
+  ),
   structure,
 )
 
@@ -47,31 +51,38 @@ export const withRepetitions = (structure) => toArray(
 // The returned list is a list of lists.
 export const chordsToBars = () => {
   let barChords = []
-  return tr.transducer(function step(xfStep, bars, chord) {
-    if (chord.duration > 1) {
-      let remainingDuration = chord.duration
-      while (remainingDuration > 0) {
-        xfStep(bars, [chord])
-        remainingDuration -= 1
+  return tr.transducer(
+    function step(xfStep, bars, chord) {
+      if (chord.duration > 1) {
+        let remainingDuration = chord.duration
+        while (remainingDuration > 0) {
+          xfStep(bars, [chord])
+          remainingDuration -= 1
+        }
+        if (remainingDuration > 0) {
+          barChords.push({
+            ...chord,
+            duration: remainingDuration,
+          })
+        }
+      } else {
+        barChords.push(chord)
       }
-      if (remainingDuration > 0) {
-        barChords.push({
-          ...chord,
-          duration: remainingDuration,
-        })
+      if (barChords.length) {
+        const barChordsDurationSum = tr.transduce(
+          tr.map(barChord => barChord.duration),
+          tr.completing(sum),
+          0,
+          barChords,
+        )
+        if (barChordsDurationSum >= 1) {
+          xfStep(bars, barChords)
+          barChords = []
+        }
       }
-    } else {
-      barChords.push(chord)
+      return bars
     }
-    if (barChords.length) {
-      const barChordsDurationSum = tr.transduce(tr.map(barChord => barChord.duration), tr.completing(sum), 0, barChords)
-      if (barChordsDurationSum >= 1) {
-        xfStep(bars, barChords)
-        barChords = []
-      }
-    }
-    return bars
-  })
+  )
 }
 
 
@@ -95,13 +106,15 @@ export const findAllUniqueChordAlterations = (charts, degree = 0) => toArray(
   tr.compose(
     tr.mapcat((chart) => chart.parts),
     tr.mapcat(([, partChords]) => partChords),
-    tr.transducer(function step(xfStep, chords, chord) {
-      const isNewChord = chords.every((chord1) => !deepEqual(chord.alterations, chord1.alterations))
-      if (isNewChord) {
-        xfStep(chords, {...chord, degree})
+    tr.transducer(
+      function step(xfStep, chords, chord) {
+        const isNewChord = chords.every((chord1) => !deepEqual(chord.alterations, chord1.alterations))
+        if (isNewChord) {
+          xfStep(chords, {...chord, degree})
+        }
+        return chords
       }
-      return chords
-    }),
+    ),
   ),
   charts,
 )

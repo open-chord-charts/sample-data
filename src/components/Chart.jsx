@@ -44,12 +44,12 @@ const Chart = ({
                     onClick={
                       edited ?
                         (
-                          () => selectChord(slug, partName, idx2)
+                          () => selectChord(slug, partName, chords[0].indexInPart)
                         ) :
                         null
                     }
                     selected={
-                      selectedChord.chordIndex === idx2 &&
+                      selectedChord.index === chords[0].indexInPart &&
                       selectedChord.partName === partName
                     }
                     width={

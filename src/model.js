@@ -12,6 +12,23 @@ export const toObject = tr.into({})
 export const chromaticKeys = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 
 
+export const withIndexProperty = (propertyName) => {
+  let index = -1
+  return tr.transducer(
+    function step(xfStep, value, input) {
+      index++
+      return xfStep(
+        value,
+        {
+          ...input,
+          [propertyName]: index,
+        },
+      )
+    }
+  )
+}
+
+
 export const withRepetitions = (structure) => toArray(
   tr.transducer((xfStep, structure1, partName) => xfStep(
     structure1,
@@ -60,6 +77,7 @@ export const chordsToBars = () => {
 
 export const chordsToRows = (chords, nbBarsByRow) => toArray(
   tr.compose(
+    withIndexProperty("indexInPart"),
     chordsToBars(),
     tr.partitionAll(nbBarsByRow),
   ),

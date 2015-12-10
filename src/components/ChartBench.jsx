@@ -30,7 +30,8 @@ const ChartBench = ({
           
         </a>
       </small>
-      {" "}
+    </h1>
+    <p>
       {
         edited ? (
           <span>
@@ -38,29 +39,26 @@ const ChartBench = ({
             {" "}
             <button disabled={undoDisabled} onClick={undo}>Undo</button>
             <button disabled={redoDisabled} onClick={redo}>Redo</button>
+            {" "}
             {
-              selectedChord ?
-                (
-                  <span>
-                    {" "}
-                    <KeySelect
-                      onChange={
-                        (value) => {
-                          selectChordKey(chart.slug, selectedChord.partName, selectedChord.index, value)
-                        }
-                      }
-                      value={selectedChord.key}
-                    />
-                  </span>
-                ) :
-                null
+              Object.keys(selectedChord).length ? (
+                <KeySelect
+                  onChange={
+                    (value) => {
+                      selectChordKey(chart.slug, selectedChord.partName, selectedChord.index, value)
+                    }
+                  }
+                  value={Object.keys(selectedChord).length ? selectedChord.key : null}
+                />
+              ) :
+              "no chord selected"
             }
           </span>
         ) : (
           <button onClick={() => { editChart(chart.slug) }}>Edit</button>
         )
       }
-    </h1>
+    </p>
     <Chart {...{chromaticKey, edited, width}} slug={chart.slug} />
   </article>
 )

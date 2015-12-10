@@ -1,6 +1,5 @@
 import AutoWidth from "./AutoWidth"
 import ChartBench from "../containers/ChartBench"
-import ChordsList from "./ChordsList"
 import KeySelect from "./KeySelect"
 
 
@@ -15,7 +14,6 @@ const Bench = ({
   packageVersion,
   selectedKey,
   selectKey,
-  uniqueChords,
 }) => (
   <div>
     <h1>OpenChordCharts bench</h1>
@@ -37,11 +35,6 @@ const Bench = ({
         value={selectedKey}
       />
     </p>
-    <section>
-      <h1>Chords</h1>
-      <p>These chords were found in charts, deduped and expressed in {selectedKey} key:</p>
-    </section>
-    <ChordsList chords={uniqueChords} chromaticKey={selectedKey} />
     <section>
       <h1>Charts</h1>
       <AutoWidth initialWidth={initialWidth}>

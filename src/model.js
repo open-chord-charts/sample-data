@@ -1,5 +1,4 @@
 import * as tr from "transduce"
-import deepEqual from "deep-equal"
 
 
 // Functional helpers
@@ -99,22 +98,4 @@ export const chordsToRows = (chords, nbBarsByRow) => toArray(
 export const partsToRows = (chart, nbBarsByRow) => toObject(
   tr.map(([partName, chords]) => [partName, chordsToRows(chords, nbBarsByRow)]),
   chart.parts,
-)
-
-
-export const findUniqueChords = (charts, degree = 0) => toArray(
-  tr.compose(
-    tr.mapcat((chart) => chart.parts),
-    tr.mapcat(([, partChords]) => partChords),
-    tr.transducer(
-      function step(xfStep, chords, chord) {
-        const isNewChord = chords.every((chord1) => !deepEqual(chord.alterations, chord1.alterations))
-        if (isNewChord) {
-          xfStep(chords, {...chord, degree})
-        }
-        return chords
-      }
-    ),
-  ),
-  charts,
 )

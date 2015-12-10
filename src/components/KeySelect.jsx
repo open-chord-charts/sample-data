@@ -1,4 +1,4 @@
-import * as model from "../model"
+import {CHROMATIC_KEYS} from "../constants"
 
 
 const KeySelect = ({onChange, value}) => (
@@ -11,7 +11,7 @@ const KeySelect = ({onChange, value}) => (
     value={value}
   >
     {
-      model.chromaticKeys.map((key, idx) => (
+      CHROMATIC_KEYS.map((key, idx) => (
         <option key={idx} value={key}>{key}</option>
       ))
     }

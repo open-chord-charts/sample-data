@@ -2,19 +2,20 @@ import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
 import {commitChart, editChart, redo, selectChordKey, undo} from "../actions"
-import {selectChart, selectChordName, selectSelectedChordInChart} from "../selectors"
+import * as selectors from "../selectors"
 import ChartBench from "../components/ChartBench"
 
 
 const mapStateToProps = (state, ownProps) => {
   const {slug} = ownProps.chart
-  const chart = selectChart(state, slug)
+  const chart = selectors.selectChart(state, slug)
   let {selectedChord} = chart
   if (Object.keys(chart.selectedChord).length) {
-    const selectedChordInChart = selectSelectedChordInChart(chart)
+    const {degree} = selectors.selectChord(state, slug, selectedChord.partName, selectedChord.index)
+    const selectedChordKey = selectors.selectKeyFromDegree(degree, state.selectedKey)
     selectedChord = {
       ...selectedChord,
-      key: selectChordName(selectedChordInChart, state.selectedKey),
+      key: selectedChordKey,
     }
   }
   return {

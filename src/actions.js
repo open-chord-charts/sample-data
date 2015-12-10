@@ -28,8 +28,8 @@ export const selectChord = (chartSlug, partName, index) => ({
 })
 
 
-export const selectKey = (selectedKey) => ({
-  selectedKey,
+export const selectKey = (key) => ({
+  key,
   type: SELECT_KEY,
 })
 

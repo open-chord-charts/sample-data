@@ -13,7 +13,7 @@ export const appInfo = (state = {}) => state
 export const selectedKey = (state = "C", action) => {
   switch(action.type) {
     case SELECT_KEY:
-      return action.selectedKey
+      return action.key
     default:
       return state
   }

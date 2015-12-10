@@ -1,13 +1,22 @@
-import * as model from "../model"
 import AutoWidth from "./AutoWidth"
 import ChartBench from "../containers/ChartBench"
 import ChordsList from "./ChordsList"
+import KeySelect from "./KeySelect"
 
 
 const getGitHubCommitUrl = (commit) => `https://github.com/openchordcharts/sample-data/commit/${commit}`
 
 
-const Bench = ({charts, gitCommitSha, initialWidth, lastUpdatedOn, packageVersion, selectedKey, selectKey}) => (
+const Bench = ({
+  charts,
+  gitCommitSha,
+  initialWidth,
+  lastUpdatedOn,
+  packageVersion,
+  selectedKey,
+  selectKey,
+  uniqueChords,
+}) => (
   <div>
     <h1>OpenChordCharts bench</h1>
     <p>
@@ -23,24 +32,16 @@ const Bench = ({charts, gitCommitSha, initialWidth, lastUpdatedOn, packageVersio
     <p>
       Current key:
       {" "}
-      <select
-        onChange={(event) => {
-          selectKey(event.target.value)
-        }}
+      <KeySelect
+        onChange={(value) => { selectKey(value) }}
         value={selectedKey}
-      >
-        {
-          model.chromaticKeys.map((key, idx) => (
-            <option key={idx} value={key}>{key}</option>
-          ))
-        }
-      </select>
+      />
     </p>
     <section>
       <h1>Chords</h1>
       <p>These chords were found in charts, deduped and expressed in {selectedKey} key:</p>
     </section>
-    <ChordsList chords={model.findAllUniqueChordAlterations(charts)} chromaticKey={selectedKey} />
+    <ChordsList chords={uniqueChords} chromaticKey={selectedKey} />
     <section>
       <h1>Charts</h1>
       <AutoWidth initialWidth={initialWidth}>

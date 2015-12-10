@@ -102,7 +102,7 @@ export const partsToRows = (chart, nbBarsByRow) => toObject(
 )
 
 
-export const findAllUniqueChordAlterations = (charts, degree = 0) => toArray(
+export const findUniqueChords = (charts, degree = 0) => toArray(
   tr.compose(
     tr.mapcat((chart) => chart.parts),
     tr.mapcat(([, partChords]) => partChords),

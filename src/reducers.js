@@ -1,7 +1,8 @@
 import {combineReducers} from "redux"
 import undoable, {distinctState} from "redux-undo"
 
-import {COMMIT_CHART, EDIT_CHART, REMOVE_PART, SELECT_CHORD, SELECT_KEY} from "./constants"
+import {COMMIT_CHART, EDIT_CHART, REMOVE_PART, SELECT_CHORD, SELECT_KEY, SELECT_CHORD_KEY} from "./constants"
+import {selectDegreeFromKey} from "./selectors"
 
 
 // Bench reducers
@@ -33,6 +34,23 @@ export const data = (state = {}, action) => {
             ...state.structure.slice(0, action.index),
             ...state.structure.slice(action.index + 1),
           ],
+        } :
+        state
+    case SELECT_CHORD_KEY:
+      return state.slug === action.chartSlug ?
+        {
+          ...state,
+          parts: {
+            ...state.parts,
+            [action.partName]: [
+              ...state.parts[action.partName].slice(0, action.index),
+              {
+                ...state.parts[action.partName][action.index],
+                degree: selectDegreeFromKey(action.key, state.key),
+              },
+              ...state.parts[action.partName].slice(action.index + 1),
+            ],
+          },
         } :
         state
     default:

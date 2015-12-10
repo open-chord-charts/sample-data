@@ -1,4 +1,4 @@
-import {COMMIT_CHART, EDIT_CHART, REMOVE_PART, SELECT_CHORD, SELECT_KEY} from "./constants"
+import {COMMIT_CHART, EDIT_CHART, REMOVE_PART, SELECT_CHORD, SELECT_KEY, SELECT_CHORD_KEY} from "./constants"
 
 
 export const commitChart = (slug) => ({
@@ -31,6 +31,15 @@ export const selectChord = (chartSlug, partName, index) => ({
 export const selectKey = (key) => ({
   key,
   type: SELECT_KEY,
+})
+
+
+export const selectChordKey = (chartSlug, partName, index, key) => ({
+  chartSlug,
+  key,
+  index,
+  partName,
+  type: SELECT_CHORD_KEY,
 })
 
 

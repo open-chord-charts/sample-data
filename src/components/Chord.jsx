@@ -1,13 +1,14 @@
 import {chromaticKeys} from "../model"
 
 
-const renderChordName = (chord, key) =>
-  chromaticKeys[(chromaticKeys.indexOf(key) + chord.degree) % chromaticKeys.length]
+// TODO Use container for this.
+const renderChordName = (degree, key) =>
+  chromaticKeys[(chromaticKeys.indexOf(key) + degree) % chromaticKeys.length]
 
 
 const Chord = ({chord, chromaticKey}) => (
   <tspan>
-    <tspan>{renderChordName(chord, chromaticKey)}</tspan>
+    <tspan>{renderChordName(chord.degree, chromaticKey)}</tspan>
     {
       chord.alterations && chord.alterations.map((alteration, idx) => (
         <tspan key={idx}>

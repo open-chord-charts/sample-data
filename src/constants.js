@@ -1,5 +1,6 @@
 export const COMMIT_CHART = "COMMIT_CHART"
 export const EDIT_CHART = "EDIT_CHART"
+export const ENABLE_DEV_TOOLS = "ENABLE_DEV_TOOLS"
 export const REMOVE_PART = "REMOVE_PART"
 export const SELECT_CHORD = "SELECT_CHORD"
 export const SELECT_KEY = "SELECT_KEY"

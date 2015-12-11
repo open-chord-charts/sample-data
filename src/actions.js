@@ -1,4 +1,30 @@
-import {COMMIT_CHART, EDIT_CHART, REMOVE_PART, SELECT_CHORD, SELECT_KEY, SELECT_CHORD_KEY} from "./constants"
+import {
+  COMMIT_CHART,
+  EDIT_CHART,
+  ENABLE_DEV_TOOLS,
+  REMOVE_PART,
+  SELECT_CHORD,
+  SELECT_KEY,
+  SELECT_CHORD_KEY,
+} from "./constants"
+
+
+// Bench actions.
+
+
+export const enableDevTools = (enabled) => ({
+  enabled,
+  type: ENABLE_DEV_TOOLS,
+})
+
+
+export const selectKey = (key) => ({
+  key,
+  type: SELECT_KEY,
+})
+
+
+// Chart actions.
 
 
 export const commitChart = (slug) => ({
@@ -28,12 +54,6 @@ export const selectChord = (chartSlug, partName, index) => ({
 })
 
 
-export const selectKey = (key) => ({
-  key,
-  type: SELECT_KEY,
-})
-
-
 export const selectChordKey = (chartSlug, partName, index, key) => ({
   chartSlug,
   key,
@@ -43,7 +63,10 @@ export const selectChordKey = (chartSlug, partName, index, key) => ({
 })
 
 
-// Undo
+// Undo actions.
+
 
 export const redo = (slug) => () => ({type: `REDO/${slug}`})
+
+
 export const undo = (slug) => () => ({type: `UNDO/${slug}`})

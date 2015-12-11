@@ -6,7 +6,6 @@ import {render} from "react-dom"
 import Bench from "./containers/Bench"
 import charts from "./charts-data"
 import configureStore from "./store"
-import DevTools from "./containers/DevTools"
 
 
 const appInfo = {
@@ -28,10 +27,7 @@ const width = containerElement.offsetWidth
 render(
   (
     <Provider store={store}>
-      <div>
-        <Bench initialWidth={width} />
-        <DevTools />
-      </div>
+      <Bench initialWidth={width} />
     </Provider>
   ),
   containerElement,

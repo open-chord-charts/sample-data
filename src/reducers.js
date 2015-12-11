@@ -1,7 +1,15 @@
 import {combineReducers} from "redux"
 import undoable, {distinctState} from "redux-undo"
 
-import {COMMIT_CHART, EDIT_CHART, REMOVE_PART, SELECT_CHORD, SELECT_KEY, SELECT_CHORD_KEY} from "./constants"
+import {
+  COMMIT_CHART,
+  EDIT_CHART,
+  ENABLE_DEV_TOOLS,
+  REMOVE_PART,
+  SELECT_CHORD,
+  SELECT_KEY,
+  SELECT_CHORD_KEY,
+} from "./constants"
 import * as selectors from "./selectors"
 
 
@@ -9,6 +17,16 @@ import * as selectors from "./selectors"
 
 
 export const appInfo = (state = {}) => state
+
+
+export const isDevToolsEnabled = (state = false, action) => {
+  switch(action.type) {
+    case ENABLE_DEV_TOOLS:
+      return action.enabled
+    default:
+      return state
+  }
+}
 
 
 export const selectedKey = (state = "C", action) => {
@@ -114,5 +132,6 @@ export const charts = (state = [], action) => state.map((chart1) => chart(chart1
 export const rootReducer = combineReducers({
   appInfo,
   charts,
+  isDevToolsEnabled,
   selectedKey,
 })

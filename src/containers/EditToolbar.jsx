@@ -3,23 +3,25 @@ import {connect} from "react-redux"
 
 import {commitChart, editChart, redo, selectChordKey, undo} from "../actions"
 import * as selectors from "../selectors"
-import ChartBench from "../components/ChartBench"
+import EditToolbar from "../components/EditToolbar"
 
 
 const mapStateToProps = (state, ownProps) => {
-  const {slug} = ownProps.chart
-  const chart = selectors.selectChart(state, slug)
+  const {chartSlug} = ownProps
+  const chart = selectors.selectChart(state, chartSlug)
   let {selectedChord} = chart
   if (Object.keys(chart.selectedChord).length) {
-    const {degree} = selectors.selectChord(state, slug, selectedChord.partName, selectedChord.index)
+    const {degree} = selectors.selectChord(state, chartSlug, selectedChord.partName, selectedChord.index)
     const selectedChordKey = selectors.selectKeyFromDegree(degree, state.selectedKey)
     selectedChord = {
       ...selectedChord,
       key: selectedChordKey,
     }
   }
+  const gitHubBlobUrl = selectors.selectGitHubBlobUrl(chartSlug)
   return {
     edited: chart.isEdited,
+    gitHubBlobUrl,
     redoDisabled: chart.data.future.length === 0,
     selectedChord,
     undoDisabled: chart.data.past.length === 0,
@@ -27,17 +29,17 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const {slug} = ownProps.chart
+  const {chartSlug} = ownProps
   return bindActionCreators(
     {
       commitChart,
       editChart,
-      redo: redo(slug),
+      redo: redo(chartSlug),
       selectChordKey,
-      undo: undo(slug),
+      undo: undo(chartSlug),
     },
     dispatch,
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChartBench)
+export default connect(mapStateToProps, mapDispatchToProps)(EditToolbar)

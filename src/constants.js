@@ -8,3 +8,5 @@ export const SELECT_CHORD_KEY = "SELECT_CHORD_KEY"
 
 export const CHROMATIC_KEYS = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 export const NB_BARS_BY_ROW = 8
+export const CHART_PART_NAME_COLUMN_WIDTH = 30
+export const CHART_ROW_HEIGHT = 60

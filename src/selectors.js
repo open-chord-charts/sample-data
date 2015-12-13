@@ -134,3 +134,10 @@ export const selectDegreeFromKey = (chordKey, chartKey) =>
 
 export const selectKeyFromDegree = (chordDegree, chartKey) =>
     CHROMATIC_KEYS[(CHROMATIC_KEYS.indexOf(chartKey) + chordDegree) % CHROMATIC_KEYS.length]
+
+
+export const selectGitHubBlobUrl = (chartSlug) =>
+  `https://github.com/openchordcharts/sample-data/blob/master/data/charts/${chartSlug}.json`
+
+
+export const selectGitHubCommitUrl = (commit) => `https://github.com/openchordcharts/sample-data/commit/${commit}`

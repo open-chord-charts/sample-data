@@ -1,16 +1,13 @@
 import AutoWidth from "./AutoWidth"
-import ChartBench from "../containers/ChartBench"
+import ChartBench from "../components/ChartBench"
 import DevTools from "../containers/DevTools"
 import KeySelect from "./KeySelect"
-
-
-const getGitHubCommitUrl = (commit) => `https://github.com/openchordcharts/sample-data/commit/${commit}`
 
 
 const Bench = ({
   charts,
   enableDevTools,
-  gitCommitSha,
+  gitHubCommitUrl,
   initialWidth,
   isDevToolsEnabled,
   lastUpdatedOn,
@@ -23,7 +20,7 @@ const Bench = ({
     <p>
       Version {packageVersion}, last updated on
       {" "}
-      <a href={getGitHubCommitUrl(gitCommitSha)}>{lastUpdatedOn}</a>.
+      <a href={gitHubCommitUrl}>{lastUpdatedOn}</a>.
     </p>
     <p>
       <label>
@@ -57,7 +54,7 @@ const Bench = ({
       <AutoWidth initialWidth={initialWidth}>
         {
           charts.map((chart, idx) => (
-            <ChartBench chart={chart} chromaticKey={selectedKey} key={idx} />
+            <ChartBench chartSlug={chart.slug} chartTitle={chart.title} key={idx} />
           ))
         }
       </AutoWidth>

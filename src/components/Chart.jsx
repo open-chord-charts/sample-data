@@ -1,18 +1,17 @@
 import deepEqual from "deep-equal"
 
-import {NB_BARS_BY_ROW} from "../constants"
+import {CHART_PART_NAME_COLUMN_WIDTH, CHART_ROW_HEIGHT, NB_BARS_BY_ROW} from "../constants"
 import ChartCell from "./ChartCell"
 import ChartRow from "./ChartRow"
-import Chord from "./Chord"
+import Chord from "../containers/Chord"
 
 
 const Chart = ({
-  chromaticKey,
   edited,
   nbBarsByRow = NB_BARS_BY_ROW,
-  partNameColumnWidth = 30,
+  partNameColumnWidth = CHART_PART_NAME_COLUMN_WIDTH,
   removePart,
-  rowHeight = 60,
+  rowHeight = CHART_ROW_HEIGHT,
   rows,
   selectChord,
   selectedChord,
@@ -69,7 +68,6 @@ const Chart = ({
                         chords.map((chord, idx3) => (
                           <Chord
                             alterations={chord.alterations}
-                            chartKey={chromaticKey}
                             degree={chord.degree}
                             key={idx3}
                           />

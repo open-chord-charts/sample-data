@@ -1,9 +1,6 @@
-import * as selectors from "../selectors"
-
-
-const Chord = ({alterations, chartKey, degree}) => (
+const Chord = ({alterations = null, chordKey}) => (
   <tspan>
-    <tspan>{selectors.selectKeyFromDegree(degree, chartKey)}</tspan>
+    <tspan>{chordKey}</tspan>
     {
       alterations && alterations.map((alteration, idx) => (
         <tspan key={idx}>

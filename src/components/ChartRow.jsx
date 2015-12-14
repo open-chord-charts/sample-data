@@ -1,21 +1,25 @@
-const ChartRow = ({children, edited, onRemove, partName, partNameColumnWidth}) => {
+import {CHART_PART_NAME_COLUMN_WIDTH} from "../constants"
+
+
+const ChartRow = ({
+  children,
+  onPartNameClick = null,
+  partName,
+  partNameColumnWidth = CHART_PART_NAME_COLUMN_WIDTH,
+}) => {
   return (
     <tr>
-      {
-        edited && (
-          <td style={{paddingRight: "1em"}}>
-            <button onClick={onRemove}>Remove</button>
-          </td>
-        )
-      }
-      <td style={{
-        fontSize: "small",
-        fontStyle: "italic",
-        fontWeight: "bold",
-        lineHeight: 0,
-        verticalAlign: "middle",
-        width: partNameColumnWidth,
-      }}>
+      <td
+        onClick={onPartNameClick}
+        style={{
+          fontSize: "small",
+          fontStyle: "italic",
+          fontWeight: "bold",
+          lineHeight: 0,
+          verticalAlign: "middle",
+          width: partNameColumnWidth,
+        }}
+      >
         {partName}
       </td>
       {children}

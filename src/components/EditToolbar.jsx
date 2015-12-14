@@ -1,3 +1,4 @@
+import AlterationSelect from "./AlterationSelect"
 import KeySelect from "./KeySelect"
 
 
@@ -7,10 +8,15 @@ const EditToolbar = ({
   editChart,
   edited,
   gitHubBlobUrl,
-  selectChordKey,
+  insertChord,
   redo,
   redoDisabled,
+  removeChord,
+  removePart,
   selectedChord = null,
+  selectedPart = null,
+  setChordAlterations,
+  setChordKey,
   undo,
   undoDisabled,
 }) => (
@@ -26,17 +32,53 @@ const EditToolbar = ({
           <button disabled={redoDisabled} onClick={redo}>Redo</button>
           {" "}
           {
-            Object.keys(selectedChord).length ? (
-              <KeySelect
-                onChange={
-                  (value) => {
-                    selectChordKey(chartSlug, selectedChord.partName, selectedChord.index, value)
+            selectedChord && (
+              <span>
+                {"Selected: chord"}
+                {" "}
+                <KeySelect
+                  onChange={
+                    (value) => {
+                      setChordKey(chartSlug, selectedChord.partName, selectedChord.index, value)
+                    }
                   }
-                }
-                value={Object.keys(selectedChord).length ? selectedChord.key : null}
-              />
-            ) :
-            "no chord selected"
+                  value={selectedChord ? selectedChord.key : null}
+                />
+                <AlterationSelect
+                  onChange={
+                    (value) => {
+                      setChordAlterations(chartSlug, selectedChord.partName, selectedChord.index, value)
+                    }
+                  }
+                  value={
+                    selectedChord && selectedChord.alterations && selectedChord.alterations.length ?
+                      selectedChord.alterations[0] :
+                      ""
+                  }
+                />
+                {" "}
+                <button onClick={() => removeChord(chartSlug, selectedChord.partName, selectedChord.index)}>
+                  Remove
+                </button>
+                <button onClick={() => insertChord(chartSlug, selectedChord.partName, selectedChord.index)}>
+                  Duplicate
+                </button>
+              </span>
+            )
+          }
+          {
+            selectedPart && (
+              <span>
+                {`Selected: part ${selectedPart.name}`}
+                {" "}
+                <button onClick={() => { removePart(chartSlug, selectedPart.index) }}>Remove</button>
+              </span>
+            )
+          }
+          {
+            !(selectedChord || selectedPart) && (
+              "Hint: select a chord or a part"
+            )
           }
         </span>
       ) : (

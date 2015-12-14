@@ -5,7 +5,7 @@ import Chord from "../components/Chord"
 
 
 const mapStateToProps = (state, ownProps) => ({
-  chordKey: selectors.selectKeyFromDegree(ownProps.degree, state.selectedKey),
+  chordKey: selectors.selectKeyFromDegree(ownProps.degree, state.benchKey),
 })
 
 export default connect(mapStateToProps)(Chord)

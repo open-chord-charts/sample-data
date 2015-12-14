@@ -1,7 +1,17 @@
 import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
-import {commitChart, editChart, redo, selectChordKey, undo} from "../actions"
+import {
+  commitChart,
+  editChart,
+  insertChord,
+  redo,
+  removeChord,
+  removePart,
+  setChordAlterations,
+  setChordKey,
+  undo,
+} from "../actions"
 import * as selectors from "../selectors"
 import EditToolbar from "../components/EditToolbar"
 
@@ -9,21 +19,36 @@ import EditToolbar from "../components/EditToolbar"
 const mapStateToProps = (state, ownProps) => {
   const {chartSlug} = ownProps
   const chart = selectors.selectChart(state, chartSlug)
-  let {selectedChord} = chart
-  if (Object.keys(chart.selectedChord).length) {
-    const {degree} = selectors.selectChord(state, chartSlug, selectedChord.partName, selectedChord.index)
-    const selectedChordKey = selectors.selectKeyFromDegree(degree, state.selectedKey)
-    selectedChord = {
-      ...selectedChord,
-      key: selectedChordKey,
+  const {selection} = chart
+  let selectedChord = null
+  let selectedPart = null
+  if (Object.keys(selection).length) {
+    switch (selection.type) {
+      case "chord":
+        const {alterations, degree} = selectors.selectChord(state, chartSlug, selection.partName, selection.index)
+        const selectedChordKey = selectors.selectKeyFromDegree(degree, state.benchKey)
+        selectedChord = {
+          ...selection,
+          alterations,
+          key: selectedChordKey,
+        }
+        break
+      case "part":
+        const name = selectors.selectPartName(state, chartSlug, selection.index)
+        selectedPart = {
+          ...selection,
+          name,
+        }
+        break
     }
   }
   const gitHubBlobUrl = selectors.selectGitHubBlobUrl(chartSlug)
   return {
-    edited: chart.isEdited,
     gitHubBlobUrl,
+    edited: chart.isEdited,
     redoDisabled: chart.data.future.length === 0,
     selectedChord,
+    selectedPart,
     undoDisabled: chart.data.past.length === 0,
   }
 }
@@ -34,8 +59,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     {
       commitChart,
       editChart,
+      insertChord,
       redo: redo(chartSlug),
-      selectChordKey,
+      removeChord,
+      removePart,
+      setChordAlterations,
+      setChordKey,
       undo: undo(chartSlug),
     },
     dispatch,

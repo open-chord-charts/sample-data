@@ -7,17 +7,17 @@ import Chord from "../containers/Chord"
 
 
 const Chart = ({
-  edited,
+  isSelectionEnabled,
   nbBarsByRow = NB_BARS_BY_ROW,
   partNameColumnWidth = CHART_PART_NAME_COLUMN_WIDTH,
-  removePart,
   rowHeight = CHART_ROW_HEIGHT,
   rows,
   selectChord,
-  selectedChord,
+  selection,
+  selectPart,
   slug,
   structureWithRepetitions,
-  width = 800,
+  width,
 }) => (
   <table
     style={{
@@ -27,12 +27,17 @@ const Chart = ({
   >
     <tbody>
       {
-        structureWithRepetitions.map(({partName, isRepetitedPart}, idx) => (
+        structureWithRepetitions.map(({partName, isRepetitedPart}, partIdx) => (
           rows[partName].map((bars, idx1) => (
             <ChartRow
-              edited={edited}
-              key={`${idx}${idx1}`}
-              onRemove={() => removePart(slug, idx)}
+              key={`${partIdx}${idx1}`}
+              onPartNameClick={
+                isSelectionEnabled ?
+                  (
+                    () => selectPart(slug, partIdx)
+                  ) :
+                  null
+              }
               partName={partName}
               partNameColumnWidth={partNameColumnWidth}
             >
@@ -42,15 +47,21 @@ const Chart = ({
                     height={isRepetitedPart ? rowHeight / 2 : rowHeight}
                     key={idx2}
                     onClick={
-                      edited ?
+                      isSelectionEnabled ?
                         (
                           () => selectChord(slug, partName, chords[0].indexInPart)
                         ) :
                         null
                     }
                     selected={
-                      selectedChord.index === chords[0].indexInPart &&
-                      selectedChord.partName === partName
+                      (
+                        selection.type === "chord" &&
+                        selection.index === chords[0].indexInPart &&
+                        selection.partName === partName
+                      ) || (
+                        selection.type === "part" &&
+                        selection.index === partIdx
+                      )
                     }
                     width={
                       Math.min(

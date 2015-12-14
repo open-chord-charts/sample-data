@@ -2,10 +2,14 @@ import {
   COMMIT_CHART,
   EDIT_CHART,
   ENABLE_DEV_TOOLS,
+  INSERT_CHORD,
+  REMOVE_CHORD,
   REMOVE_PART,
   SELECT_CHORD,
-  SELECT_KEY,
-  SELECT_CHORD_KEY,
+  SELECT_PART,
+  SET_BENCH_KEY,
+  SET_CHORD_ALTERATIONS,
+  SET_CHORD_KEY,
 } from "./constants"
 
 
@@ -18,9 +22,9 @@ export const enableDevTools = (enabled) => ({
 })
 
 
-export const selectKey = (key) => ({
+export const setBenchKey = (key) => ({
   key,
-  type: SELECT_KEY,
+  type: SET_BENCH_KEY,
 })
 
 
@@ -39,6 +43,22 @@ export const editChart = (slug) => ({
 })
 
 
+export const insertChord = (chartSlug, partName, index) => ({
+  chartSlug,
+  index,
+  partName,
+  type: INSERT_CHORD,
+})
+
+
+export const removeChord = (chartSlug, partName, index) => ({
+  chartSlug,
+  index,
+  partName,
+  type: REMOVE_CHORD,
+})
+
+
 export const removePart = (chartSlug, index) => ({
   chartSlug,
   index,
@@ -54,12 +74,28 @@ export const selectChord = (chartSlug, partName, index) => ({
 })
 
 
-export const selectChordKey = (chartSlug, partName, index, key) => ({
+export const selectPart = (chartSlug, index) => ({
+  chartSlug,
+  index,
+  type: SELECT_PART,
+})
+
+
+export const setChordAlterations = (chartSlug, partName, index, alterations) => ({
+  alterations,
+  chartSlug,
+  index,
+  partName,
+  type: SET_CHORD_ALTERATIONS,
+})
+
+
+export const setChordKey = (chartSlug, partName, index, key) => ({
   chartSlug,
   key,
   index,
   partName,
-  type: SELECT_CHORD_KEY,
+  type: SET_CHORD_KEY,
 })
 
 

@@ -1,7 +1,7 @@
 import ChartBar from "./ChartBar"
 
 
-const ChartCell = ({children, height, onClick, selected, width}) => {
+const ChartCell = ({children, height, onClick = null, selected, width}) => {
   return (
     <td
       onClick={onClick}

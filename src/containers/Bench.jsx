@@ -1,7 +1,7 @@
 import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
-import {enableDevTools, selectKey} from "../actions"
+import {enableDevTools, setBenchKey} from "../actions"
 import * as selectors from "../selectors"
 import Bench from "../components/Bench"
 
@@ -12,12 +12,12 @@ const mapStateToProps = (state) => ({
   isDevToolsEnabled: state.isDevToolsEnabled,
   lastUpdatedOn: state.appInfo.lastUpdatedOn,
   packageVersion: state.appInfo.packageVersion,
-  selectedKey: state.selectedKey,
+  benchKey: state.benchKey,
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   enableDevTools,
-  selectKey,
+  setBenchKey,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bench)

@@ -87,6 +87,9 @@ export const selectChord = (state, chartSlug, partName, index) =>
   selectPresentChart(state, chartSlug).parts[partName][index]
 
 
+export const selectPartName = (state, chartSlug, index) => selectPresentChart(state, chartSlug).structure[index]
+
+
 // Selectors related to chart structure.
 
 

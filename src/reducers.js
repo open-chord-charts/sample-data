@@ -5,10 +5,14 @@ import {
   COMMIT_CHART,
   EDIT_CHART,
   ENABLE_DEV_TOOLS,
+  INSERT_CHORD,
+  REMOVE_CHORD,
   REMOVE_PART,
   SELECT_CHORD,
-  SELECT_KEY,
-  SELECT_CHORD_KEY,
+  SELECT_PART,
+  SET_BENCH_KEY,
+  SET_CHORD_ALTERATIONS,
+  SET_CHORD_KEY,
 } from "./constants"
 import * as selectors from "./selectors"
 
@@ -29,9 +33,9 @@ export const isDevToolsEnabled = (state = false, action) => {
 }
 
 
-export const selectedKey = (state = "C", action) => {
+export const benchKey = (state = "C", action) => {
   switch(action.type) {
-    case SELECT_KEY:
+    case SET_BENCH_KEY:
       return action.key
     default:
       return state
@@ -44,6 +48,33 @@ export const selectedKey = (state = "C", action) => {
 
 export const data = (state = {}, action) => {
   switch(action.type) {
+    case INSERT_CHORD:
+      return state.slug === action.chartSlug ?
+        {
+          ...state,
+          parts: {
+            ...state.parts,
+            [action.partName]: [
+              ...state.parts[action.partName].slice(0, action.index),
+              state.parts[action.partName][action.index],
+              ...state.parts[action.partName].slice(action.index),
+            ],
+          },
+        } :
+        state
+    case REMOVE_CHORD:
+      return state.slug === action.chartSlug ?
+        {
+          ...state,
+          parts: {
+            ...state.parts,
+            [action.partName]: [
+              ...state.parts[action.partName].slice(0, action.index),
+              ...state.parts[action.partName].slice(action.index + 1),
+            ],
+          },
+        } :
+        state
     case REMOVE_PART:
       return state.slug === action.chartSlug ?
         {
@@ -54,7 +85,25 @@ export const data = (state = {}, action) => {
           ],
         } :
         state
-    case SELECT_CHORD_KEY:
+    case SET_CHORD_ALTERATIONS:
+      return state.slug === action.chartSlug ?
+        {
+          ...state,
+          parts: {
+            ...state.parts,
+            [action.partName]: [
+              ...state.parts[action.partName].slice(0, action.index),
+              {
+                ...state.parts[action.partName][action.index],
+                // TODO Do a merge with existing alterations instead of an affectation.
+                alterations: action.alterations === null ? null : [action.alterations],
+              },
+              ...state.parts[action.partName].slice(action.index + 1),
+            ],
+          },
+        } :
+        state
+    case SET_CHORD_KEY:
       return state.slug === action.chartSlug ?
         {
           ...state,
@@ -97,7 +146,7 @@ export const isEdited = (slug) => (state = false, action) => {
 }
 
 
-export const selectedChord = (slug) => (state = {}, action) => {
+export const selection = (slug) => (state = {}, action) => {
   switch(action.type) {
     case COMMIT_CHART:
       return slug === action.slug ? {} : state
@@ -108,6 +157,14 @@ export const selectedChord = (slug) => (state = {}, action) => {
         {
           index: action.index,
           partName: action.partName,
+          type: "chord",
+        } :
+        state
+    case SELECT_PART:
+      return slug === action.chartSlug ?
+        {
+          index: action.index,
+          type: "part",
         } :
         state
     default:
@@ -119,7 +176,7 @@ export const selectedChord = (slug) => (state = {}, action) => {
 export const chart = (state = {}, action) => ({
   data: undoableData(state.data.present.slug)(state.data, action),
   isEdited: isEdited(state.data.present.slug)(state.isEdited, action),
-  selectedChord: selectedChord(state.data.present.slug)(state.selectedChord, action),
+  selection: selection(state.data.present.slug)(state.selection, action),
 })
 
 
@@ -133,5 +190,5 @@ export const rootReducer = combineReducers({
   appInfo,
   charts,
   isDevToolsEnabled,
-  selectedKey,
+  benchKey,
 })

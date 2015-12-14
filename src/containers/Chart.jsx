@@ -1,7 +1,7 @@
 import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
-import {commitChart, editChart, redo, removePart, selectChord, undo} from "../actions"
+import {commitChart, editChart, redo, selectChord, selectPart, undo} from "../actions"
 import * as selectors from "../selectors"
 import Chart from "../components/Chart"
 
@@ -13,10 +13,10 @@ const mapStateToProps = (state, ownProps) => {
   const rows = selectors.selectRowsFromParts(presentChart.parts)
   const structureWithRepetitions = selectors.selectStructureWithRepetitions(presentChart.structure)
   return {
-    edited: chart.isEdited,
+    isSelectionEnabled: chart.isEdited,
     redoDisabled: chart.data.future.length === 0,
     rows,
-    selectedChord: chart.selectedChord,
+    selection: chart.selection,
     structureWithRepetitions,
     undoDisabled: chart.data.past.length === 0,
   }
@@ -26,8 +26,8 @@ const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
   commitChart,
   editChart,
   redo: redo(ownProps.slug),
-  removePart,
-  selectChord,
+  selectChord, // TODO Check here if selection is enabled instead of passing down isSelectionEnabled prop.
+  selectPart,
   undo: undo(ownProps.slug),
 }, dispatch)
 

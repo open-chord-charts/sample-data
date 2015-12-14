@@ -12,8 +12,8 @@ const Bench = ({
   isDevToolsEnabled,
   lastUpdatedOn,
   packageVersion,
-  selectedKey,
-  selectKey,
+  benchKey,
+  setBenchKey,
 }) => (
   <div>
     <h1>OpenChordCharts bench</h1>
@@ -45,8 +45,8 @@ const Bench = ({
       Current key:
       {" "}
       <KeySelect
-        onChange={(value) => { selectKey(value) }}
-        value={selectedKey}
+        onChange={(value) => { setBenchKey(value) }}
+        value={benchKey}
       />
     </p>
     <section>

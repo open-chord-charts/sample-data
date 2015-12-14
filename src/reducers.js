@@ -12,6 +12,7 @@ import {
   SELECT_PART,
   SET_BENCH_KEY,
   SET_CHORD_ALTERATIONS,
+  SET_CHORD_DURATION,
   SET_CHORD_KEY,
 } from "./constants"
 import * as selectors from "./selectors"
@@ -97,6 +98,23 @@ export const data = (state = {}, action) => {
                 ...state.parts[action.partName][action.index],
                 // TODO Do a merge with existing alterations instead of an affectation.
                 alterations: action.alterations === null ? null : [action.alterations],
+              },
+              ...state.parts[action.partName].slice(action.index + 1),
+            ],
+          },
+        } :
+        state
+    case SET_CHORD_DURATION:
+      return state.slug === action.chartSlug ?
+        {
+          ...state,
+          parts: {
+            ...state.parts,
+            [action.partName]: [
+              ...state.parts[action.partName].slice(0, action.index),
+              {
+                ...state.parts[action.partName][action.index],
+                duration: action.alterations === null ? null : [action.duration],
               },
               ...state.parts[action.partName].slice(action.index + 1),
             ],

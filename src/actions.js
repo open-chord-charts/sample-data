@@ -9,6 +9,7 @@ import {
   SELECT_PART,
   SET_BENCH_KEY,
   SET_CHORD_ALTERATIONS,
+  SET_CHORD_DURATION,
   SET_CHORD_KEY,
 } from "./constants"
 
@@ -87,6 +88,15 @@ export const setChordAlterations = (chartSlug, partName, index, alterations) => 
   index,
   partName,
   type: SET_CHORD_ALTERATIONS,
+})
+
+
+export const setChordDuration = (chartSlug, partName, index, duration) => ({
+  chartSlug,
+  duration,
+  index,
+  partName,
+  type: SET_CHORD_DURATION,
 })
 
 

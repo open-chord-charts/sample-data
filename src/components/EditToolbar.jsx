@@ -1,4 +1,5 @@
 import AlterationSelect from "./AlterationSelect"
+import DurationInput from "./DurationInput"
 import KeySelect from "./KeySelect"
 
 
@@ -16,6 +17,7 @@ const EditToolbar = ({
   selectedChord = null,
   selectedPart = null,
   setChordAlterations,
+  setChordDuration,
   setChordKey,
   undo,
   undoDisabled,
@@ -56,6 +58,18 @@ const EditToolbar = ({
                       ""
                   }
                 />
+                {" "}
+                <label>
+                  duration:
+                  <DurationInput
+                    onChange={
+                      (value) => {
+                        setChordDuration(chartSlug, selectedChord.partName, selectedChord.index, value)
+                      }
+                    }
+                    value={selectedChord.duration}
+                  />
+                </label>
                 {" "}
                 <button onClick={() => removeChord(chartSlug, selectedChord.partName, selectedChord.index)}>
                   Remove

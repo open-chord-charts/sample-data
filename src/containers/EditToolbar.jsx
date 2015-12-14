@@ -9,6 +9,7 @@ import {
   removeChord,
   removePart,
   setChordAlterations,
+  setChordDuration,
   setChordKey,
   undo,
 } from "../actions"
@@ -25,11 +26,13 @@ const mapStateToProps = (state, ownProps) => {
   if (Object.keys(selection).length) {
     switch (selection.type) {
       case "chord":
-        const {alterations, degree} = selectors.selectChord(state, chartSlug, selection.partName, selection.index)
+        const {alterations, degree, duration} = selectors.selectChord(state, chartSlug, selection.partName,
+          selection.index)
         const selectedChordKey = selectors.selectKeyFromDegree(degree, state.benchKey)
         selectedChord = {
           ...selection,
           alterations,
+          duration,
           key: selectedChordKey,
         }
         break
@@ -64,6 +67,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       removeChord,
       removePart,
       setChordAlterations,
+      setChordDuration,
       setChordKey,
       undo: undo(chartSlug),
     },

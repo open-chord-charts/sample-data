@@ -168,6 +168,13 @@ export const selection = (slug) => (state = {}, action) => {
   switch(action.type) {
     case COMMIT_CHART:
       return slug === action.slug ? {} : state
+    case REMOVE_CHORD:
+      return slug === action.chartSlug ?
+        {
+          ...state,
+          index: Math.max(0, action.index - 1),
+        } :
+        state
     case REMOVE_PART:
       return slug === action.chartSlug ? {} : state
     case SELECT_CHORD:

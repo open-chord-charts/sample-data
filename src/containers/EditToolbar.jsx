@@ -47,8 +47,8 @@ const mapStateToProps = (state, ownProps) => {
   }
   const gitHubBlobUrl = selectors.selectGitHubBlobUrl(chartSlug)
   return {
-    gitHubBlobUrl,
     edited: chart.isEdited,
+    gitHubBlobUrl,
     redoDisabled: chart.data.future.length === 0,
     selectedChord,
     selectedPart,

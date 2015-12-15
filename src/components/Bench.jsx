@@ -5,7 +5,7 @@ import KeySelect from "./KeySelect"
 
 
 const Bench = ({
-  charts,
+  chartsDatas,
   enableDevTools,
   gitHubCommitUrl,
   initialWidth,
@@ -52,8 +52,8 @@ const Bench = ({
     <section>
       <AutoWidth initialWidth={initialWidth}>
         {
-          charts.map((chart, idx) => (
-            <ChartBench chartSlug={chart.slug} chartTitle={chart.title} key={idx} />
+          chartsDatas.map((chartData, idx) => (
+            <ChartBench chartSlug={chartData.slug} chartTitle={chartData.title} key={idx} />
           ))
         }
       </AutoWidth>

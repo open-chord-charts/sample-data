@@ -77,17 +77,17 @@ export const withIndexProperty = (propertyName) => {
 export const selectChart = (state, slug) => state.charts.find((chart1) => chart1.data.present.slug === slug)
 
 
-export const selectPresentChart = (state, slug) => selectChart(state, slug).data.present
+export const selectPresentChartData = (state, slug) => selectChart(state, slug).data.present
 
 
-export const selectPresentCharts = (state) => state.charts.map((chart1) => chart1.data.present)
+export const selectPresentChartsDatas = (state) => state.charts.map((chart1) => chart1.data.present)
 
 
 export const selectChord = (state, chartSlug, partName, index) =>
-  selectPresentChart(state, chartSlug).parts[partName][index]
+  selectPresentChartData(state, chartSlug).parts[partName][index]
 
 
-export const selectPartName = (state, chartSlug, index) => selectPresentChart(state, chartSlug).structure[index]
+export const selectPartName = (state, chartSlug, index) => selectPresentChartData(state, chartSlug).structure[index]
 
 
 // Selectors related to chart structure.

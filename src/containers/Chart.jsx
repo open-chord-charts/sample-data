@@ -9,9 +9,9 @@ import Chart from "../components/Chart"
 const mapStateToProps = (state, ownProps) => {
   const {slug} = ownProps
   const chart = selectors.selectChart(state, slug)
-  const presentChart = selectors.selectPresentChart(state, slug)
-  const rows = selectors.selectRowsFromParts(presentChart.parts)
-  const structureWithRepetitions = selectors.selectStructureWithRepetitions(presentChart.structure)
+  const presentChartData = selectors.selectPresentChartData(state, slug)
+  const rows = selectors.selectRowsFromParts(presentChartData.parts)
+  const structureWithRepetitions = selectors.selectStructureWithRepetitions(presentChartData.structure)
   return {
     isEdited: chart.isEdited,
     redoDisabled: chart.data.future.length === 0,

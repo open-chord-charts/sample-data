@@ -6,7 +6,7 @@ import Bench from "../components/Bench"
 
 
 const mapStateToProps = (state) => ({
-  charts: selectors.selectPresentCharts(state),
+  chartsDatas: selectors.selectPresentChartsDatas(state),
   gitHubCommitUrl: selectors.selectGitHubCommitUrl(state.appInfo.gitCommitSha),
   isDevToolsEnabled: state.isDevToolsEnabled,
   lastUpdatedOn: state.appInfo.lastUpdatedOn,

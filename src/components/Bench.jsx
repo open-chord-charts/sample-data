@@ -50,7 +50,6 @@ const Bench = ({
       />
     </p>
     <section>
-      <h1>Charts</h1>
       <AutoWidth initialWidth={initialWidth}>
         {
           charts.map((chart, idx) => (

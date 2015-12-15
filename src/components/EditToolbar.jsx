@@ -1,9 +1,12 @@
+import ClipboardButton from "react-clipboard.js"
+
 import AlterationSelect from "./AlterationSelect"
 import DurationInput from "./DurationInput"
 import KeySelect from "./KeySelect"
 
 
 const EditToolbar = ({
+  chartJSON,
   commitChart,
   editChart,
   edited,
@@ -23,6 +26,10 @@ const EditToolbar = ({
 }) => (
   <div style={{marginBottom: 10, marginTop: 10}}>
     <a href={gitHubBlobUrl} style={{textDecoration: "none"}} target="_blank" title="View JSON file"></a>
+    {" "}
+    <ClipboardButton data-clipboard-text={chartJSON}>
+      Copy JSON
+    </ClipboardButton>
     {" "}
     {
       edited ? (

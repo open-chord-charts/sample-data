@@ -1,4 +1,3 @@
-import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
 import {enableDevTools, setBenchKey} from "../actions"
@@ -15,9 +14,9 @@ const mapStateToProps = (state) => ({
   benchKey: state.benchKey,
 })
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const actions = {
   enableDevTools,
   setBenchKey,
-}, dispatch)
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bench)
+export default connect(mapStateToProps, actions)(Bench)

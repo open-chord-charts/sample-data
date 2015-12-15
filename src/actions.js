@@ -112,7 +112,7 @@ export const setChordKey = (chartSlug, partName, index, key) => ({
 // Undo actions.
 
 
-export const redo = (slug) => () => ({type: `REDO/${slug}`})
+export const redo = (slug) => ({type: `REDO/${slug}`})
 
 
-export const undo = (slug) => () => ({type: `UNDO/${slug}`})
+export const undo = (slug) => ({type: `UNDO/${slug}`})

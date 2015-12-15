@@ -56,20 +56,21 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
+
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const {chartSlug} = ownProps
+  const chartSlugPartial = (action) => (...args) => action(ownProps.chartSlug, ...args)
   return bindActionCreators(
     {
-      commitChart,
-      editChart,
-      insertChord,
-      redo: redo(chartSlug),
-      removeChord,
-      removePart,
-      setChordAlterations,
-      setChordDuration,
-      setChordKey,
-      undo: undo(chartSlug),
+      commitChart: chartSlugPartial(commitChart),
+      editChart: chartSlugPartial(editChart),
+      insertChord: chartSlugPartial(insertChord),
+      redo: chartSlugPartial(redo),
+      removeChord: chartSlugPartial(removeChord),
+      removePart: chartSlugPartial(removePart),
+      setChordAlterations: chartSlugPartial(setChordAlterations),
+      setChordDuration: chartSlugPartial(setChordDuration),
+      setChordKey: chartSlugPartial(setChordKey),
+      undo: chartSlugPartial(undo),
     },
     dispatch,
   )

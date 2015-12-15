@@ -4,7 +4,6 @@ import KeySelect from "./KeySelect"
 
 
 const EditToolbar = ({
-  chartSlug,
   commitChart,
   editChart,
   edited,
@@ -28,7 +27,7 @@ const EditToolbar = ({
     {
       edited ? (
         <span>
-          <button onClick={() => { commitChart(chartSlug) }}>Commit</button>
+          <button onClick={commitChart}>Commit</button>
           {" "}
           <button disabled={undoDisabled} onClick={undo}>Undo</button>
           <button disabled={redoDisabled} onClick={redo}>Redo</button>
@@ -41,7 +40,7 @@ const EditToolbar = ({
                 <KeySelect
                   onChange={
                     (value) => {
-                      setChordKey(chartSlug, selectedChord.partName, selectedChord.index, value)
+                      setChordKey(selectedChord.partName, selectedChord.index, value)
                     }
                   }
                   value={selectedChord ? selectedChord.key : null}
@@ -49,7 +48,7 @@ const EditToolbar = ({
                 <AlterationSelect
                   onChange={
                     (value) => {
-                      setChordAlterations(chartSlug, selectedChord.partName, selectedChord.index, value)
+                      setChordAlterations(selectedChord.partName, selectedChord.index, value)
                     }
                   }
                   value={
@@ -64,17 +63,17 @@ const EditToolbar = ({
                   <DurationInput
                     onChange={
                       (value) => {
-                        setChordDuration(chartSlug, selectedChord.partName, selectedChord.index, value)
+                        setChordDuration(selectedChord.partName, selectedChord.index, value)
                       }
                     }
                     value={selectedChord.duration}
                   />
                 </label>
                 {" "}
-                <button onClick={() => removeChord(chartSlug, selectedChord.partName, selectedChord.index)}>
+                <button onClick={() => removeChord(selectedChord.partName, selectedChord.index)}>
                   Remove
                 </button>
-                <button onClick={() => insertChord(chartSlug, selectedChord.partName, selectedChord.index)}>
+                <button onClick={() => insertChord(selectedChord.partName, selectedChord.index)}>
                   Duplicate
                 </button>
               </span>
@@ -85,7 +84,7 @@ const EditToolbar = ({
               <span>
                 {`Selected: part ${selectedPart.name}`}
                 {" "}
-                <button onClick={() => { removePart(chartSlug, selectedPart.index) }}>Remove</button>
+                <button onClick={() => { removePart(selectedPart.index) }}>Remove</button>
               </span>
             )
           }
@@ -96,7 +95,7 @@ const EditToolbar = ({
           }
         </span>
       ) : (
-        <button onClick={() => { editChart(chartSlug) }}>Edit</button>
+        <button onClick={editChart}>Edit</button>
       )
     }
   </div>

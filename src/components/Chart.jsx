@@ -7,15 +7,13 @@ import Chord from "../containers/Chord"
 
 
 const Chart = ({
-  isSelectionEnabled,
   nbBarsByRow = NB_BARS_BY_ROW,
   partNameColumnWidth = CHART_PART_NAME_COLUMN_WIDTH,
   rowHeight = CHART_ROW_HEIGHT,
   rows,
-  selectChord,
+  selectChord = null,
   selection,
-  selectPart,
-  slug,
+  selectPart = null,
   structureWithRepetitions,
   width,
 }) => (
@@ -32,9 +30,9 @@ const Chart = ({
             <ChartRow
               key={`${partIdx}${idx1}`}
               onPartNameClick={
-                isSelectionEnabled ?
+                selectPart ?
                   (
-                    () => selectPart(slug, partIdx)
+                    () => { selectPart(partIdx) }
                   ) :
                   null
               }
@@ -47,9 +45,9 @@ const Chart = ({
                     height={isRepetitedPart ? rowHeight / 2 : rowHeight}
                     key={idx2}
                     onClick={
-                      isSelectionEnabled ?
+                      selectChord ?
                         (
-                          () => selectChord(slug, partName, chords[0].indexInPart)
+                          () => { selectChord(partName, chords[0].indexInPart) }
                         ) :
                         null
                     }

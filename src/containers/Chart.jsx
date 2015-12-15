@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
   const rows = selectors.selectRowsFromParts(presentChart.parts)
   const structureWithRepetitions = selectors.selectStructureWithRepetitions(presentChart.structure)
   return {
-    isSelectionEnabled: chart.isEdited,
+    isEdited: chart.isEdited,
     redoDisabled: chart.data.future.length === 0,
     rows,
     selection: chart.selection,
@@ -25,10 +25,26 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
   commitChart,
   editChart,
-  redo: redo(ownProps.slug),
-  selectChord, // TODO Check here if selection is enabled instead of passing down isSelectionEnabled prop.
+  redo: () => redo(ownProps.slug),
+  selectChord,
   selectPart,
-  undo: undo(ownProps.slug),
+  undo: () => undo(ownProps.slug),
 }, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chart)
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...stateProps,
+  ...dispatchProps,
+  selectChord: stateProps.isEdited ?
+    (
+      (partName, index) => { dispatchProps.selectChord(ownProps.slug, partName, index) }
+    ) :
+    null,
+  selectPart: stateProps.isEdited ?
+    (
+      (index) => { dispatchProps.selectPart(ownProps.slug, index) }
+    ) :
+    null,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Chart)

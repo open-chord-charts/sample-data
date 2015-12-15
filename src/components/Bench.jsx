@@ -18,6 +18,11 @@ const Bench = ({
   <div>
     <h1>OpenChordCharts bench</h1>
     <p>
+      This page shows renderings of OpenChordCharts
+      {" "}
+      <a href="https://github.com/openchordcharts/sample-data">sample JSON files</a>.
+    </p>
+    <p>
       Version {packageVersion}, last updated on
       {" "}
       <a href={gitHubCommitUrl}>{lastUpdatedOn}</a>.
@@ -34,12 +39,7 @@ const Bench = ({
     </p>
     {isDevToolsEnabled && <DevTools />}
     <p>
-      Note: add <code>?debug_session=1</code> to keep state in localStorage.
-    </p>
-    <p>
-      This page shows renderings of OpenChordCharts
-      {" "}
-      <a href="https://github.com/openchordcharts/sample-data">sample JSON files</a>.
+      Note: add <code><a href="?debug_session=1">?debug_session=1</a></code> to URL to keep state in localStorage.
     </p>
     <p>
       Current key:

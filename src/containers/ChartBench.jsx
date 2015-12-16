@@ -1,7 +1,7 @@
 import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
-import {selectChord, setChordKey} from "../actions"
+import {redo, selectChord, setChordKey, undo} from "../actions"
 import * as selectors from "../selectors"
 import ChartBench from "../components/ChartBench"
 
@@ -21,8 +21,10 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+  redo,
   selectChord,
   setChordKey,
+  undo,
 }, dispatch)
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
@@ -52,8 +54,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     chordG: () => dispatchSetChordKeyIfEdited("G"),
     moveLeft: () => dispatchMoveIfEdited("left"),
     moveRight: () => dispatchMoveIfEdited("right"),
+    redo: () => dispatchProps.redo(ownProps.slug),
     slug: ownProps.slug,
     title: ownProps.title,
+    undo: () => dispatchProps.undo(ownProps.slug),
     width: ownProps.width,
   }
 }

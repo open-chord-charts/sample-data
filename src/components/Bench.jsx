@@ -28,6 +28,8 @@ const Bench = ({
     chordG: "g",
     moveLeft: ["left", "h"],
     moveRight: ["right", "l"],
+    redo: "ctrl+shift+z",
+    undo: "ctrl+z",
   }}>
     <h1>OpenChordCharts bench</h1>
     <p>

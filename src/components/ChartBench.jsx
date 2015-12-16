@@ -14,8 +14,10 @@ const ChartBench = ({
   chordG,
   moveLeft,
   moveRight,
+  redo,
   slug,
   title,
+  undo,
   width,
 }) => (
   <article style={{marginBottom: 60}}>
@@ -39,6 +41,8 @@ const ChartBench = ({
         chordG,
         moveLeft,
         moveRight,
+        redo,
+        undo,
       }}
     >
       <Chart slug={slug} width={width} />

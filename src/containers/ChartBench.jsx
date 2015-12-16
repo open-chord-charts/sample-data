@@ -1,7 +1,7 @@
 import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
-import {selectChord} from "../actions"
+import {selectChord, setChordKey} from "../actions"
 import * as selectors from "../selectors"
 import ChartBench from "../components/ChartBench"
 
@@ -22,10 +22,17 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   selectChord,
+  setChordKey,
 }, dispatch)
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  const move = (direction) => {
+  const dispatchSetChordKeyIfEdited = (chordKey) => {
+    const {isEdited, selection} = stateProps
+    if (isEdited && selection.type === "chord") {
+      dispatchProps.setChordKey(ownProps.slug, selection.partName, selection.index, chordKey)
+    }
+  }
+  const dispatchMoveIfEdited = (direction) => {
     // direction must be "left" or "right"
     const {isEdited, partOfSelectedChordLength, selection} = stateProps
     if (isEdited && selection.type === "chord") {
@@ -36,8 +43,15 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     }
   }
   return {
-    moveLeft: () => move("left"),
-    moveRight: () => move("right"),
+    chordA: () => dispatchSetChordKeyIfEdited("A"),
+    chordB: () => dispatchSetChordKeyIfEdited("B"),
+    chordC: () => dispatchSetChordKeyIfEdited("C"),
+    chordD: () => dispatchSetChordKeyIfEdited("D"),
+    chordE: () => dispatchSetChordKeyIfEdited("E"),
+    chordF: () => dispatchSetChordKeyIfEdited("F"),
+    chordG: () => dispatchSetChordKeyIfEdited("G"),
+    moveLeft: () => dispatchMoveIfEdited("left"),
+    moveRight: () => dispatchMoveIfEdited("right"),
     slug: ownProps.slug,
     title: ownProps.title,
     width: ownProps.width,

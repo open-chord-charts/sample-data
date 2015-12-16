@@ -5,6 +5,13 @@ import EditToolbar from "../containers/EditToolbar"
 
 
 const ChartBench = ({
+  chordA,
+  chordB,
+  chordC,
+  chordD,
+  chordE,
+  chordF,
+  chordG,
   moveLeft,
   moveRight,
   slug,
@@ -23,6 +30,13 @@ const ChartBench = ({
     <EditToolbar chartSlug={slug} />
     <HotKeys
       handlers={{
+        chordA,
+        chordB,
+        chordC,
+        chordD,
+        chordE,
+        chordF,
+        chordG,
         moveLeft,
         moveRight,
       }}

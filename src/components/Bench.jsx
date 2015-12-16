@@ -19,6 +19,13 @@ const Bench = ({
 }) => (
   <HotKeys keyMap={{
     // Respond to arrows keys and vim-like key shortcuts.
+    chordA: "a",
+    chordB: "b",
+    chordC: "c",
+    chordD: "d",
+    chordE: "e",
+    chordF: "f",
+    chordG: "g",
     moveLeft: ["left", "h"],
     moveRight: ["right", "l"],
   }}>

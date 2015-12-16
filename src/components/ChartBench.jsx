@@ -29,7 +29,6 @@ const ChartBench = ({
         {" "}
       </small>
     </h1>
-    <EditToolbar chartSlug={slug} />
     <HotKeys
       handlers={{
         chordA,
@@ -45,6 +44,7 @@ const ChartBench = ({
         undo,
       }}
     >
+      <EditToolbar chartSlug={slug} />
       <Chart slug={slug} width={width} />
     </HotKeys>
   </article>

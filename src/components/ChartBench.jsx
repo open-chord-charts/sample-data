@@ -1,23 +1,34 @@
+import {HotKeys} from "react-hotkeys"
+
 import Chart from "../containers/Chart"
 import EditToolbar from "../containers/EditToolbar"
 
 
 const ChartBench = ({
-  chartSlug,
-  chartTitle,
+  moveLeft,
+  moveRight,
+  slug,
+  title,
   width,
 }) => (
   <article style={{marginBottom: 60}}>
-    <h1 id={chartSlug}>
-      <a href={"#" + chartSlug} style={{textDecoration: "none"}} title="Anchor"></a>
+    <h1 id={slug}>
+      <a href={"#" + slug} style={{textDecoration: "none"}} title="Anchor"></a>
       {" "}
-      {chartTitle}
+      {title}
       <small>
         {" "}
       </small>
     </h1>
-    <EditToolbar chartSlug={chartSlug} />
-    <Chart slug={chartSlug} width={width} />
+    <EditToolbar chartSlug={slug} />
+    <HotKeys
+      handlers={{
+        moveLeft,
+        moveRight,
+      }}
+    >
+      <Chart slug={slug} width={width} />
+    </HotKeys>
   </article>
 )
 

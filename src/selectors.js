@@ -83,8 +83,10 @@ export const selectPresentChartData = (state, slug) => selectChart(state, slug).
 export const selectPresentChartsDatas = (state) => state.charts.map((chart1) => chart1.data.present)
 
 
-export const selectChord = (state, chartSlug, partName, index) =>
-  selectPresentChartData(state, chartSlug).parts[partName][index]
+export const selectPart = (state, chartSlug, partName) => selectPresentChartData(state, chartSlug).parts[partName]
+
+
+export const selectChord = (state, chartSlug, partName, index) => selectPart(state, chartSlug, partName)[index]
 
 
 export const selectPartName = (state, chartSlug, index) => selectPresentChartData(state, chartSlug).structure[index]

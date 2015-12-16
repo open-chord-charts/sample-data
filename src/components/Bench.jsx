@@ -1,5 +1,7 @@
+import {HotKeys} from "react-hotkeys"
+
 import AutoWidth from "./AutoWidth"
-import ChartBench from "../components/ChartBench"
+import ChartBench from "../containers/ChartBench"
 import DevTools from "../containers/DevTools"
 import KeySelect from "./KeySelect"
 
@@ -15,7 +17,11 @@ const Bench = ({
   benchKey,
   setBenchKey,
 }) => (
-  <div>
+  <HotKeys keyMap={{
+    // Respond to arrows keys and vim-like key shortcuts.
+    moveLeft: ["left", "h"],
+    moveRight: ["right", "l"],
+  }}>
     <h1>OpenChordCharts bench</h1>
     <p>
       This page shows renderings of OpenChordCharts
@@ -53,12 +59,12 @@ const Bench = ({
       <AutoWidth initialWidth={initialWidth}>
         {
           chartsDatas.map((chartData, idx) => (
-            <ChartBench chartSlug={chartData.slug} chartTitle={chartData.title} key={idx} />
+            <ChartBench key={idx} slug={chartData.slug} title={chartData.title} />
           ))
         }
       </AutoWidth>
     </section>
-  </div>
+  </HotKeys>
 )
 
 

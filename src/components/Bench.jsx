@@ -6,6 +6,15 @@ import DevTools from "../containers/DevTools"
 import KeySelect from "./KeySelect"
 
 
+const keyMap = {
+  // Respond to arrows keys and vim-like key shortcuts.
+  left: ["left", "h"],
+  redo: "ctrl+shift+z",
+  right: ["right", "l"],
+  undo: "ctrl+z",
+}
+
+
 const Bench = ({
   chartsDatas,
   enableDevTools,
@@ -17,20 +26,7 @@ const Bench = ({
   benchKey,
   setBenchKey,
 }) => (
-  <HotKeys keyMap={{
-    // Respond to arrows keys and vim-like key shortcuts.
-    chordA: "a",
-    chordB: "b",
-    chordC: "c",
-    chordD: "d",
-    chordE: "e",
-    chordF: "f",
-    chordG: "g",
-    moveLeft: ["left", "h"],
-    moveRight: ["right", "l"],
-    redo: "ctrl+shift+z",
-    undo: "ctrl+z",
-  }}>
+  <HotKeys keyMap={keyMap}>
     <h1>OpenChordCharts bench</h1>
     <p>
       This page shows renderings of OpenChordCharts
@@ -56,6 +52,10 @@ const Bench = ({
     <p>
       Note: add <code><a href="?debug_session=1">?debug_session=1</a></code> to URL to keep state in localStorage.
     </p>
+    <p>
+      Keyboard shortcuts:
+    </p>
+    <pre>{JSON.stringify(keyMap, null, 2)}</pre>
     <p>
       Current key:
       {" "}

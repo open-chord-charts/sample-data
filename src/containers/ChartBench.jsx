@@ -1,7 +1,7 @@
 import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
 
-import {redo, selectChord, setChordKey, undo} from "../actions"
+import {redo, removeChord, selectChord, setChordAlterations, setChordDuration, setChordKey, undo} from "../actions"
 import * as selectors from "../selectors"
 import ChartBench from "../components/ChartBench"
 
@@ -22,42 +22,46 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   redo,
+  removeChord,
   selectChord,
+  setChordAlterations,
+  setChordDuration,
   setChordKey,
   undo,
 }, dispatch)
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  const dispatchSetChordKeyIfEdited = (chordKey) => {
-    const {isEdited, selection} = stateProps
-    if (isEdited && selection.type === "chord") {
-      dispatchProps.setChordKey(ownProps.slug, selection.partName, selection.index, chordKey)
-    }
-  }
-  const dispatchMoveIfEdited = (direction) => {
-    // direction must be "left" or "right"
-    const {isEdited, partOfSelectedChordLength, selection} = stateProps
-    if (isEdited && selection.type === "chord") {
-      const newIndex = direction === "left" ?
-        Math.max(0, selection.index - 1) :
-        Math.min(selection.index + 1, partOfSelectedChordLength - 1)
-      dispatchProps.selectChord(ownProps.slug, selection.partName, newIndex)
-    }
-  }
+  const {isEdited, selection} = stateProps
+  const {slug} = ownProps
   return {
-    chordA: () => dispatchSetChordKeyIfEdited("A"),
-    chordB: () => dispatchSetChordKeyIfEdited("B"),
-    chordC: () => dispatchSetChordKeyIfEdited("C"),
-    chordD: () => dispatchSetChordKeyIfEdited("D"),
-    chordE: () => dispatchSetChordKeyIfEdited("E"),
-    chordF: () => dispatchSetChordKeyIfEdited("F"),
-    chordG: () => dispatchSetChordKeyIfEdited("G"),
-    moveLeft: () => dispatchMoveIfEdited("left"),
-    moveRight: () => dispatchMoveIfEdited("right"),
-    redo: () => dispatchProps.redo(ownProps.slug),
-    slug: ownProps.slug,
+    hotKeysHandlers: isEdited && selection.type === "chord" ?
+      {
+        "-": () => dispatchProps.setChordAlterations(slug, selection.partName, selection.index, null),
+        1: () => dispatchProps.setChordDuration(slug, selection.partName, selection.index, 1),
+        2: () => dispatchProps.setChordDuration(slug, selection.partName, selection.index, 2),
+        4: () => dispatchProps.setChordDuration(slug, selection.partName, selection.index, 4),
+        7: () => dispatchProps.setChordAlterations(slug, selection.partName, selection.index, "7"),
+        a: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "A"),
+        b: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "B"),
+        c: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "C"),
+        d: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "D"),
+        del: () => dispatchProps.removeChord(slug, selection.partName, selection.index),
+        e: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "E"),
+        f: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "F"),
+        g: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "G"),
+        left: () => dispatchProps.selectChord(slug, selection.partName, Math.max(0, selection.index - 1)),
+        m: () => dispatchProps.setChordAlterations(slug, selection.partName, selection.index, "m"),
+        right: () => dispatchProps.selectChord(
+          slug,
+          selection.partName,
+          Math.min(selection.index + 1, stateProps.partOfSelectedChordLength - 1),
+        ),
+        redo: () => dispatchProps.redo(slug),
+        undo: () => dispatchProps.undo(slug),
+      } :
+      {},
+    slug,
     title: ownProps.title,
-    undo: () => dispatchProps.undo(ownProps.slug),
     width: ownProps.width,
   }
 }

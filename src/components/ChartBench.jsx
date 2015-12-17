@@ -5,50 +5,29 @@ import EditToolbar from "../containers/EditToolbar"
 
 
 const ChartBench = ({
-  chordA,
-  chordB,
-  chordC,
-  chordD,
-  chordE,
-  chordF,
-  chordG,
-  moveLeft,
-  moveRight,
-  redo,
+  hotKeysHandlers,
   slug,
   title,
-  undo,
   width,
-}) => (
-  <article style={{marginBottom: 60}}>
-    <h1 id={slug}>
-      <a href={"#" + slug} style={{textDecoration: "none"}} title="Anchor"></a>
-      {" "}
-      {title}
-      <small>
+}) => {
+  return (
+    <article style={{marginBottom: 60}}>
+      <h1 id={slug}>
+        <a href={"#" + slug} style={{textDecoration: "none"}} title="Anchor"></a>
         {" "}
-      </small>
-    </h1>
-    <HotKeys
-      handlers={{
-        chordA,
-        chordB,
-        chordC,
-        chordD,
-        chordE,
-        chordF,
-        chordG,
-        moveLeft,
-        moveRight,
-        redo,
-        undo,
-      }}
-    >
-      <EditToolbar chartSlug={slug} />
-      <Chart slug={slug} width={width} />
-    </HotKeys>
-  </article>
-)
+        {title}
+        <small>
+          {" "}
+        </small>
+      </h1>
+      <HotKeys handlers={hotKeysHandlers}>
+        <EditToolbar chartSlug={slug} />
+        <Chart slug={slug} width={width} />
+      </HotKeys>
+    </article>
+  )
+}
+
 
 
 export default ChartBench

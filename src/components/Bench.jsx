@@ -53,10 +53,6 @@ const Bench = ({
       Note: add <code><a href="?debug_session=1">?debug_session=1</a></code> to URL to keep state in localStorage.
     </p>
     <p>
-      Keyboard shortcuts:
-    </p>
-    <pre>{JSON.stringify(keyMap, null, 2)}</pre>
-    <p>
       Current key:
       {" "}
       <KeySelect

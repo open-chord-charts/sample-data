@@ -5,7 +5,6 @@
     "comma-dangle": [1, "always-multiline"],
     "max-len": [1, 120, 2],
     "new-cap": [1],
-    "no-shadow": 0,
     "no-underscore-dangle": 0,
     "no-undef": 1,
     "no-unused-expressions": 1,

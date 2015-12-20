@@ -18,6 +18,7 @@ import ChartBench from "../components/ChartBench"
 const mapStateToProps = (state, ownProps) => {
   const {slug} = ownProps
   return createStructuredSelector({
+    chartJson: selectors.chartJsonSelector(slug),
     isEdited: selectors.isEditedSelector(slug),
     partOfSelectedChordLength: selectors.partOfSelectedChordLengthSelector(slug),
     selection: selectors.selectionSelector(slug),
@@ -38,10 +39,11 @@ const actions = {
 
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  const {isEdited, partOfSelectedChordLength, selection} = stateProps
+  const {chartJson, isEdited, partOfSelectedChordLength, selection} = stateProps
   const {slug, title, width} = ownProps
   const {index, partName} = selection
   return {
+    chartJson,
     hotKeysHandlers: isEdited && selection.type === "chord" ?
       {
         // Chord keys

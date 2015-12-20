@@ -45,7 +45,6 @@ const mapStateToProps = (state, ownProps) => {
     }
   }
   return {
-    chartJSON: JSON.stringify(selectors.presentChartDataSelector(chartSlug)(state), null, 2),
     gitHubBlobUrl: helpers.getGitHubBlobUrl(chartSlug),
     isEdited: selectors.isEditedSelector(chartSlug)(state),
     redoDisabled: selectors.chartDataSelector(chartSlug)(state).future.length === 0,

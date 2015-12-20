@@ -30,6 +30,12 @@ export const presentChartsDatasSelector = createSelector(
 )
 
 
+export const chartJsonSelector = (slug) => createSelector(
+  presentChartDataSelector(slug),
+  (presentChartData) => JSON.stringify(presentChartData, null, 2),
+)
+
+
 export const isEditedSelector = (slug) => createSelector(
   chartSelector(slug),
   (chart) => chart.isEdited,

@@ -7,7 +7,7 @@ import KeySelect from "./KeySelect"
 
 
 const keyMap = {
-  // Respond to arrows keys and vim-like key shortcuts.
+  commit: "ctrl+enter",
   left: ["left", "h"],
   redo: "ctrl+shift+z",
   right: ["right", "l"],

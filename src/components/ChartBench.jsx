@@ -22,8 +22,8 @@ const ChartBench = ({
           {" "}
         </small>
       </h1>
+      <EditToolbar chartSlug={slug} />
       <HotKeys handlers={hotKeysHandlers}>
-        <EditToolbar chartSlug={slug} />
         <Chart slug={slug} width={width} />
       </HotKeys>
       <p>

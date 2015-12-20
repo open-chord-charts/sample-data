@@ -36,7 +36,7 @@ const Chart = ({
                   ) :
                   null
               }
-              partName={partName}
+              partName={idx1 === 0 ? partName : ""}
               partNameColumnWidth={partNameColumnWidth}
             >
               {

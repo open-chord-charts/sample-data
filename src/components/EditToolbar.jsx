@@ -9,9 +9,9 @@ const EditToolbar = ({
   chartJSON,
   commitChart,
   editChart,
-  edited,
   gitHubBlobUrl,
   insertChord,
+  isEdited,
   redo,
   redoDisabled,
   removeChord,
@@ -32,7 +32,7 @@ const EditToolbar = ({
     </ClipboardButton>
     {" "}
     {
-      edited ? (
+      isEdited ? (
         <span>
           <button onClick={commitChart}>Commit</button>
           {" "}
@@ -50,7 +50,7 @@ const EditToolbar = ({
                       setChordKey(selectedChord.partName, selectedChord.index, value)
                     }
                   }
-                  value={selectedChord ? selectedChord.key : null}
+                  value={selectedChord.key}
                 />
                 <AlterationSelect
                   onChange={

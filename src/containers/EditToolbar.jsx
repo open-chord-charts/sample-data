@@ -13,22 +13,21 @@ import {
   setChordKey,
   undo,
 } from "../actions"
+import * as helpers from "../helpers"
 import * as selectors from "../selectors"
 import EditToolbar from "../components/EditToolbar"
 
 
 const mapStateToProps = (state, ownProps) => {
   const {chartSlug} = ownProps
-  const chart = selectors.selectChart(state, chartSlug)
-  const {selection} = chart
+  const selection = selectors.selectionSelector(chartSlug)(state)
   let selectedChord = null
   let selectedPart = null
   if (Object.keys(selection).length) {
     switch (selection.type) {
       case "chord":
-        const {alterations, degree, duration} = selectors.selectChord(state, chartSlug, selection.partName,
-          selection.index)
-        const selectedChordKey = selectors.selectKeyFromDegree(degree, state.benchKey)
+        const {alterations, degree, duration} = selectors.selectedChordSelector(chartSlug)(state)
+        const selectedChordKey = helpers.getKeyFromDegree(degree, state.benchKey)
         selectedChord = {
           ...selection,
           alterations,
@@ -37,7 +36,7 @@ const mapStateToProps = (state, ownProps) => {
         }
         break
       case "part":
-        const name = selectors.selectPartName(state, chartSlug, selection.index)
+        const name = selectors.selectedPartNameSelector(chartSlug)(state)
         selectedPart = {
           ...selection,
           name,
@@ -45,15 +44,14 @@ const mapStateToProps = (state, ownProps) => {
         break
     }
   }
-  const gitHubBlobUrl = selectors.selectGitHubBlobUrl(chartSlug)
   return {
-    chartJSON: JSON.stringify(chart.data.present, null, 2),
-    edited: chart.isEdited,
-    gitHubBlobUrl,
-    redoDisabled: chart.data.future.length === 0,
+    chartJSON: JSON.stringify(selectors.presentChartDataSelector(chartSlug)(state), null, 2),
+    gitHubBlobUrl: helpers.getGitHubBlobUrl(chartSlug),
+    isEdited: selectors.isEditedSelector(chartSlug)(state),
+    redoDisabled: selectors.chartDataSelector(chartSlug)(state).future.length === 0,
     selectedChord,
     selectedPart,
-    undoDisabled: chart.data.past.length === 0,
+    undoDisabled: selectors.chartDataSelector(chartSlug)(state).past.length === 0,
   }
 }
 
@@ -76,5 +74,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     dispatch,
   )
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditToolbar)

@@ -1,5 +1,5 @@
-import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
+import {createStructuredSelector} from "reselect"
 
 import {selectChord, selectPart} from "../actions"
 import * as selectors from "../selectors"
@@ -8,22 +8,20 @@ import Chart from "../components/Chart"
 
 const mapStateToProps = (state, ownProps) => {
   const {slug} = ownProps
-  const chart = selectors.selectChart(state, slug)
-  const presentChartData = selectors.selectPresentChartData(state, slug)
-  const rows = selectors.selectRowsFromParts(presentChartData.parts)
-  const structureWithRepetitions = selectors.selectStructureWithRepetitions(presentChartData.structure)
-  return {
-    isEdited: chart.isEdited,
-    rows,
-    selection: chart.selection,
-    structureWithRepetitions,
-  }
+  return createStructuredSelector({
+    isEdited: selectors.isEditedSelector(slug),
+    rows: selectors.rowsSelector(slug),
+    selection: selectors.selectionSelector(slug),
+    structureWithRepetitions: selectors.structureWithRepetitionsSelector(slug),
+  })(state)
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+
+const actions = {
   selectChord,
   selectPart,
-}, dispatch)
+}
+
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   rows: stateProps.rows,
@@ -42,4 +40,5 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   width: ownProps.width,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Chart)
+
+export default connect(mapStateToProps, actions, mergeProps)(Chart)

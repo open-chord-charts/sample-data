@@ -15,7 +15,7 @@ import {
   SET_CHORD_DURATION,
   SET_CHORD_KEY,
 } from "./constants"
-import * as selectors from "./selectors"
+import * as helpers from "./helpers"
 
 
 // Bench reducers
@@ -131,7 +131,7 @@ export const data = (state = {}, action) => {
               ...state.parts[action.partName].slice(0, action.index),
               {
                 ...state.parts[action.partName][action.index],
-                degree: selectors.selectDegreeFromKey(action.key, state.key),
+                degree: helpers.getDegreeFromKey(action.key, state.key),
               },
               ...state.parts[action.partName].slice(action.index + 1),
             ],

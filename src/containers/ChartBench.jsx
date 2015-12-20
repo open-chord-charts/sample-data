@@ -1,5 +1,5 @@
-import {bindActionCreators} from "redux"
 import {connect} from "react-redux"
+import {createStructuredSelector} from "reselect"
 
 import {redo, removeChord, selectChord, setChordAlterations, setChordDuration, setChordKey, undo} from "../actions"
 import * as selectors from "../selectors"
@@ -8,19 +8,15 @@ import ChartBench from "../components/ChartBench"
 
 const mapStateToProps = (state, ownProps) => {
   const {slug} = ownProps
-  const chart = selectors.selectChart(state, slug)
-  const {isEdited, selection} = chart
-  const partOfSelectedChordLength = isEdited && selection.type === "chord" ?
-    selectors.selectPart(state, slug, selection.partName).length :
-    null
-  return {
-    isEdited,
-    partOfSelectedChordLength,
-    selection,
-  }
+  return createStructuredSelector({
+    isEdited: selectors.isEditedSelector(slug),
+    partOfSelectedChordLength: selectors.partOfSelectedChordLengthSelector(slug),
+    selection: selectors.selectionSelector(slug),
+  })(state)
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+
+const actions = {
   redo,
   removeChord,
   selectChord,
@@ -28,42 +24,51 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   setChordDuration,
   setChordKey,
   undo,
-}, dispatch)
+}
+
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  const {isEdited, selection} = stateProps
-  const {slug} = ownProps
+  const {isEdited, partOfSelectedChordLength, selection} = stateProps
+  const {redo, removeChord, selectChord, setChordAlterations, setChordDuration, setChordKey, undo} = dispatchProps
+  const {slug, title, width} = ownProps
+  const {index, partName} = selection
   return {
     hotKeysHandlers: isEdited && selection.type === "chord" ?
       {
-        "-": () => dispatchProps.setChordAlterations(slug, selection.partName, selection.index, null),
-        1: () => dispatchProps.setChordDuration(slug, selection.partName, selection.index, 1),
-        2: () => dispatchProps.setChordDuration(slug, selection.partName, selection.index, 2),
-        4: () => dispatchProps.setChordDuration(slug, selection.partName, selection.index, 4),
-        7: () => dispatchProps.setChordAlterations(slug, selection.partName, selection.index, "7"),
-        a: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "A"),
-        b: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "B"),
-        c: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "C"),
-        d: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "D"),
-        del: () => dispatchProps.removeChord(slug, selection.partName, selection.index),
-        e: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "E"),
-        f: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "F"),
-        g: () => dispatchProps.setChordKey(slug, selection.partName, selection.index, "G"),
-        left: () => dispatchProps.selectChord(slug, selection.partName, Math.max(0, selection.index - 1)),
-        m: () => dispatchProps.setChordAlterations(slug, selection.partName, selection.index, "m"),
-        right: () => dispatchProps.selectChord(
-          slug,
-          selection.partName,
-          Math.min(selection.index + 1, stateProps.partOfSelectedChordLength - 1),
-        ),
-        redo: () => dispatchProps.redo(slug),
-        undo: () => dispatchProps.undo(slug),
+        // Chord keys
+        a: () => setChordKey(slug, partName, index, "A"),
+        b: () => setChordKey(slug, partName, index, "B"),
+        c: () => setChordKey(slug, partName, index, "C"),
+        d: () => setChordKey(slug, partName, index, "D"),
+        e: () => setChordKey(slug, partName, index, "E"),
+        f: () => setChordKey(slug, partName, index, "F"),
+        g: () => setChordKey(slug, partName, index, "G"),
+
+        // Chord alterations
+        "-": () => setChordAlterations(slug, partName, index, null),
+        m: () => setChordAlterations(slug, partName, index, "m"),
+        7: () => setChordAlterations(slug, partName, index, "7"),
+
+        // Edition
+        1: () => setChordDuration(slug, partName, index, 1),
+        2: () => setChordDuration(slug, partName, index, 2),
+        4: () => setChordDuration(slug, partName, index, 4),
+        del: () => removeChord(slug, partName, index),
+
+        // Move
+        left: () => selectChord(slug, partName, Math.max(0, index - 1)),
+        right: () => selectChord(slug, partName, Math.min(index + 1, partOfSelectedChordLength - 1)),
+
+        // Undo/redo
+        redo: () => redo(slug),
+        undo: () => undo(slug),
       } :
       {},
     slug,
-    title: ownProps.title,
-    width: ownProps.width,
+    title,
+    width,
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ChartBench)
+
+export default connect(mapStateToProps, actions, mergeProps)(ChartBench)

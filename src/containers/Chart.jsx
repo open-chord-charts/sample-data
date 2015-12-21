@@ -30,7 +30,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
       (partName, index) => { dispatchProps.selectChord(ownProps.slug, partName, index) }
     ) :
     null,
-  selection: stateProps.selection,
+  selection: stateProps.isEdited && stateProps.selection,
   selectPart: stateProps.isEdited ?
     (
       (index) => { dispatchProps.selectPart(ownProps.slug, index) }

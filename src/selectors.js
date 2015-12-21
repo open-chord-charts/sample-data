@@ -6,86 +6,73 @@ import * as helpers from "./helpers"
 export const chartsSelector = (state) => state.charts
 
 
-export const chartSelector = (slug) => createSelector(
+export const chartSelector = (chartSlug) => createSelector(
   chartsSelector,
-  (charts) => charts.find((chart1) => chart1.data.present.slug === slug),
+  (charts) => charts[chartSlug],
 )
 
 
-export const chartDataSelector = (slug) => createSelector(
-  chartSelector(slug),
-  (chart) => chart.data,
+export const presentChartSelector = (chartSlug) => createSelector(
+  chartSelector(chartSlug),
+  (chart) => chart.present,
 )
 
 
-export const presentChartDataSelector = (slug) => createSelector(
-  chartDataSelector(slug),
-  (chartData) => chartData.present,
-)
-
-
-export const presentChartsDatasSelector = createSelector(
+export const presentChartsSelector = createSelector(
   chartsSelector,
-  (charts) => charts.map((chart1) => chart1.data.present),
+  (charts) => Object.keys(charts).map((chartSlug) => charts[chartSlug].present),
 )
 
 
-export const chartJsonSelector = (slug) => createSelector(
-  presentChartDataSelector(slug),
-  (presentChartData) => JSON.stringify(presentChartData, null, 2),
+export const chartJsonSelector = (chartSlug) => createSelector(
+  presentChartSelector(chartSlug),
+  (presentChart) => JSON.stringify(presentChart, null, 2),
 )
 
 
-export const isEditedSelector = (slug) => createSelector(
-  chartSelector(slug),
-  (chart) => chart.isEdited,
-)
+export const isEditedSelector = (chartSlug) => (state) => state.editedCharts[chartSlug]
 
 
-export const selectionSelector = (slug) => createSelector(
-  chartSelector(slug),
-  (chart) => chart.selection,
-)
+export const selectionSelector = (chartSlug) => (state) => state.selections[chartSlug]
 
 
-export const partOfSelectedChordLengthSelector = (slug) => createSelector(
-  presentChartDataSelector(slug),
-  isEditedSelector(slug),
-  selectionSelector(slug),
-  (chart, isEdited, selection) => isEdited && selection.type === "chord" ?
+export const partOfSelectedChordLengthSelector = (chartSlug) => createSelector(
+  presentChartSelector(chartSlug),
+  selectionSelector(chartSlug),
+  (chart, selection) => selection && selection.type === "chord" ?
     chart.parts[selection.partName].length :
     null
 )
 
 
-export const selectedPartSelector = (slug) => createSelector(
-  presentChartDataSelector(slug),
-  selectionSelector(slug),
-  (presentChartData, selection) => presentChartData.parts[selection.partName]
+export const selectedPartSelector = (chartSlug) => createSelector(
+  presentChartSelector(chartSlug),
+  selectionSelector(chartSlug),
+  (presentChart, selection) => presentChart.parts[selection.partName]
 )
 
 
-export const selectedChordSelector = (slug) => createSelector(
-  selectedPartSelector(slug),
-  selectionSelector(slug),
+export const selectedChordSelector = (chartSlug) => createSelector(
+  selectedPartSelector(chartSlug),
+  selectionSelector(chartSlug),
   (selectedPart, selection) => selectedPart[selection.index],
 )
 
 
-export const selectedPartNameSelector = (slug) => createSelector(
-  presentChartDataSelector(slug),
-  selectionSelector(slug),
-  (presentChartData, selection) => presentChartData.structure[selection.index],
+export const selectedPartNameSelector = (chartSlug) => createSelector(
+  presentChartSelector(chartSlug),
+  selectionSelector(chartSlug),
+  (presentChart, selection) => presentChart.structure[selection.index],
 )
 
 
-export const structureWithRepetitionsSelector = (slug) => createSelector(
-  presentChartDataSelector(slug),
-  (presentChartData) => helpers.getStructureWithRepetitions(presentChartData.structure),
+export const structureWithRepetitionsSelector = (chartSlug) => createSelector(
+  presentChartSelector(chartSlug),
+  (presentChart) => helpers.getStructureWithRepetitions(presentChart.structure),
 )
 
 
-export const rowsSelector = (slug) => createSelector(
-  presentChartDataSelector(slug),
-  (presentChartData) => helpers.getRowsFromParts(presentChartData.parts),
+export const rowsSelector = (chartSlug) => createSelector(
+  presentChartSelector(chartSlug),
+  (presentChart) => helpers.getRowsFromParts(presentChart.parts),
 )

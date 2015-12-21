@@ -16,7 +16,7 @@ const keyMap = {
 
 
 const Bench = ({
-  chartsDatas,
+  charts,
   enableDevTools,
   gitHubCommitUrl,
   initialWidth,
@@ -63,8 +63,8 @@ const Bench = ({
     <section>
       <AutoWidth initialWidth={initialWidth}>
         {
-          chartsDatas.map((chartData, idx) => (
-            <ChartBench key={idx} slug={chartData.slug} title={chartData.title} />
+          charts.map((chart, idx) => (
+            <ChartBench key={idx} slug={chart.slug} title={chart.title} />
           ))
         }
       </AutoWidth>

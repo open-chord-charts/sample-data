@@ -18,20 +18,7 @@ import {
 import * as helpers from "./helpers"
 
 
-// Bench reducers
-
-
 export const appInfo = (state = {}) => state
-
-
-export const isDevToolsEnabled = (state = false, action) => {
-  switch(action.type) {
-    case ENABLE_DEV_TOOLS:
-      return action.enabled
-    default:
-      return state
-  }
-}
 
 
 export const benchKey = (state = "C", action) => {
@@ -44,168 +31,175 @@ export const benchKey = (state = "C", action) => {
 }
 
 
-// Chart reducers
-
-
-export const data = (state = {}, action) => {
+export const chart = (state = {}, action) => {
   switch(action.type) {
     case INSERT_CHORD:
-      return state.slug === action.chartSlug ?
-        {
-          ...state,
-          parts: {
-            ...state.parts,
-            [action.partName]: [
-              ...state.parts[action.partName].slice(0, action.index),
-              state.parts[action.partName][action.index],
-              ...state.parts[action.partName].slice(action.index),
-            ],
-          },
-        } :
-        state
-    case REMOVE_CHORD:
-      return state.slug === action.chartSlug ?
-        {
-          ...state,
-          parts: {
-            ...state.parts,
-            [action.partName]: [
-              ...state.parts[action.partName].slice(0, action.index),
-              ...state.parts[action.partName].slice(action.index + 1),
-            ],
-          },
-        } :
-        state
-    case REMOVE_PART:
-      return state.slug === action.chartSlug ?
-        {
-          ...state,
-          structure: [
-            ...state.structure.slice(0, action.index),
-            ...state.structure.slice(action.index + 1),
+      return {
+        ...state,
+        parts: {
+          ...state.parts,
+          [action.partName]: [
+            ...state.parts[action.partName].slice(0, action.index),
+            state.parts[action.partName][action.index],
+            ...state.parts[action.partName].slice(action.index),
           ],
-        } :
-        state
+        },
+      }
+    case REMOVE_CHORD:
+      return {
+        ...state,
+        parts: {
+          ...state.parts,
+          [action.partName]: [
+            ...state.parts[action.partName].slice(0, action.index),
+            ...state.parts[action.partName].slice(action.index + 1),
+          ],
+        },
+      }
+    case REMOVE_PART:
+      return {
+        ...state,
+        structure: [
+          ...state.structure.slice(0, action.index),
+          ...state.structure.slice(action.index + 1),
+        ],
+      }
     case SET_CHORD_ALTERATIONS:
-      return state.slug === action.chartSlug ?
-        {
-          ...state,
-          parts: {
-            ...state.parts,
-            [action.partName]: [
-              ...state.parts[action.partName].slice(0, action.index),
-              {
-                ...state.parts[action.partName][action.index],
-                // TODO Do a merge with existing alterations instead of an affectation.
-                alterations: action.alterations === null ? null : [action.alterations],
-              },
-              ...state.parts[action.partName].slice(action.index + 1),
-            ],
-          },
-        } :
-        state
+      return {
+        ...state,
+        parts: {
+          ...state.parts,
+          [action.partName]: [
+            ...state.parts[action.partName].slice(0, action.index),
+            {
+              ...state.parts[action.partName][action.index],
+              // TODO Do a merge with existing alterations instead of an affectation.
+              alterations: action.alterations === null ? null : [action.alterations],
+            },
+            ...state.parts[action.partName].slice(action.index + 1),
+          ],
+        },
+      }
     case SET_CHORD_DURATION:
-      return state.slug === action.chartSlug ?
-        {
-          ...state,
-          parts: {
-            ...state.parts,
-            [action.partName]: [
-              ...state.parts[action.partName].slice(0, action.index),
-              {
-                ...state.parts[action.partName][action.index],
-                duration: action.alterations === null ? null : [action.duration],
-              },
-              ...state.parts[action.partName].slice(action.index + 1),
-            ],
-          },
-        } :
-        state
+      return {
+        ...state,
+        parts: {
+          ...state.parts,
+          [action.partName]: [
+            ...state.parts[action.partName].slice(0, action.index),
+            {
+              ...state.parts[action.partName][action.index],
+              duration: action.alterations === null ? null : [action.duration],
+            },
+            ...state.parts[action.partName].slice(action.index + 1),
+          ],
+        },
+      }
     case SET_CHORD_KEY:
-      return state.slug === action.chartSlug ?
-        {
-          ...state,
-          parts: {
-            ...state.parts,
-            [action.partName]: [
-              ...state.parts[action.partName].slice(0, action.index),
-              {
-                ...state.parts[action.partName][action.index],
-                degree: helpers.getDegreeFromKey(action.key, state.key),
-              },
-              ...state.parts[action.partName].slice(action.index + 1),
-            ],
-          },
-        } :
-        state
+      return {
+        ...state,
+        parts: {
+          ...state.parts,
+          [action.partName]: [
+            ...state.parts[action.partName].slice(0, action.index),
+            {
+              ...state.parts[action.partName][action.index],
+              degree: helpers.getDegreeFromKey(action.key, state.key),
+            },
+            ...state.parts[action.partName].slice(action.index + 1),
+          ],
+        },
+      }
     default:
       return state
   }
 }
 
 
-const undoableData = (slug) => undoable(data, {
+const undoableChart = (chartSlug) => undoable(chart, {
   // debug: true,
   filter: distinctState(),
-  redoType: `REDO/${slug}`,
-  undoType: `UNDO/${slug}`,
+  redoType: `REDO/${chartSlug}`,
+  undoType: `UNDO/${chartSlug}`,
 })
 
 
-export const isEdited = (slug) => (state = false, action) => {
+export const charts = (state = {}, action) => Object.keys(state).reduce(
+  (nextState, chartSlug) => {
+    nextState[chartSlug] = (action.chartSlug && action.chartSlug !== chartSlug) ?
+      state[chartSlug] :
+      undoableChart(chartSlug)(state[chartSlug], action)
+    return nextState
+  },
+  {},
+)
+
+
+export const editedCharts = (state = {}, action) => {
   switch(action.type) {
     case COMMIT_CHART:
-      return slug === action.slug ? false : state
+      return {
+        ...state,
+        [action.chartSlug]: false,
+      }
     case EDIT_CHART:
-      return slug === action.slug ? true : state
+      return {
+        ...state,
+        [action.chartSlug]: true,
+      }
     default:
       return state
   }
 }
 
 
-export const selection = (slug) => (state = {}, action) => {
+export const isDevToolsEnabled = (state = false, action) => {
   switch(action.type) {
-    case COMMIT_CHART:
-      return slug === action.slug ? {} : state
+    case ENABLE_DEV_TOOLS:
+      return action.enabled
+    default:
+      return state
+  }
+}
+
+
+export const selections = (state = {}, action) => {
+  switch(action.type) {
     case REMOVE_CHORD:
-      return slug === action.chartSlug ?
-        {
-          ...state,
+      return {
+        ...state,
+        [action.chartSlug]: {
+          ...state[action.chartSlug],
           index: Math.max(0, action.index - 1),
-        } :
-        state
+        },
+      }
     case REMOVE_PART:
-      return slug === action.chartSlug ? {} : state
+      return {
+        ...state,
+        [action.chartSlug]: null,
+      }
     case SELECT_CHORD:
-      return slug === action.chartSlug ?
-        {
+      return {
+        ...state,
+        [action.chartSlug]: {
           index: action.index,
           partName: action.partName,
           type: "chord",
-        } :
-        state
+        },
+      }
     case SELECT_PART:
-      return slug === action.chartSlug ?
-        {
+      return {
+        ...state,
+        [action.chartSlug]: {
           index: action.index,
           type: "part",
-        } :
-        state
+        },
+      }
     default:
       return state
   }
 }
 
-
-export const chart = (state = {}, action) => ({
-  data: undoableData(state.data.present.slug)(state.data, action),
-  isEdited: isEdited(state.data.present.slug)(state.isEdited, action),
-  selection: selection(state.data.present.slug)(state.selection, action),
-})
-
-
-export const charts = (state = [], action) => state.map((chart1) => chart(chart1, action))
 
 
 // Root reducer
@@ -213,7 +207,9 @@ export const charts = (state = [], action) => state.map((chart1) => chart(chart1
 
 export const rootReducer = combineReducers({
   appInfo,
-  charts,
-  isDevToolsEnabled,
   benchKey,
+  charts,
+  editedCharts,
+  isDevToolsEnabled,
+  selections,
 })

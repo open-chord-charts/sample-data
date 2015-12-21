@@ -32,14 +32,14 @@ export const setBenchKey = (key) => ({
 // Chart actions.
 
 
-export const commitChart = (slug) => ({
-  slug,
+export const commitChart = (chartSlug) => ({
+  chartSlug,
   type: COMMIT_CHART,
 })
 
 
-export const editChart = (slug) => ({
-  slug,
+export const editChart = (chartSlug) => ({
+  chartSlug,
   type: EDIT_CHART,
 })
 
@@ -112,7 +112,7 @@ export const setChordKey = (chartSlug, partName, index, key) => ({
 // Undo actions.
 
 
-export const redo = (slug) => ({type: `REDO/${slug}`})
+export const redo = (chartSlug) => ({type: `REDO/${chartSlug}`})
 
 
-export const undo = (slug) => ({type: `UNDO/${slug}`})
+export const undo = (chartSlug) => ({type: `UNDO/${chartSlug}`})

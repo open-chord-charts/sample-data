@@ -12,7 +12,7 @@ const Chart = ({
   rowHeight = CHART_ROW_HEIGHT,
   rows,
   selectChord = null,
-  selection,
+  selection = null,
   selectPart = null,
   structureWithRepetitions,
   width,
@@ -52,13 +52,15 @@ const Chart = ({
                         null
                     }
                     selected={
-                      (
-                        selection.type === "chord" &&
-                        selection.index === chords[0].indexInPart &&
-                        selection.partName === partName
-                      ) || (
-                        selection.type === "part" &&
-                        selection.index === partIdx
+                      selection && (
+                        (
+                          selection.type === "chord" &&
+                          selection.index === chords[0].indexInPart &&
+                          selection.partName === partName
+                        ) || (
+                          selection.type === "part" &&
+                          selection.index === partIdx
+                        )
                       )
                     }
                     width={

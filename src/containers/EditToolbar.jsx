@@ -23,7 +23,7 @@ const mapStateToProps = (state, ownProps) => {
   const selection = selectors.selectionSelector(chartSlug)(state)
   let selectedChord = null
   let selectedPart = null
-  if (Object.keys(selection).length) {
+  if (selection) {
     switch (selection.type) {
       case "chord":
         const {alterations, degree, duration} = selectors.selectedChordSelector(chartSlug)(state)
@@ -44,13 +44,14 @@ const mapStateToProps = (state, ownProps) => {
         break
     }
   }
+  const chart = selectors.chartSelector(chartSlug)(state)
   return {
     gitHubBlobUrl: helpers.getGitHubBlobUrl(chartSlug),
     isEdited: selectors.isEditedSelector(chartSlug)(state),
-    redoDisabled: selectors.chartDataSelector(chartSlug)(state).future.length === 0,
+    redoDisabled: chart.future.length === 0,
     selectedChord,
     selectedPart,
-    undoDisabled: selectors.chartDataSelector(chartSlug)(state).past.length === 0,
+    undoDisabled: chart.past.length === 0,
   }
 }
 

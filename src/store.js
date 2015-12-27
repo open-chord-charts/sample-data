@@ -1,7 +1,7 @@
 import {compose, createStore} from "redux"
 import {persistState} from "redux-devtools"
 
-import {rootReducer} from "./reducers"
+import rootReducer from "./reducers"
 import DevTools from "./containers/DevTools"
 
 
@@ -12,7 +12,15 @@ const finalCreateStore = compose(
 )(createStore)
 
 
-const configureStore = (initialState) => finalCreateStore(rootReducer, initialState)
+export default function configureStore(initialState) {
+  const store = finalCreateStore(rootReducer, initialState)
 
+  // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
+  if (module.hot) {
+    module.hot.accept("./reducers", () => {
+      store.replaceReducer(require("./reducers").default)
+    })
+  }
 
-export default configureStore
+  return store
+}

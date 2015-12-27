@@ -1,9 +1,8 @@
 import "babel-polyfill"
 
-import {Provider} from "react-redux"
 import {render} from "react-dom"
 
-import Bench from "./containers/Bench"
+import Root from "./containers/Root"
 import charts from "./charts-data"
 import configureStore from "./store"
 
@@ -27,14 +26,8 @@ const initialState = {
 
 const store = configureStore(initialState)
 
-const containerElement = document.getElementById("container")
-const width = containerElement.offsetWidth
+const rootElement = document.getElementById("root")
+const width = rootElement.offsetWidth
 
-render(
-  (
-    <Provider store={store}>
-      <Bench initialWidth={width} />
-    </Provider>
-  ),
-  containerElement,
-)
+
+render(<Root store={store} width={width} />, rootElement)

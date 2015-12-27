@@ -205,7 +205,7 @@ export const selections = (state = {}, action) => {
 // Root reducer
 
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   appInfo,
   benchKey,
   charts,
@@ -213,3 +213,6 @@ export const rootReducer = combineReducers({
   isDevToolsEnabled,
   selections,
 })
+
+
+export default rootReducer

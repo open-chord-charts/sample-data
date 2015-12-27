@@ -27,7 +27,7 @@ const Bench = ({
   setBenchKey,
 }) => (
   <HotKeys keyMap={keyMap}>
-    <h1>OpenChordCharts bench</h1>
+    <h1>OpenChordCharts sample data</h1>
     <p>
       This page shows renderings of OpenChordCharts
       {" "}

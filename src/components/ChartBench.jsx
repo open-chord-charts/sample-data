@@ -11,30 +11,24 @@ const ChartBench = ({
   slug,
   title,
   width,
-}) => {
-  return (
-    <article style={{marginBottom: 60}}>
-      <h1 id={slug}>
-        <a href={"#" + slug} style={{textDecoration: "none"}} title="Anchor"></a>
-        {" "}
-        {title}
-        <small>
-          {" "}
-        </small>
-      </h1>
-      <EditToolbar chartSlug={slug} />
-      <HotKeys handlers={hotKeysHandlers}>
-        <Chart slug={slug} width={width} />
-      </HotKeys>
-      <p>
-        <ClipboardButton data-clipboard-text={chartJson}>
-          Copy JSON
-        </ClipboardButton>
-      </p>
-    </article>
-  )
-}
-
+}) => (
+  <article style={{marginBottom: 60}}>
+    <h1 id={slug}>
+      <a href={"#" + slug} style={{textDecoration: "none"}} title="Anchor"></a>
+      {" "}
+      {title}
+    </h1>
+    <EditToolbar chartSlug={slug} />
+    <HotKeys handlers={hotKeysHandlers}>
+      <Chart slug={slug} width={width} />
+    </HotKeys>
+    <p>
+      <ClipboardButton data-clipboard-text={chartJson}>
+        Copy JSON
+      </ClipboardButton>
+    </p>
+  </article>
+)
 
 
 export default ChartBench

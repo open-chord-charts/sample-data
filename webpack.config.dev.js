@@ -13,7 +13,7 @@ const lastUpdatedOn = child_process.spawnSync("git", ["show", "-s", "--format=%c
 const packageVersion = process.env.npm_package_version
 
 
-module.exports = {
+export default {
   devtool: "cheap-module-eval-source-map",
   entry: [
     "webpack-hot-middleware/client",

@@ -2,11 +2,12 @@ import {HotKeys} from "react-hotkeys"
 import ClipboardButton from "react-clipboard.js"
 
 import Chart from "../containers/Chart"
-import EditToolbar from "../containers/EditToolbar"
+import ChartToolbar from "../containers/ChartToolbar"
 
 
 const ChartBench = ({
   chartJson,
+  chartJsonUrl,
   hotKeysHandlers,
   slug,
   title,
@@ -18,11 +19,12 @@ const ChartBench = ({
       {" "}
       {title}
     </h1>
-    <EditToolbar chartSlug={slug} />
+    <ChartToolbar chartSlug={slug} />
     <HotKeys handlers={hotKeysHandlers}>
       <Chart slug={slug} width={width} />
     </HotKeys>
     <p>
+      <a href={chartJsonUrl} style={{textDecoration: "none"}} target="_blank" title="View JSON file"></a>
       <ClipboardButton data-clipboard-text={chartJson}>
         Copy JSON
       </ClipboardButton>

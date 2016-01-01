@@ -1,7 +1,7 @@
 import {ALTERATIONS} from "../constants"
 
 
-const AlterationSelect = ({onChange, value}) => (
+const AlterationSelect = ({onChange, value = null}) => (
   <select
     onChange={
       (event) => {
@@ -12,7 +12,7 @@ const AlterationSelect = ({onChange, value}) => (
         onChange(targetValue)
       }
     }
-    value={value}
+    value={value === null ? "" : value}
   >
     <option value="">-</option>
     {

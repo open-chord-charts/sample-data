@@ -11,6 +11,7 @@ import {
   setChordKey,
   undo,
 } from "../actions"
+import * as helpers from "../helpers"
 import * as selectors from "../selectors"
 import ChartBench from "../components/ChartBench"
 
@@ -79,6 +80,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   }
   return {
     chartJson,
+    chartJsonUrl: helpers.getGitHubBlobUrl(slug),
     hotKeysHandlers,
     slug,
     title,

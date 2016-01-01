@@ -1,7 +1,7 @@
-import {CHROMATIC_KEYS} from "../constants"
+import {CHROMATIC_NOTES} from "../constants"
 
 
-const KeySelect = ({onChange, value}) => (
+const NoteSelect = ({onChange, value}) => (
   <select
     onChange={
       (event) => {
@@ -11,7 +11,7 @@ const KeySelect = ({onChange, value}) => (
     value={value}
   >
     {
-      CHROMATIC_KEYS.map((key, idx) => (
+      CHROMATIC_NOTES.map((key, idx) => (
         <option key={idx} value={key}>{key}</option>
       ))
     }
@@ -19,4 +19,4 @@ const KeySelect = ({onChange, value}) => (
 )
 
 
-export default KeySelect
+export default NoteSelect

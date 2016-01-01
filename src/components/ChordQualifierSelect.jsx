@@ -1,7 +1,7 @@
-import {ALTERATIONS} from "../constants"
+import {QUALIFIERS} from "../constants"
 
 
-const AlterationSelect = ({onChange, value = null}) => (
+const ChordQualifierSelect = ({onChange, value = null}) => (
   <select
     onChange={
       (event) => {
@@ -16,7 +16,7 @@ const AlterationSelect = ({onChange, value = null}) => (
   >
     <option value="">-</option>
     {
-      ALTERATIONS.map((key, idx) => (
+      QUALIFIERS.map((key, idx) => (
         <option key={idx} value={key}>{key}</option>
       ))
     }
@@ -24,4 +24,4 @@ const AlterationSelect = ({onChange, value = null}) => (
 )
 
 
-export default AlterationSelect
+export default ChordQualifierSelect

@@ -3,7 +3,7 @@ import {HotKeys} from "react-hotkeys"
 import AutoWidth from "./AutoWidth"
 import ChartBench from "../containers/ChartBench"
 import DevTools from "../containers/DevTools"
-import KeySelect from "./KeySelect"
+import NoteSelect from "./NoteSelect"
 
 
 const keyMap = {
@@ -55,7 +55,7 @@ const Bench = ({
     <p>
       Current key:
       {" "}
-      <KeySelect
+      <NoteSelect
         onChange={(value) => { setBenchKey(value) }}
         value={benchKey}
       />

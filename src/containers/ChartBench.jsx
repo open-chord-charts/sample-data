@@ -6,9 +6,9 @@ import {
   redo,
   removeChord,
   selectChord,
-  setChordAlterations,
+  setChordQualifier,
   setChordDuration,
-  setChordKey,
+  setChordRootNote,
   undo,
 } from "../actions"
 import * as helpers from "../helpers"
@@ -32,9 +32,9 @@ const actions = {
   redo,
   removeChord,
   selectChord,
-  setChordAlterations,
+  setChordQualifier,
   setChordDuration,
-  setChordKey,
+  setChordRootNote,
   undo,
 }
 
@@ -42,23 +42,23 @@ const actions = {
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {chartJson, isEdited, partOfSelectedChordLength, selection} = stateProps
   const {slug, title, width} = ownProps
-  let hotKeysHandlers
+  let hotKeysHandlers = {}
   if (isEdited && selection && selection.type === "chord") {
     const {index, partName} = selection
     hotKeysHandlers = {
       // Chord keys
-      a: () => dispatchProps.setChordKey(slug, partName, index, "A"),
-      b: () => dispatchProps.setChordKey(slug, partName, index, "B"),
-      c: () => dispatchProps.setChordKey(slug, partName, index, "C"),
-      d: () => dispatchProps.setChordKey(slug, partName, index, "D"),
-      e: () => dispatchProps.setChordKey(slug, partName, index, "E"),
-      f: () => dispatchProps.setChordKey(slug, partName, index, "F"),
-      g: () => dispatchProps.setChordKey(slug, partName, index, "G"),
+      a: () => dispatchProps.setChordRootNote(slug, partName, index, "A"),
+      b: () => dispatchProps.setChordRootNote(slug, partName, index, "B"),
+      c: () => dispatchProps.setChordRootNote(slug, partName, index, "C"),
+      d: () => dispatchProps.setChordRootNote(slug, partName, index, "D"),
+      e: () => dispatchProps.setChordRootNote(slug, partName, index, "E"),
+      f: () => dispatchProps.setChordRootNote(slug, partName, index, "F"),
+      g: () => dispatchProps.setChordRootNote(slug, partName, index, "G"),
 
-      // Chord alterations
-      "-": () => dispatchProps.setChordAlterations(slug, partName, index, null),
-      m: () => dispatchProps.setChordAlterations(slug, partName, index, "m"),
-      7: () => dispatchProps.setChordAlterations(slug, partName, index, "7"),
+      // Chord qualifiers
+      "-": () => dispatchProps.setChordQualifier(slug, partName, index, null),
+      m: () => dispatchProps.setChordQualifier(slug, partName, index, "m"),
+      7: () => dispatchProps.setChordQualifier(slug, partName, index, "7"),
 
       // Edition
       1: () => dispatchProps.setChordDuration(slug, partName, index, 1),
@@ -75,8 +75,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
       redo: () => dispatchProps.redo(slug),
       undo: () => dispatchProps.undo(slug),
     }
-  } else {
-    hotKeysHandlers = {}
   }
   return {
     chartJson,

@@ -78,9 +78,9 @@ const Chart = ({
                         "–" :
                         chords.map((chord, idx3) => (
                           <Chord
-                            alterations={chord.alterations}
                             degree={chord.degree}
                             key={idx3}
+                            qualifier={chord.qualifier}
                           />
                         ))
                     }

@@ -11,9 +11,9 @@ import {
   SELECT_CHORD,
   SELECT_PART,
   SET_BENCH_KEY,
-  SET_CHORD_ALTERATIONS,
   SET_CHORD_DURATION,
-  SET_CHORD_KEY,
+  SET_CHORD_QUALIFIER,
+  SET_CHORD_ROOT_NOTE,
 } from "./constants"
 import * as helpers from "./helpers"
 
@@ -64,7 +64,7 @@ export const chart = (state = {}, action) => {
           ...state.structure.slice(action.index + 1),
         ],
       }
-    case SET_CHORD_ALTERATIONS:
+    case SET_CHORD_QUALIFIER:
       return {
         ...state,
         parts: {
@@ -73,8 +73,7 @@ export const chart = (state = {}, action) => {
             ...state.parts[action.partName].slice(0, action.index),
             {
               ...state.parts[action.partName][action.index],
-              // TODO Do a merge with existing alterations instead of an affectation.
-              alterations: action.alterations === null ? null : [action.alterations],
+              qualifier: action.qualifier,
             },
             ...state.parts[action.partName].slice(action.index + 1),
           ],
@@ -89,13 +88,13 @@ export const chart = (state = {}, action) => {
             ...state.parts[action.partName].slice(0, action.index),
             {
               ...state.parts[action.partName][action.index],
-              duration: action.alterations === null ? null : [action.duration],
+              duration: action.duration,
             },
             ...state.parts[action.partName].slice(action.index + 1),
           ],
         },
       }
-    case SET_CHORD_KEY:
+    case SET_CHORD_ROOT_NOTE:
       return {
         ...state,
         parts: {
@@ -104,7 +103,7 @@ export const chart = (state = {}, action) => {
             ...state.parts[action.partName].slice(0, action.index),
             {
               ...state.parts[action.partName][action.index],
-              degree: helpers.getDegreeFromKey(action.key, state.key),
+              degree: helpers.getDegree(action.rootNote, state.key),
             },
             ...state.parts[action.partName].slice(action.index + 1),
           ],

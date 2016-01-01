@@ -5,49 +5,49 @@
       {
         "degree": 9,
         "duration": 1,
-        "alterations": ["m"]
+        "qualifier": "m"
       },
       {
         "degree": 11,
         "duration": 0.5,
-        "alterations": ["7"]
+        "qualifier": "7"
       },
       {
         "degree": 4,
         "duration": 0.5,
-        "alterations": ["7"]
+        "qualifier": "7"
       },
       {
         "degree": 9,
         "duration": 1,
-        "alterations": ["m"]
+        "qualifier": "m"
       },
       {
         "degree": 2,
         "duration": 0.5,
-        "alterations": ["m"]
+        "qualifier": "m"
       },
       {
         "degree": 7,
         "duration": 0.5,
-        "alterations": ["7"]
+        "qualifier": "7"
       }
     ],
     "B": [
       {
         "degree": 9,
         "duration": 1,
-        "alterations": ["7"]
+        "qualifier": "7"
       },
       {
         "degree": 2,
         "duration": 1,
-        "alterations": ["m"]
+        "qualifier": "m"
       },
       {
         "degree": 7,
         "duration": 1,
-        "alterations": ["7"]
+        "qualifier": "7"
       },
       {
         "degree": 0,
@@ -56,17 +56,17 @@
       {
         "degree": 9,
         "duration": 1,
-        "alterations": ["7"]
+        "qualifier": "7"
       },
       {
         "degree": 2,
         "duration": 1,
-        "alterations": ["m"]
+        "qualifier": "m"
       },
       {
         "degree": 7,
         "duration": 1,
-        "alterations": ["7"]
+        "qualifier": "7"
       },
       {
         "degree": 0,
@@ -75,7 +75,7 @@
       {
         "degree": 4,
         "duration": 0.5,
-        "alterations": ["7"]
+        "qualifier": "7"
       }
     ]
   },

@@ -8,9 +8,9 @@ import {
   SELECT_CHORD,
   SELECT_PART,
   SET_BENCH_KEY,
-  SET_CHORD_ALTERATIONS,
   SET_CHORD_DURATION,
-  SET_CHORD_KEY,
+  SET_CHORD_ROOT_NOTE,
+  SET_CHORD_QUALIFIER,
 } from "./constants"
 
 
@@ -82,12 +82,12 @@ export const selectPart = (chartSlug, index) => ({
 })
 
 
-export const setChordAlterations = (chartSlug, partName, index, alterations) => ({
-  alterations,
+export const setChordQualifier = (chartSlug, partName, index, qualifier) => ({
   chartSlug,
   index,
   partName,
-  type: SET_CHORD_ALTERATIONS,
+  qualifier,
+  type: SET_CHORD_QUALIFIER,
 })
 
 
@@ -100,12 +100,12 @@ export const setChordDuration = (chartSlug, partName, index, duration) => ({
 })
 
 
-export const setChordKey = (chartSlug, partName, index, key) => ({
+export const setChordRootNote = (chartSlug, partName, index, rootNote) => ({
   chartSlug,
-  key,
   index,
   partName,
-  type: SET_CHORD_KEY,
+  rootNote,
+  type: SET_CHORD_ROOT_NOTE,
 })
 
 

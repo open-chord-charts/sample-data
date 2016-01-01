@@ -10,16 +10,16 @@ export const REMOVE_PART = "REMOVE_PART"
 export const SELECT_CHORD = "SELECT_CHORD"
 export const SELECT_PART = "SELECT_PART"
 export const SET_BENCH_KEY = "SET_BENCH_KEY"
-export const SET_CHORD_ALTERATIONS = "SET_CHORD_ALTERATIONS"
+export const SET_CHORD_QUALIFIER = "SET_CHORD_QUALIFIER"
 export const SET_CHORD_DURATION = "SET_CHORD_DURATION"
-export const SET_CHORD_KEY = "SET_CHORD_KEY"
+export const SET_CHORD_ROOT_NOTE = "SET_CHORD_ROOT_NOTE"
 
 
 // Music theory constants.
 
 
-export const ALTERATIONS = ["m", "7"]
-export const CHROMATIC_KEYS = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
+export const QUALIFIERS = ["m", "7", "m7b5"]
+export const CHROMATIC_NOTES = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 
 
 // Components rendering constants.

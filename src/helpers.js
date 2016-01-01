@@ -1,6 +1,6 @@
 import * as tr from "transduce"
 
-import {CHROMATIC_KEYS, NB_BARS_BY_ROW} from "./constants"
+import {CHROMATIC_NOTES, NB_BARS_BY_ROW} from "./constants"
 
 
 // Functional helpers
@@ -23,12 +23,13 @@ export const getGitHubCommitUrl = (commit) => `https://github.com/openchordchart
 // Degree and note functions
 
 
-export const getDegreeFromKey = (chordKey, chartKey) =>
-  (CHROMATIC_KEYS.indexOf(chordKey) - CHROMATIC_KEYS.indexOf(chartKey) + CHROMATIC_KEYS.length) % CHROMATIC_KEYS.length
+export const getDegree = (note, chartKey) => (
+  CHROMATIC_NOTES.indexOf(note) - CHROMATIC_NOTES.indexOf(chartKey) + CHROMATIC_NOTES.length
+) % CHROMATIC_NOTES.length
 
 
-export const getKeyFromDegree = (chordDegree, chartKey) =>
-    CHROMATIC_KEYS[(CHROMATIC_KEYS.indexOf(chartKey) + chordDegree) % CHROMATIC_KEYS.length]
+export const getNote = (degree, chartKey) =>
+  CHROMATIC_NOTES[(CHROMATIC_NOTES.indexOf(chartKey) + degree) % CHROMATIC_NOTES.length]
 
 
 // Transducers

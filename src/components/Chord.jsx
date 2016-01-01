@@ -1,16 +1,17 @@
-const Chord = ({alterations = null, chordKey}) => (
+const Chord = ({qualifier = null, rootNote}) => (
   <tspan>
-    <tspan>{chordKey}</tspan>
+    <tspan>{rootNote}</tspan>
     {
-      alterations && alterations.map((alteration, idx) => (
-        <tspan key={idx}>
-          {
-            alteration === "b5" ?
-              <tspan dy="-0.7em">{alteration}</tspan> :
-              alteration
-          }
-        </tspan>
-      ))
+      qualifier && (
+        qualifier === "m7b5" ? (
+          <tspan>
+            <tspan>m7</tspan>
+            <tspan dy="-0.7em">b5</tspan>
+          </tspan>
+        ) : (
+          <tspan>{qualifier}</tspan>
+        )
+      )
     }
   </tspan>
 )

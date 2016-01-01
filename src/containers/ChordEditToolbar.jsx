@@ -3,9 +3,9 @@ import {connect} from "react-redux"
 import {
   insertChord,
   removeChord,
-  setChordAlterations,
+  setChordQualifier,
   setChordDuration,
-  setChordKey,
+  setChordRootNote,
 } from "../actions"
 import * as helpers from "../helpers"
 import * as selectors from "../selectors"
@@ -17,10 +17,10 @@ const mapStateToProps = (state, ownProps) => {
   const selection = selectors.selectionSelector(chartSlug)(state)
   // selection.type === "chord" due to ChartEditToolbar
   const selectedChord = selectors.selectedChordSelector(chartSlug)(state)
-  const selectedChordKey = helpers.getKeyFromDegree(selectedChord.degree, state.benchKey)
+  const selectedChordRootNote = helpers.getNote(selectedChord.degree, state.benchKey)
   return {
     selectedChord,
-    selectedChordKey,
+    selectedChordRootNote,
     selection,
   }
 }
@@ -29,25 +29,25 @@ const mapStateToProps = (state, ownProps) => {
 const actions = {
   insertChord,
   removeChord,
-  setChordAlterations,
+  setChordQualifier,
   setChordDuration,
-  setChordKey,
+  setChordRootNote,
 }
 
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  const {selectedChord, selectedChordKey, selection} = stateProps
+  const {selectedChord, selectedChordRootNote, selection} = stateProps
   const {index, partName} = selection
-  const {alterations, duration} = selectedChord
+  const {duration, qualifier} = selectedChord
   const {chartSlug} = ownProps
   return {
-    chordAlterations: alterations,
     chordDuration: duration,
-    chordKey: selectedChordKey,
-    onAlterationsChange: (value) => dispatchProps.setChordAlterations(chartSlug, partName, index, value),
+    chordQualifier: qualifier,
+    chordRootNote: selectedChordRootNote,
+    onQualifierChange: (value) => dispatchProps.setChordQualifier(chartSlug, partName, index, value),
     onDuplicate: () => dispatchProps.insertChord(chartSlug, partName, index),
     onDurationChange: (value) => dispatchProps.setChordDuration(chartSlug, partName, index, value),
-    onKeyChange: (value) => dispatchProps.setChordKey(chartSlug, partName, index, value),
+    onKeyChange: (value) => dispatchProps.setChordRootNote(chartSlug, partName, index, value),
     onRemove: () => dispatchProps.removeChord(chartSlug, partName, index),
   }
 }

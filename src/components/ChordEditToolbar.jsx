@@ -1,26 +1,26 @@
-import AlterationSelect from "./AlterationSelect"
+import ChordQualifierSelect from "./ChordQualifierSelect"
 import DurationInput from "./DurationInput"
-import KeySelect from "./KeySelect"
+import NoteSelect from "./NoteSelect"
 
 
 const ChordEditToolbar = ({
-  chordAlterations = null,
   chordDuration,
-  chordKey,
-  onAlterationsChange,
+  chordQualifier = null,
+  chordRootNote,
+  onQualifierChange,
   onDuplicate,
   onDurationChange,
   onKeyChange,
   onRemove,
 }) => (
   <div>
-    <KeySelect
+    <NoteSelect
       onChange={(value) => { onKeyChange(value) }}
-      value={chordKey}
+      value={chordRootNote}
     />
-    <AlterationSelect
-      onChange={(value) => { onAlterationsChange(value) }}
-      value={chordAlterations ? chordAlterations[0] : null}
+    <ChordQualifierSelect
+      onChange={(value) => { onQualifierChange(value) }}
+      value={chordQualifier}
     />
     {" "}
     <label>

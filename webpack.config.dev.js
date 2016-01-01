@@ -14,7 +14,7 @@ const packageVersion = process.env.npm_package_version
 
 
 export default {
-  devtool: "cheap-module-eval-source-map",
+  devtool: "eval",
   entry: [
     "webpack-hot-middleware/client",
     "./src/index",

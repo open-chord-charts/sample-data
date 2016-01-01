@@ -2,12 +2,12 @@
   "name": "OpenChordCharts-sample-data",
   "version": "0.0.0",
   "scripts": {
-    "build:prod": "NODE_ENV=production webpack",
+    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.babel.js",
+    "build": "npm run clean && npm run build:webpack",
     "clean": "rm -rf dist",
-    "deploy": "git branch -D gh-pages; git worktree add -b tmp gh-pages; cd gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp ../dist/* .; git add --all; git commit -m 'Static page'; git push -f origin gh-pages; cd ..; rm -rf gh-pages; git worktree prune; git branch -d tmp",
+    "deploy": "npm run build; git branch -D gh-pages; git worktree add -b tmp gh-pages; cd gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp ../dist/* .; git add --all; git commit -m 'Static page'; git push -f origin gh-pages; cd ..; rm -rf gh-pages; git worktree prune; git branch -d tmp",
     "dev": "babel-node devServer.js",
     "lint": "eslint src test",
-    "predeploy": "npm run clean; npm run build:prod",
     "test": "mocha --compilers js:babel-core/register --recursive"
   },
   "devDependencies": {
@@ -40,6 +40,7 @@
     "babel-polyfill": "^6.3.14",
     "deep-equal": "^1.0.1",
     "express": "^4.13.3",
+    "html-webpack-plugin": "^1.7.0",
     "react": "^0.14.3",
     "react-clipboard.js": "^0.1.5",
     "react-dom": "^0.14.3",

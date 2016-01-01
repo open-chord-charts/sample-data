@@ -22,7 +22,7 @@ export default {
   output: {
     filename: "bundle.js",
     path: path.join(__dirname, "dist"),
-    publicPath: "/static/",
+    // publicPath: "/static/",
   },
   module: {
     loaders: [

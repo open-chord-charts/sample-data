@@ -51,7 +51,8 @@
       },
       {
         "degree": 0,
-        "duration": 1
+        "duration": 1,
+        "quality": "M"
       },
       {
         "degree": 9,
@@ -70,7 +71,8 @@
       },
       {
         "degree": 0,
-        "duration": 0.5
+        "duration": 0.5,
+        "quality": "M"
       },
       {
         "degree": 4,

@@ -18,7 +18,7 @@ export const SET_CHORD_ROOT_NOTE = "SET_CHORD_ROOT_NOTE"
 // Music theory constants.
 
 
-export const QUALIFIERS = ["m", "7", "m7b5"]
+export const QUALIFIERS = ["M", "m", "7", "m7b5"]
 export const CHROMATIC_NOTES = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
 
 

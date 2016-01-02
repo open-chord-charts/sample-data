@@ -1,21 +1,12 @@
 import {QUALIFIERS} from "../constants"
 
 
-const ChordQualitySelect = ({onChange, title = null, value = null}) => (
+const ChordQualitySelect = ({onChange, title = null, value}) => (
   <select
-    onChange={
-      (event) => {
-        let targetValue = event.target.value
-        if (targetValue === "") {
-          targetValue = null
-        }
-        onChange(targetValue)
-      }
-    }
+    onChange={(event) => { onChange(event.target.value) }}
     title={title}
-    value={value === null ? "" : value}
+    value={value}
   >
-    <option value="">-</option>
     {
       QUALIFIERS.map((key, idx) => (
         <option key={idx} value={key}>{key}</option>

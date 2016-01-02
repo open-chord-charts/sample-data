@@ -5,7 +5,7 @@ import NoteSelect from "./NoteSelect"
 
 const ChordEditToolbar = ({
   chordDuration,
-  chordQuality = null,
+  chordQuality,
   chordRootNote,
   onQualityChange,
   onDuplicate,

@@ -1,13 +1,14 @@
 import {CHROMATIC_NOTES} from "../constants"
 
 
-const NoteSelect = ({onChange, value}) => (
+const NoteSelect = ({onChange, title = null, value}) => (
   <select
     onChange={
       (event) => {
         onChange(event.target.value)
       }
     }
+    title={title}
     value={value}
   >
     {

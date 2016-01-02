@@ -6,7 +6,7 @@ import {
   redo,
   removeChord,
   selectChord,
-  setChordQualifier,
+  setChordQuality,
   setChordDuration,
   setChordRootNote,
   undo,
@@ -32,7 +32,7 @@ const actions = {
   redo,
   removeChord,
   selectChord,
-  setChordQualifier,
+  setChordQuality,
   setChordDuration,
   setChordRootNote,
   undo,
@@ -55,10 +55,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
       f: () => dispatchProps.setChordRootNote(slug, partName, index, "F"),
       g: () => dispatchProps.setChordRootNote(slug, partName, index, "G"),
 
-      // Chord qualifiers
-      "-": () => dispatchProps.setChordQualifier(slug, partName, index, null),
-      m: () => dispatchProps.setChordQualifier(slug, partName, index, "m"),
-      7: () => dispatchProps.setChordQualifier(slug, partName, index, "7"),
+      // Chord qualitys
+      "-": () => dispatchProps.setChordQuality(slug, partName, index, null),
+      m: () => dispatchProps.setChordQuality(slug, partName, index, "m"),
+      7: () => dispatchProps.setChordQuality(slug, partName, index, "7"),
 
       // Edition
       1: () => dispatchProps.setChordDuration(slug, partName, index, 1),

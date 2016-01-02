@@ -1,7 +1,7 @@
 import {QUALIFIERS} from "../constants"
 
 
-const ChordQualifierSelect = ({onChange, value = null}) => (
+const ChordQualitySelect = ({onChange, title = null, value = null}) => (
   <select
     onChange={
       (event) => {
@@ -12,6 +12,7 @@ const ChordQualifierSelect = ({onChange, value = null}) => (
         onChange(targetValue)
       }
     }
+    title={title}
     value={value === null ? "" : value}
   >
     <option value="">-</option>
@@ -24,4 +25,4 @@ const ChordQualifierSelect = ({onChange, value = null}) => (
 )
 
 
-export default ChordQualifierSelect
+export default ChordQualitySelect

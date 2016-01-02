@@ -80,7 +80,7 @@ const Chart = ({
                           <Chord
                             degree={chord.degree}
                             key={idx3}
-                            qualifier={chord.qualifier}
+                            quality={chord.quality}
                           />
                         ))
                     }

@@ -1,13 +1,13 @@
-import ChordQualifierSelect from "./ChordQualifierSelect"
+import ChordQualitySelect from "./ChordQualitySelect"
 import DurationInput from "./DurationInput"
 import NoteSelect from "./NoteSelect"
 
 
 const ChordEditToolbar = ({
   chordDuration,
-  chordQualifier = null,
+  chordQuality = null,
   chordRootNote,
-  onQualifierChange,
+  onQualityChange,
   onDuplicate,
   onDurationChange,
   onKeyChange,
@@ -16,20 +16,20 @@ const ChordEditToolbar = ({
   <div>
     <NoteSelect
       onChange={(value) => { onKeyChange(value) }}
+      title="Root note"
       value={chordRootNote}
     />
-    <ChordQualifierSelect
-      onChange={(value) => { onQualifierChange(value) }}
-      value={chordQualifier}
+    <ChordQualitySelect
+      onChange={(value) => { onQualityChange(value) }}
+      title="Quality"
+      value={chordQuality}
     />
     {" "}
-    <label>
-      duration:
-      <DurationInput
-        onChange={(value) => { onDurationChange(value) }}
-        value={chordDuration}
+    <DurationInput
+      onChange={(value) => { onDurationChange(value) }}
+      title="Duration"
+      value={chordDuration}
       />
-    </label>
     {" "}
     <button onClick={() => { onRemove() }}>
       Remove

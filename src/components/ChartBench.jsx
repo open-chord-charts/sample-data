@@ -25,6 +25,7 @@ const ChartBench = ({
     </HotKeys>
     <p>
       <a href={chartJsonUrl} style={{textDecoration: "none"}} target="_blank" title="View JSON file"></a>
+      {" "}
       <ClipboardButton data-clipboard-text={chartJson}>
         Copy JSON
       </ClipboardButton>

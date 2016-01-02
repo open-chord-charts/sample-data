@@ -73,7 +73,7 @@ export const chart = (state = {}, action) => {
             ...state.parts[action.partName].slice(0, action.index),
             {
               ...state.parts[action.partName][action.index],
-              qualifier: action.qualifier,
+              quality: action.quality,
             },
             ...state.parts[action.partName].slice(action.index + 1),
           ],

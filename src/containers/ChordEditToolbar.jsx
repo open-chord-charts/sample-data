@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import {
   insertChord,
   removeChord,
-  setChordQualifier,
+  setChordQuality,
   setChordDuration,
   setChordRootNote,
 } from "../actions"
@@ -29,7 +29,7 @@ const mapStateToProps = (state, ownProps) => {
 const actions = {
   insertChord,
   removeChord,
-  setChordQualifier,
+  setChordQuality,
   setChordDuration,
   setChordRootNote,
 }
@@ -38,13 +38,13 @@ const actions = {
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {selectedChord, selectedChordRootNote, selection} = stateProps
   const {index, partName} = selection
-  const {duration, qualifier} = selectedChord
+  const {duration, quality} = selectedChord
   const {chartSlug} = ownProps
   return {
     chordDuration: duration,
-    chordQualifier: qualifier,
+    chordQuality: quality,
     chordRootNote: selectedChordRootNote,
-    onQualifierChange: (value) => dispatchProps.setChordQualifier(chartSlug, partName, index, value),
+    onQualityChange: (value) => dispatchProps.setChordQuality(chartSlug, partName, index, value),
     onDuplicate: () => dispatchProps.insertChord(chartSlug, partName, index),
     onDurationChange: (value) => dispatchProps.setChordDuration(chartSlug, partName, index, value),
     onKeyChange: (value) => dispatchProps.setChordRootNote(chartSlug, partName, index, value),

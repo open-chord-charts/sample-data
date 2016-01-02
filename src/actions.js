@@ -82,11 +82,11 @@ export const selectPart = (chartSlug, index) => ({
 })
 
 
-export const setChordQualifier = (chartSlug, partName, index, qualifier) => ({
+export const setChordQuality = (chartSlug, partName, index, quality) => ({
   chartSlug,
   index,
   partName,
-  qualifier,
+  quality,
   type: SET_CHORD_QUALIFIER,
 })
 

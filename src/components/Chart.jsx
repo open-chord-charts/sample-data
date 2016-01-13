@@ -3,7 +3,6 @@ import deepEqual from "deep-equal"
 import {CHART_PART_NAME_COLUMN_WIDTH, CHART_ROW_HEIGHT, NB_BARS_BY_ROW} from "../constants"
 import ChartCell from "./ChartCell"
 import ChartRow from "./ChartRow"
-import Chord from "../containers/Chord"
 
 
 const Chart = ({
@@ -26,31 +25,26 @@ const Chart = ({
     <tbody>
       {
         structureWithRepetitions.map(({partName, isRepetitedPart}, partIdx) => (
-          rows[partName].map((bars, idx1) => (
+          rows[partName].map((bars, rowIdx) => (
             <ChartRow
-              key={`${partIdx}${idx1}`}
-              onPartNameClick={
-                selectPart ?
-                  (
-                    () => { selectPart(partIdx) }
-                  ) :
-                  null
-              }
-              partName={idx1 === 0 ? partName : ""}
-              partNameColumnWidth={partNameColumnWidth}
+              height={rowHeight}
+              isRepetitedPart={isRepetitedPart}
+              key={`${partIdx}-${rowIdx}`}
+              onPartNameClick={selectPart && (() => { selectPart(partIdx) })}
+              partName={rowIdx === 0 ? partName : ""}
             >
               {
-                bars.map((chords, idx2) => (
+                bars.map((chords, barIdx) => (
                   <ChartCell
-                    height={isRepetitedPart ? rowHeight / 2 : rowHeight}
-                    key={idx2}
-                    onClick={
-                      selectChord ?
-                        (
-                          () => { selectChord(partName, chords[0].indexInPart) }
-                        ) :
-                        null
+                    chords={
+                      (
+                        isRepetitedPart ||
+                        barIdx > 0 && bars[barIdx - 1].length === 1 && deepEqual(chords[0], bars[barIdx - 1][0])
+                      ) ? null : chords
                     }
+                    height={rowHeight}
+                    key={barIdx}
+                    onClick={selectChord && (() => { selectChord(partName, chords[0].indexInPart) })}
                     selected={
                       selection && (
                         (
@@ -69,22 +63,7 @@ const Chart = ({
                         rowHeight * 1.5,
                       )
                     }
-                  >
-                    {
-                      (
-                        isRepetitedPart ||
-                        idx2 > 0 && bars[idx2 - 1].length === 1 && deepEqual(chords[0], bars[idx2 - 1][0])
-                      ) ?
-                        "–" :
-                        chords.map((chord, idx3) => (
-                          <Chord
-                            degree={chord.degree}
-                            key={idx3}
-                            quality={chord.quality}
-                          />
-                        ))
-                    }
-                  </ChartCell>
+                  />
                 ))
               }
             </ChartRow>
@@ -94,7 +73,6 @@ const Chart = ({
     </tbody>
   </table>
 )
-
 
 
 export default Chart

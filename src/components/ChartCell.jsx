@@ -1,28 +1,34 @@
-import ChartBar from "./ChartBar"
+import ChartCellSimple from "./ChartCellSimple"
+import ChartCellSplitBy2 from "./ChartCellSplitBy2"
 
 
-const ChartCell = ({children, height, onClick = null, selected, width}) => {
-  return (
-    <td
-      onClick={onClick}
-      style={{
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderWidth: selected ? 3 : 1,
-        height,
-        lineHeight: 0,
-        padding: 0,
-        textAlign: "center",
-        verticalAlign: "middle",
-        width,
-      }}
-    >
-      <ChartBar {...{height, width}}>
-        {children}
-      </ChartBar>
-    </td>
-  )
-}
+const ChartCell = ({chords = null, height, onClick = null, selected, width}) => (
+  <td
+    onClick={onClick}
+    style={{
+      borderColor: "#ddd",
+      borderStyle: "solid",
+      borderWidth: selected ? 3 : 1,
+      padding: 0,
+      textAlign: chords === null && "center",
+      width,
+    }}
+  >
+    {
+      chords === null ?
+        "–" :
+        (
+          <svg {...{height, width}}>
+            {
+              chords.length === 1 ?
+                <ChartCellSimple chord={chords[0]} /> :
+                <ChartCellSplitBy2 chord1={chords[0]} chord2={chords[1]} {...{height, width}} />
+            }
+          </svg>
+        )
+    }
+  </td>
+)
 
 
 export default ChartCell

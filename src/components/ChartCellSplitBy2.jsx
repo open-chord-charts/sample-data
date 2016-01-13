@@ -1,3 +1,6 @@
+import Chord from "../containers/Chord"
+
+
 const ChartCellSplitBy2 = ({chord1, chord2, height, padding = 10, width}) => (
   <g>
     <line
@@ -11,10 +14,10 @@ const ChartCellSplitBy2 = ({chord1, chord2, height, padding = 10, width}) => (
       y2={0}
     />
     <text style={{textAnchor: "start"}} x={padding} y={25}>
-      {chord1}
+      <Chord degree={chord1.degree} quality={chord1.quality} />
     </text>
     <text style={{textAnchor: "end"}} x={width - padding} y={50}>
-      {chord2}
+      <Chord degree={chord2.degree} quality={chord2.quality} />
     </text>
   </g>
 )

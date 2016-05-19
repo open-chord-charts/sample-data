@@ -13,8 +13,7 @@
     "react": "^15.0.2",
     "react-clipboard.js": "^0.2.3",
     "react-dom": "^15.0.2",
-    "react-hotkeys": "^0.8.0",
-    "rebass": "^0.2.6"
+    "react-hotkeys": "^0.8.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",

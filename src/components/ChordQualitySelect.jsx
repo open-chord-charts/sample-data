@@ -1,19 +1,22 @@
-import {QUALIFIERS} from "../constants"
+import {Component} from 'react'
 
+import {QUALIFIERS} from '../constants'
 
-const ChordQualitySelect = ({onChange, title = null, value}) => (
-  <select
-    onChange={(event) => { onChange(event.target.value) }}
-    title={title}
-    value={value}
-  >
-    {
-      QUALIFIERS.map((key, idx) => (
-        <option key={idx} value={key}>{key}</option>
-      ))
-    }
-  </select>
-)
-
-
-export default ChordQualitySelect
+export default class ChordQualitySelect extends Component {
+  render () {
+    const {onChange, title = null, value} = this.props
+    return (
+      <select
+        onChange={(event) => { onChange(event.target.value) }}
+        title={title}
+        value={value}
+      >
+        {
+          QUALIFIERS.map((key) => (
+            <option key={key} value={key}>{key}</option>
+          ))
+        }
+      </select>
+    )
+  }
+}

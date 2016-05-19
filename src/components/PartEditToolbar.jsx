@@ -1,19 +1,28 @@
-const PartEditToolbar = ({
-  onRemove,
-  partName,
-}) => (
-  <div>
-    <input
-      onChange={(value) => { console.log("TODO", value) }}
-      style={{
-        width: "3em",
-      }}
-      type="text"
-      value={partName}
-    />
-    <button onClick={() => { onRemove() }}>Remove</button>
-  </div>
-)
+import {Component} from 'react'
+import {observer} from 'mobx-react'
 
-
-export default PartEditToolbar
+@observer
+export default class PartEditToolbar extends Component {
+  handleNameChange = (partName) => {
+    console.log('TODO', partName)
+  }
+  handleRemoveClick = () => {
+    console.log('TODO')
+  }
+  render () {
+    const {chart} = this.props
+    return (
+      <span>
+        <input
+          onChange={this.handleNameChange}
+          style={{
+            width: '3em'
+          }}
+          type='text'
+          value={chart.selectedPartName}
+        />
+        <button onClick={this.handleRemoveClick}>Remove</button>
+      </span>
+    )
+  }
+}

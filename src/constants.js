@@ -1,25 +1,9 @@
-// Redux actions constants.
-
-
-export const COMMIT_CHART = "COMMIT_CHART"
-export const EDIT_CHART = "EDIT_CHART"
-export const ENABLE_DEV_TOOLS = "ENABLE_DEV_TOOLS"
-export const INSERT_CHORD = "INSERT_CHORD"
-export const REMOVE_CHORD = "REMOVE_CHORD"
-export const REMOVE_PART = "REMOVE_PART"
-export const SELECT_CHORD = "SELECT_CHORD"
-export const SELECT_PART = "SELECT_PART"
-export const SET_BENCH_KEY = "SET_BENCH_KEY"
-export const SET_CHORD_QUALIFIER = "SET_CHORD_QUALIFIER"
-export const SET_CHORD_DURATION = "SET_CHORD_DURATION"
-export const SET_CHORD_ROOT_NOTE = "SET_CHORD_ROOT_NOTE"
-
-
 // Music theory constants.
 
 
-export const QUALIFIERS = ["M", "m", "7", "m7b5"]
-export const CHROMATIC_NOTES = ["Ab", "A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G"]
+export const QUALIFIERS = ['M', 'm', '7', 'm7b5']
+export const CHROMATIC_NOTES = ['Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G']
+export const DIATONIC_NOTES = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
 
 // Components rendering constants.

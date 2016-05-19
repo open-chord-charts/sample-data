@@ -1,4 +1,4 @@
-const requireChart = require.context('../data/charts')
+const requireChart = require.context('../static/charts')
 
 export const loadCharts = (chartNames) => chartNames.map((chartName) => ({
   ...requireChart(`./${chartName}.json`),

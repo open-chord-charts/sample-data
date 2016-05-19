@@ -5,7 +5,8 @@
     "build": "NODE_ENV=production kotatsu build client --babel --config webpack.config.babel.js --progress --output dist src/index.js",
     "deploy": "npm run build; git branch -D gh-pages; git worktree add -b tmp gh-pages; cd gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp ../dist/* ../static/index.html .; git add --all; git commit -m 'Static page'; git push -f origin gh-pages; cd ..; rm -rf gh-pages; git worktree prune; git branch -d tmp",
     "lint": "standard",
-    "start": "kotatsu serve --babel --config webpack.config.babel.js --progress src/index.js"
+    "start": "kotatsu serve --babel --config webpack.config.babel.js --progress --port 3010 src/index.js",
+    "start-production": "npm run build; http-server -p 3011 dist"
   },
   "dependencies": {
     "mobx": "^2.1.6",
@@ -23,6 +24,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
+    "http-server": "^0.9.0",
     "kotatsu": "^0.13.0",
     "mobx-react-devtools": "^4.0.5",
     "standard": "^7.0.1",
@@ -39,7 +41,9 @@
     ],
     "env": {
       "development": {
-        "presets": ["react-hmre"]
+        "presets": [
+          "react-hmre"
+        ]
       }
     }
   },

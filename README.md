@@ -20,7 +20,17 @@ npm run dev
 
 and open your browser to http://localhost:3010/
 
-## Deploy
+## In production
+
+Build and test in production environment:
+
+```
+npm run start-production
+```
+
+and open your browser to http://localhost:3011/
+
+If it's OK, deploy:
 
 ```
 npm run deploy

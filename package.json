@@ -28,7 +28,8 @@
     "kotatsu": "^0.13.0",
     "mobx-react-devtools": "^4.0.5",
     "standard": "^7.0.1",
-    "webpack": "^1.13.0"
+    "webpack": "^1.13.0",
+    "webpack-visualizer-plugin": "^0.1.5"
   },
   "babel": {
     "presets": [

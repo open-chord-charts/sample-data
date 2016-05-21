@@ -2,7 +2,7 @@
   "name": "openchordcharts-sample-data",
   "version": "0.0.0",
   "scripts": {
-    "build": "NODE_ENV=production kotatsu build client --babel --config webpack.config.babel.js --progress --output dist/build src/index.js; cp static/index.html dist",
+    "build": "NODE_ENV=production kotatsu build client --babel --config webpack.config.babel.js --minify --progress --output dist/build src/index.js; cp static/index.html dist",
     "deploy": "npm run build; git branch -D gh-pages; git worktree add -b tmp gh-pages; cd gh-pages; git checkout --orphan gh-pages; git rm -rf .; cp -r ../dist/* .; git add --all; git commit -m 'Static page'; git push -f origin gh-pages; cd ..; rm -rf gh-pages; git worktree prune; git branch -d tmp",
     "lint": "standard",
     "start": "kotatsu serve --babel --config webpack.config.babel.js --progress --port 3010 --index static/index.html src/index.js",

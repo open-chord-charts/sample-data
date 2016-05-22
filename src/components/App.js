@@ -31,7 +31,7 @@ export default class App extends Component {
         '.'
       ]),
       r('p', [
-        `zVersion ${packageVersion}, last updated on `,
+        `Version ${packageVersion}, last updated on `,
         r('a', { href: gitHubCommitUrl }, lastUpdatedOn),
         '.'
       ]),

@@ -93,16 +93,18 @@ class ChartStore {
       edit: function (_) {
         transaction(() => {
           this.isEdited = true
-          this.selectChord(this.structure[0], 0)
+          this.selectChord(0, 0)
           this.selectedPartIndex = null
         })
       },
       duplicateSelectedChord: function (_) {
-        const {chord, indexInPart, partName} = this.selectedChord
+        const {chord, indexInPart, partIndex} = this.selectedChord
+        const partName = this.structure[partIndex]
         this.parts[partName] = R.insert(indexInPart, chord, this.parts[partName])
       },
       removeSelectedChord: function (_) {
-        const {indexInPart, partName} = this.selectedChord
+        const {indexInPart, partIndex} = this.selectedChord
+        const partName = this.structure[partIndex]
         transaction(() => {
           this.parts[partName] = R.remove(indexInPart, 1, this.parts[partName])
           const partLength = this.parts[partName].length
@@ -116,30 +118,37 @@ class ChartStore {
       setSelectedChordRootNote: function (note) {
         this.selectedChord.chord.degree = getDegree(note, appState.benchKey)
       },
-      selectChord: function (partName, indexInPart) {
+      selectChord: function (partIndex, indexInPart) {
+        const partName = this.structure[partIndex]
         const chord = this.parts[partName][indexInPart]
         transaction(() => {
-          this.selectedChord = {partName, indexInPart, chord}
+          this.selectedChord = {partIndex, indexInPart, chord}
           this.selectedPartIndex = null
         })
       },
       selectNextChord: function (_) {
-        const {indexInPart, partName} = this.selectedChord
+        const {indexInPart, partIndex} = this.selectedChord
+        const partName = this.structure[partIndex]
         const newIndexInPart = indexInPart + 1
         if (newIndexInPart > this.parts[partName].length - 1) {
           // Current chord is the last of the part, select the first chord of the next part.
-          const partNameIndex = R.findIndex(R.equals(partName), this.structure)
-          const newPartName = partNameIndex < this.structure.length - 1
-            ? this.structure[partNameIndex + 1 % this.structure.length]
-            : this.structure[0]
-          this.selectChord(newPartName, 0)
+          const newPartIndex = partIndex < this.structure.length - 1 ? partIndex + 1 : 0
+          this.selectChord(newPartIndex, 0)
         } else {
-          this.selectChord(partName, newIndexInPart)
+          this.selectChord(partIndex, newIndexInPart)
         }
       },
       selectPreviousChord: function (_) {
-        const {indexInPart, partName} = this.selectedChord
-        this.selectChord(partName, Math.max(0, indexInPart - 1))
+        const {indexInPart, partIndex} = this.selectedChord
+        const newIndexInPart = indexInPart - 1
+        if (newIndexInPart < 0) {
+          // Current chord is the first of the part, select the last chord of the previous part.
+          const newPartIndex = partIndex > 0 ? partIndex - 1 : this.structure.length - 1
+          const partName = this.structure[newPartIndex]
+          this.selectChord(newPartIndex, this.parts[partName].length - 1)
+        } else {
+          this.selectChord(partIndex, newIndexInPart)
+        }
       },
       selectPart: function (partIndex) {
         transaction(() => {

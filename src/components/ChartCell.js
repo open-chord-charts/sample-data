@@ -9,16 +9,16 @@ import TwoChords from './TwoChords'
 @observer
 export default class ChartCell extends Component {
   handleClick = () => {
-    const {chart, chords, partName} = this.props
-    chart.selectChord(partName, chords[0].indexInPart)
+    const {chart, chords, partIndex} = this.props
+    chart.selectChord(partIndex, chords[0].indexInPart)
   }
   render () {
-    const {chart, chords, displayedChords, partIndex, partName, width} = this.props
+    const {chart, chords, displayedChords, partIndex, width} = this.props
     const isSelected = chart.isEdited && (
       chart.selectedPartIndex === partIndex || (
         chart.selectedChord &&
         chart.selectedChord.indexInPart === chords[0].indexInPart &&
-        chart.selectedChord.partName === partName
+        chart.selectedChord.partIndex === partIndex
       )
     )
     return r.td(

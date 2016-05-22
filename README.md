@@ -6,21 +6,18 @@ View online: http://openchordcharts.github.io/sample-data/
 
 ## Run charts bench
 
-The first time:
-
 ```
 npm install
+npm start
 ```
 
-Then:
+then open your browser to http://localhost:3010/
 
-```
-npm run dev
-```
-
-and open your browser to http://localhost:3010/
+Statistics: open http://localhost:3010/build/stats.html
 
 ## In production
+
+This is a static application, the web server just serves the HTML/JS/CSS files.
 
 Build and test in production environment:
 
@@ -28,10 +25,12 @@ Build and test in production environment:
 npm run start-production
 ```
 
-and open your browser to http://localhost:3011/
+then open your browser to http://localhost:3011/
 
 If it's OK, deploy:
 
 ```
 npm run deploy
 ```
+
+Statistics: open http://localhost:3011/build/stats.html

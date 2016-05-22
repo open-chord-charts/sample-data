@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import r from 'r-dom'
 
 import {CHROMATIC_NOTES} from '../constants'
 
@@ -8,18 +9,8 @@ export default class NoteSelect extends Component {
   }
   render () {
     const {title, value} = this.props
-    return (
-      <select
-        onChange={this.handleChange}
-        title={title}
-        value={value}
-      >
-        {
-          CHROMATIC_NOTES.map((key, idx) => (
-            <option key={idx} value={key}>{key}</option>
-          ))
-        }
-      </select>
+    return r('select', { onChange: this.handleChange, title, value },
+      CHROMATIC_NOTES.map((key) => r('option', { key, value: key }, key))
     )
   }
 }

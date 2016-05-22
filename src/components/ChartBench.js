@@ -3,6 +3,7 @@ import {HotKeys} from 'react-hotkeys'
 import {observer} from 'mobx-react'
 import ClipboardButton from 'react-clipboard.js'
 import R from 'ramda'
+import r from 'r-dom'
 
 import {DIATONIC_NOTES} from '../constants'
 import ChartTable from './ChartTable'
@@ -35,33 +36,28 @@ export default class ChartBench extends Component {
         right: () => { chart.selectNextChord() }
       }
     )
-    return (
-      <article style={{marginBottom: 60}}>
-        <h1 id={chart.slug}>
-          <a href={'#' + chart.slug} style={{textDecoration: 'none'}} title='Anchor'></a>
-          {' '}
-          {chart.title}
-          {' '}
-          ({chart.key})
-        </h1>
-        <ChartToolbar chart={chart} />
-        {
-          chart.isEdited ? (
-            <HotKeys handlers={hotKeysHandlers}>
-              <ChartTable chart={chart} width={width} />
-            </HotKeys>
-          ) : (
-            <ChartTable chart={chart} width={width} />
-          )
-        }
-        <p>
-          <a href={chart.gitHubBlobUrl} style={{textDecoration: 'none'}} target='_blank' title='View JSON file'></a>
-          {' '}
-          <ClipboardButton data-clipboard-text={chart.jsonString}>
-            Copy JSON
-          </ClipboardButton>
-        </p>
-      </article>
-    )
+    return r('article', { style: { marginBottom: 60 } }, [
+      r('h1', { id: chart.slug }, [
+        r('a', { href: '#' + chart.slug, style: { textDecoration: 'none' }, title: 'Anchor' }, ''),
+        ` ${chart.title} (${chart.key})`
+      ]),
+      r(ChartToolbar, {chart}),
+      chart.isEdited
+        ? r(HotKeys, {handlers: hotKeysHandlers}, r(ChartTable, {chart, width}))
+        : r(ChartTable, {chart, width}),
+      r('p', [
+        r(
+          'a',
+          {
+            href: chart.gitHubBlobUrl,
+            style: {textDecoration: 'none'},
+            target: '_blank',
+            title: 'View JSON file'
+          },
+          ''
+        ),
+        r(ClipboardButton, {'data-clipboard-text': chart.jsonString}, 'Copy JSON')
+      ])
+    ])
   }
 }

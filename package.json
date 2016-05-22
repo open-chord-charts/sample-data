@@ -11,6 +11,7 @@
   "dependencies": {
     "mobx": "^2.1.6",
     "mobx-react": "^3.1.0",
+    "r-dom": "^2.2.0",
     "ramda": "^0.21.0",
     "react": "^15.0.2",
     "react-clipboard.js": "^0.2.3",
@@ -34,8 +35,7 @@
   "babel": {
     "presets": [
       "es2015",
-      "stage-0",
-      "react"
+      "stage-0"
     ],
     "plugins": [
       "transform-decorators-legacy"

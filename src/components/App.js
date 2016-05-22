@@ -42,7 +42,7 @@ export default class App extends Component {
           value: appState.benchKey
         })
       ]),
-      r('section', chartStore.charts.map(chart => r(ChartBench, {key: chart.slug, chart, width: 800})))
+      r('section', chartStore.charts.map(chart => r(ChartBench, {key: chart.slug, chart})))
     ])
   }
 }

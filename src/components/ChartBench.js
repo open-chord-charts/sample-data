@@ -2,6 +2,7 @@ import {Component} from 'react'
 import {HotKeys} from 'react-hotkeys'
 import {observer} from 'mobx-react'
 import ClipboardButton from 'react-clipboard.js'
+import Dimensions from 'react-dimensions'
 import R from 'ramda'
 import r from 'r-dom'
 
@@ -9,10 +10,11 @@ import {DIATONIC_NOTES} from '../constants'
 import ChartTable from './ChartTable'
 import ChartToolbar from './ChartToolbar'
 
+@Dimensions()
 @observer
-export default class ChartBench extends Component {
+class ChartBench extends Component {
   render () {
-    const {chart, width} = this.props
+    const {chart, containerWidth: width} = this.props
     const hotKeysHandlers = R.merge(
       R.fromPairs(
         R.map(
@@ -61,3 +63,5 @@ export default class ChartBench extends Component {
     ])
   }
 }
+
+export default ChartBench

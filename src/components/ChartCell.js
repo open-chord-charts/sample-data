@@ -2,7 +2,6 @@ import {Component} from 'react'
 import {observer} from 'mobx-react'
 import r from 'r-dom'
 
-import {CHART_ROW_HEIGHT} from '../constants'
 import OneChord from './OneChord'
 import TwoChords from './TwoChords'
 
@@ -13,7 +12,7 @@ export default class ChartCell extends Component {
     chart.selectChord(partIndex, chords[0].indexInPart)
   }
   render () {
-    const {chart, chords, displayedChords, partIndex, width} = this.props
+    const {chart, chords, displayedChords, height, partIndex, width} = this.props
     const isSelected = chart.isEdited && (
       chart.selectedPartIndex === partIndex || (
         chart.selectedChord &&
@@ -21,7 +20,8 @@ export default class ChartCell extends Component {
         chart.selectedChord.partIndex === partIndex
       )
     )
-    return r.td(
+    return r(
+      'td',
       {
         onClick: this.handleClick,
         style: {
@@ -34,15 +34,11 @@ export default class ChartCell extends Component {
         }
       },
       displayedChords === null
-        ? r.span({style: {fontSize: CHART_ROW_HEIGHT * 0.6}}, '–')
-        : r.svg(
-          {
-            height: CHART_ROW_HEIGHT,
-            width
-          },
+        ? r('span', {style: {fontSize: height * 0.609}}, '–')
+        : r('svg', { height, width },
           displayedChords.length === 1
-            ? r(OneChord, {chord: displayedChords[0], height: CHART_ROW_HEIGHT})
-            : r(TwoChords, {chord1: displayedChords[0], chord2: displayedChords[1], height: CHART_ROW_HEIGHT, width})
+            ? r(OneChord, {chord: displayedChords[0], height})
+            : r(TwoChords, {chord1: displayedChords[0], chord2: displayedChords[1], height, width})
         )
     )
   }

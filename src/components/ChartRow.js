@@ -11,8 +11,9 @@ export default class ChartRow extends Component {
   }
   render () {
     const {children, height, partName} = this.props
-    return r.tr({style: {height, lineHeight: 0}}, [
-      r.td(
+    return r('tr', {style: {height, lineHeight: 0}}, [
+      r(
+        'td',
         {
           onClick: this.handlePartNameClick,
           style: {

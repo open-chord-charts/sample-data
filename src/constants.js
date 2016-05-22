@@ -8,4 +8,3 @@ export const DIATONIC_NOTES = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
 export const NB_BARS_BY_ROW = 8
 export const CHART_PART_NAME_COLUMN_WIDTH = 30
-export const CHART_ROW_HEIGHT = 60

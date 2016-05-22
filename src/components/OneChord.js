@@ -9,13 +9,13 @@ export default class OneChord extends Component {
     return r('g', [
       r(
         'text',
-        { dy: quality === 'm7b5' ? '1.2em' : '1em', style: { textAnchor: 'middle' }, x: '50%', y: '50%' },
+        {
+          style: { textAnchor: 'middle' },
+          x: '50%',
+          y: '80%'
+        },
         [
-          r(
-            'tspan',
-            { style: { fontSize: height * 0.8 } },
-            rootNote
-          ),
+          r('tspan', { style: { fontSize: height } }, rootNote),
           quality !== 'M' && r('tspan', { style: { fontSize: height * 0.5 } }, quality === 'm7b5' ? 'm7' : quality)
         ]
       ),

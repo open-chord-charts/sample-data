@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {observer} from 'mobx-react'
-import r from 'r-dom'
+import {h, button, div} from 'react-hyperscript-helpers'
 
 import ChordEditToolbar from './ChordEditToolbar'
 import PartEditToolbar from './PartEditToolbar'
@@ -15,18 +15,16 @@ export default class ChartToolbar extends Component {
   }
   render () {
     const {chart} = this.props
-    return r(
-      'div',
-      { style: { marginBottom: 10, marginTop: 10 } },
-      chart.isEdited
-        ? r(
-            'div', [
-              r('button', { onClick: this.handleCommitClick, style: { marginRight: 10 } }, 'Commit'),
-              chart.selectedChord
-                ? r(ChordEditToolbar, { chart: chart })
-                : chart.selectedPartIndex !== null && r(PartEditToolbar, { chart: chart })
-            ])
-        : r('button', { onClick: this.handleEditClick }, 'Edit')
+    return div(
+      {style: {marginBottom: 10, marginTop: 10}},
+      [
+        chart.isEdited ? div([
+          button({onClick: this.handleCommitClick, style: {marginRight: 10}}, 'Commit'),
+          chart.selectedChord
+            ? h(ChordEditToolbar, {chart})
+            : chart.selectedPartIndex !== null && h(PartEditToolbar, {chart})
+        ]) : button({onClick: this.handleEditClick}, 'Edit')
+      ]
     )
   }
 }

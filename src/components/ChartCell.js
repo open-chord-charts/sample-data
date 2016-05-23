@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {observer} from 'mobx-react'
-import r from 'r-dom'
+import {h, span, svg, td} from 'react-hyperscript-helpers'
 
 import OneChord from './OneChord'
 import TwoChords from './TwoChords'
@@ -20,8 +20,7 @@ export default class ChartCell extends Component {
         chart.selectedChord.partIndex === partIndex
       )
     )
-    return r(
-      'td',
+    return td(
       {
         onClick: this.handleClick,
         style: {
@@ -33,13 +32,18 @@ export default class ChartCell extends Component {
           textAlign: displayedChords === null ? 'center' : null
         }
       },
-      displayedChords === null
-        ? r('span', {style: {fontSize: height * 0.609}}, '–')
-        : r('svg', { height, width },
-          displayedChords.length === 1
-            ? r(OneChord, {chord: displayedChords[0], height})
-            : r(TwoChords, {chord1: displayedChords[0], chord2: displayedChords[1], height, width})
-        )
+      [
+        displayedChords === null
+          ? span({style: {fontSize: height * 0.609}}, '–')
+          : svg(
+            {height, width},
+            [
+              displayedChords.length === 1
+                ? h(OneChord, {chord: displayedChords[0], height})
+                : h(TwoChords, {chord1: displayedChords[0], chord2: displayedChords[1], height, width})
+            ]
+          )
+      ]
     )
   }
 }

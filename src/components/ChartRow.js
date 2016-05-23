@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {observer} from 'mobx-react'
-import r from 'r-dom'
+import {tr, td} from 'react-hyperscript-helpers'
 
 import {CHART_PART_NAME_COLUMN_WIDTH} from '../constants'
 
@@ -11,9 +11,8 @@ export default class ChartRow extends Component {
   }
   render () {
     const {children, height, partName} = this.props
-    return r('tr', {style: {height, lineHeight: 0}}, [
-      r(
-        'td',
+    return tr({style: {height, lineHeight: 0}}, [
+      td(
         {
           onClick: this.handlePartNameClick,
           style: {

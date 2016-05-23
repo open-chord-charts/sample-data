@@ -2,14 +2,16 @@ import {Component} from 'react'
 import {HotKeys} from 'react-hotkeys'
 import {observer} from 'mobx-react'
 import DevTools from 'mobx-react-devtools'
-import r from 'r-dom'
+import Dimensions from 'react-dimensions'
+import {h, a, h1, p, section} from 'react-hyperscript-helpers'
 
 import {appState, chartStore} from '../stores'
 import ChartBench from './ChartBench'
 import NoteSelect from './NoteSelect'
 
+@Dimensions()
 @observer
-export default class App extends Component {
+class App extends Component {
   handleBenchKeyChange = (key) => {
     appState.benchKey = key
   }
@@ -21,28 +23,25 @@ export default class App extends Component {
       right: ['right', 'l'],
       undo: 'ctrl+z'
     }
-    const {gitHubCommitUrl, lastUpdatedOn, packageVersion} = this.props
-    return r(HotKeys, {keyMap}, [
-      r(DevTools, null),
-      r('h1', 'OpenChordCharts sample data'),
-      r('p', [
+    const {containerWidth: width} = this.props
+    return h(HotKeys, {keyMap}, [
+      h(DevTools),
+      h1('OpenChordCharts sample data'),
+      p([
         'This page shows renderings of OpenChordCharts ',
-        r('a', { href: 'https://github.com/openchordcharts/sample-data' }, 'sample JSON files'),
+        a({href: 'https://github.com/openchordcharts/sample-data'}, 'sample JSON files'),
         '.'
       ]),
-      r('p', [
-        `Version ${packageVersion}, last updated on `,
-        r('a', { href: gitHubCommitUrl }, lastUpdatedOn),
-        '.'
-      ]),
-      r('p', [
+      p([
         'Current key: ',
-        r(NoteSelect, {
+        h(NoteSelect, {
           onChange: this.handleBenchKeyChange,
           value: appState.benchKey
         })
       ]),
-      r('section', chartStore.charts.map(chart => r(ChartBench, {key: chart.slug, chart})))
+      section(chartStore.charts.map(chart => h(ChartBench, {key: chart.slug, chart, width})))
     ])
   }
 }
+
+export default App

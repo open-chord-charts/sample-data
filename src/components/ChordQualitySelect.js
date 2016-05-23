@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import r from 'r-dom'
+import {select, option} from 'react-hyperscript-helpers'
 
 import {QUALIFIERS} from '../constants'
 
@@ -9,8 +9,8 @@ export default class ChordQualitySelect extends Component {
   }
   render () {
     const {title, value} = this.props
-    return r('select', {onChange: this.handleChange, title, value},
-      QUALIFIERS.map(key => r('option', {key, value: key}, key))
+    return select({onChange: this.handleChange, title, value},
+      QUALIFIERS.map(key => option({key, value: key}, key))
     )
   }
 }

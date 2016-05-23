@@ -2,19 +2,17 @@ import {Component} from 'react'
 import {HotKeys} from 'react-hotkeys'
 import {observer} from 'mobx-react'
 import ClipboardButton from 'react-clipboard.js'
-import Dimensions from 'react-dimensions'
 import R from 'ramda'
-import r from 'r-dom'
+import {h, article, a, h1, p} from 'react-hyperscript-helpers'
 
 import {DIATONIC_NOTES} from '../constants'
 import ChartTable from './ChartTable'
 import ChartToolbar from './ChartToolbar'
 
-@Dimensions()
 @observer
-class ChartBench extends Component {
+export default class ChartBench extends Component {
   render () {
-    const {chart, containerWidth: width} = this.props
+    const {chart, width} = this.props
     const hotKeysHandlers = R.merge(
       R.fromPairs(
         R.map(
@@ -38,18 +36,17 @@ class ChartBench extends Component {
         right: () => { chart.selectNextChord() }
       }
     )
-    return r('article', { style: { marginBottom: 60 } }, [
-      r('h1', { id: chart.slug }, [
-        r('a', { href: '#' + chart.slug, style: { textDecoration: 'none' }, title: 'Anchor' }, ''),
+    return article({style: {marginBottom: 60}}, [
+      h1({id: chart.slug}, [
+        a({ href: '#' + chart.slug, style: { textDecoration: 'none' }, title: 'Anchor' }, ''),
         ` ${chart.title} (${chart.key})`
       ]),
-      r(ChartToolbar, {chart}),
+      h(ChartToolbar, {chart}),
       chart.isEdited
-        ? r(HotKeys, {handlers: hotKeysHandlers}, r(ChartTable, {chart, width}))
-        : r(ChartTable, {chart, width}),
-      r('p', [
-        r(
-          'a',
+        ? h(HotKeys, {handlers: hotKeysHandlers}, [h(ChartTable, {chart, width})])
+        : h(ChartTable, {chart, width}),
+      p([
+        a(
           {
             href: chart.gitHubBlobUrl,
             style: {textDecoration: 'none'},
@@ -58,10 +55,8 @@ class ChartBench extends Component {
           },
           ''
         ),
-        r(ClipboardButton, {'data-clipboard-text': chart.jsonString}, 'Copy JSON')
+        h(ClipboardButton, {'data-clipboard-text': chart.jsonString}, 'Copy JSON')
       ])
     ])
   }
 }
-
-export default ChartBench

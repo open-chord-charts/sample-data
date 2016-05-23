@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {observer} from 'mobx-react'
-import r from 'r-dom'
+import {h, button, span} from 'react-hyperscript-helpers'
 
 import ChordQualitySelect from './ChordQualitySelect'
 import DurationInput from './DurationInput'
@@ -28,24 +28,24 @@ export default class ChordEditToolbar extends Component {
   }
   render () {
     const {chart} = this.props
-    return r('span', [
-      r(NoteSelect, {
+    return span([
+      h(NoteSelect, {
         onChange: this.handleRootNoteChange,
         title: 'Root note',
         value: chart.selectedChordRootNote
       }),
-      r(ChordQualitySelect, {
+      h(ChordQualitySelect, {
         onChange: this.handleQualityChange,
         title: 'Quality',
         value: chart.selectedChord.chord.quality
       }),
-      r(DurationInput, {
+      h(DurationInput, {
         onChange: this.handleDurationChange,
         title: 'Duration',
         value: chart.selectedChord.chord.duration
       }),
-      r('button', { onClick: this.handleRemoveClick }, 'Remove'),
-      r('button', { onClick: this.handleDuplicateClick }, 'Duplicate')
+      button({onClick: this.handleRemoveClick}, 'Remove'),
+      button({onClick: this.handleDuplicateClick}, 'Duplicate')
     ])
   }
 }

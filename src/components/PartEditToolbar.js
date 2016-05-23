@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {observer} from 'mobx-react'
-import r from 'r-dom'
+import {button, input, span} from 'react-hyperscript-helpers'
 
 @observer
 export default class PartEditToolbar extends Component {
@@ -12,14 +12,14 @@ export default class PartEditToolbar extends Component {
   }
   render () {
     const {chart} = this.props
-    return r('span', [
-      r('input', {
+    return span([
+      input({
         onChange: this.handleNameChange,
         style: {width: '3em'},
         type: 'text',
         value: chart.selectedPartName
       }),
-      r('button', {onClick: this.handleRemoveClick}, 'Remove')
+      button({onClick: this.handleRemoveClick}, 'Remove')
     ])
   }
 }

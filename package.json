@@ -11,13 +11,13 @@
   "dependencies": {
     "mobx": "^2.1.6",
     "mobx-react": "^3.1.0",
-    "r-dom": "^2.2.0",
     "ramda": "^0.21.0",
     "react": "^15.0.2",
     "react-clipboard.js": "^0.2.3",
     "react-dimensions": "^1.1.1",
     "react-dom": "^15.0.2",
-    "react-hotkeys": "^0.8.0"
+    "react-hotkeys": "^0.8.0",
+    "react-hyperscript-helpers": "^1.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",

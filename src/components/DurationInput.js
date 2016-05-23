@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import r from 'r-dom'
+import {input} from 'react-hyperscript-helpers'
 
 export default class DurationInput extends Component {
   handleChange = (event) => {
@@ -7,10 +7,10 @@ export default class DurationInput extends Component {
   }
   render () {
     const {title, value} = this.props
-    return r('input', {
+    return input({
       min: 1,
       onChange: this.handleChange,
-      style: { width: '3em' },
+      style: {width: '3em'},
       title,
       type: 'number',
       value

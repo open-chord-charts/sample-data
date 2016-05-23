@@ -33,4 +33,4 @@ If it's OK, deploy:
 npm run deploy
 ```
 
-Statistics: open http://localhost:3011/build/stats.html
+Statistics: open http://openchordcharts.github.io/sample-data/build/stats.html

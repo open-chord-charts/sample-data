@@ -1,8 +1,12 @@
 # Open Chord Charts sample data
 
-Sample JSON files for OpenChordCharts -- a contributive database of songs chords
+## DISCONTINUED!
 
-View online: http://openchordcharts.github.io/sample-data/
+Go to https://github.com/open-chords-charts/chart-editor
+
+## Presentation
+
+Sample JSON files for OpenChordCharts -- a contributive database of songs chords
 
 ## Run charts bench
 
